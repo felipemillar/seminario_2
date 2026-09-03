@@ -8,6 +8,20 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Integración Profunda de los Fundamentos Teóricos de Optimización
+**Objetivo:** Desarrollar en [`masterclass/diagrama_flujo_estrategia.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/diagrama_flujo_estrategia.html) la base teórica y cuantitativa rigurosa que justifica la optimización del sistema conforme a la literatura institucional y los notebooks de la Masterclass (Crabel, Sweeney, Pardo, López de Prado, Elder y Van Tharp).
+
+### [OK] Cambios Realizados:
+- **[Fundamentación Teórica Expandida en Sección 2]**:
+  1. *2.1. Causalidad Económica y Microestructura*: Desequilibrio ex-ante de inventarios overnight y persistencia de Momentum en regímenes de alta volatilidad ($Z > +0.67$).
+  2. *2.2. Calibración Empírica por MAE / MFE*: Análisis del percentil 90 de MAE para fijar Stop Loss ($1.0\times\text{ATR}$) y densidad modal de MFE para Take Profit ($1.25\times\text{ATR}$).
+  3. *2.3. Barrido de Cuadrícula y Meseta de Robustez*: Justificación del Grid Search bidimensional y selección en el centro geométrico de la meseta estable de Sharpe para evitar picos aislados de sobreajuste.
+  4. *2.4. Protocolo In-Sample vs Out-of-Sample*: Formulación matemática del coeficiente de degradación paramétrica y validación de degradación nula en datos recientes (2019–2026).
+  5. *2.5. Dinámica de Protección de Capital*: Lógica probabilística del Breakeven dinámico (+10 pts tras $+0.75\times\text{ATR}$) y el freno mensual del Circuit Breaker.
+- **[Sincronización Total]**: Desplegado en `masterclass/`, `MT5/` y `quant_agentic_swarm/`.
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Rediseño Minimalista de la Documentación Operativa en HTML
 **Objetivo:** Reestructurar [`masterclass/diagrama_flujo_estrategia.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/diagrama_flujo_estrategia.html) bajo un estándar visual estrictamente minimalista (sin iconos, sin etiquetas con bordes, fondo blanco puro, tipografía Inter y JetBrains Mono) con carácter de documentación técnica y operativa institucional.
 
