@@ -28,6 +28,7 @@
       renderExitDetail(0);
       initHeatmaps();
       initAllCharts();
+      showAgentStep(1);
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
@@ -562,6 +563,68 @@
           }
         }
       });
+    // ================= SLIDE AGENT FLOW: Simulador Didáctico de Interacción Agente =================
+    const agentStepData = {
+      1: {
+        traderMsg: "«Observo que cuando el Nasdaq abre con un gap alcista fuerte, muchas veces sigue subiendo con fuerza durante la mañana. ¿Podemos crear un bot para comprar en cuanto abra el mercado?»",
+        agentMsg: "«¡Un momento! Un gap no es edge por sí solo. Si compramos a ciegas, el 50% de las veces seremos atrapados por un retroceso de apertura institucional. Antes de escribir una sola línea de código, debemos validar la <strong>Hipótesis Causal (Z)</strong>: ¿Por qué seguiría subiendo? ¿En qué régimen de volatilidad estamos? Te propongo estructurar 3 variantes antes de programar.»",
+        lesson: "<strong>La Trampa del Novato:</strong> Pedir código inmediato para una idea sin filtro. El agente frena el impulso, previene el sobreajuste y exige fundamentar la causa de mercado."
+      },
+      2: {
+        traderMsg: "«Tiene sentido. ¿Cómo lo formulamos con rigor cuantitativo?»",
+        agentMsg: "«Auditamos la microestructura: en alta volatilidad (Z-Score ATR > +0.67), los Market Makers se ven forzados a balancear inventarios overnight de forma agresiva. Para evaluar el edge con rigor, te propongo una <strong>Matriz de Co-Creación HITL con 3 Variantes Estructuradas</strong>:<br><br>• <strong>[VARIANTE A] Momentum Puro:</strong> Entrada al cierre de vela M15 si Z > +0.67. SL 1.0x ATR / TP 1.25x ATR.<br>• <strong>[VARIANTE B] Filtro Tendencial:</strong> Mismo filtro + confirmación sobre EMA 200.<br>• <strong>[VARIANTE C] Fade Reversal:</strong> Reversión a la media si la volatilidad es baja (Z < -0.50).<br><br>¿Cuál variante aprobamos para avanzar a código?»",
+        lesson: "<strong>Co-Creación HITL (Human-in-the-Loop):</strong> El agente nunca asume preferencias a ciegas. Presenta una matriz comparativa con stops normalizados en ATR y espera tu validación humana."
+      },
+      3: {
+        traderMsg: "«Aprobada la [VARIANTE A] con SL en 1.0x ATR Diario y TP en 1.25x ATR.»",
+        agentMsg: "«Generando contrato formal <code>StrategySpecification.json</code>.<br>Codificando en <strong>MQL5 POO</strong> (usando <code>CTrade</code>, control estricto de vela cerrada <code>IsNewBar()</code> y arquitectura estándar de 7 bloques) y en <strong>Pine Script v6</strong>.<br><br>✔ Paridad matemática cruzada 100% garantizada.<br>✔ 0 repainting (lectura en shift = 1).<br>✔ Listo para backtesting y auditoría forense con el pool de 3 módulos.»",
+        lesson: "<strong>Código Institucional Limpio:</strong> El código se genera en minutos, estructurado según las mejores prácticas de la industria, sin trampas de repainting ni atajos informales."
+      }
+    };
+
+    function showAgentStep(step) {
+      [1, 2, 3].forEach(s => {
+        const btn = document.getElementById(`agentStepBtn${s}`);
+        if (btn) {
+          if (s === step) btn.classList.add('active');
+          else btn.classList.remove('active');
+        }
+      });
+
+      const data = agentStepData[step];
+      const chatBox = document.getElementById('agentChatContent');
+      if (chatBox && data) {
+        chatBox.innerHTML = `
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <!-- Trader Message -->
+            <div style="align-self: flex-start; max-width: 92%; background: #f4f4f5; padding: 10px 14px; border-radius: 6px; border: 1px solid var(--border-light);">
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;">
+                TRADER (USUARIO)
+              </div>
+              <div style="font-size: 0.84rem; color: #09090b; line-height: 1.45;">
+                ${data.traderMsg}
+              </div>
+            </div>
+
+            <!-- Agent Message -->
+            <div style="align-self: flex-end; max-width: 92%; background: #ffffff; padding: 10px 14px; border-radius: 6px; border: 1px solid var(--border-light); border-left: 2px solid #09090b;">
+              <div style="font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 4px; display: flex; justify-content: space-between;">
+                <span>AGENTE CUANTITATIVO (QRT COPILOT)</span>
+                <span style="color: #16a34a; font-weight: 700;">ACTIVO</span>
+              </div>
+              <div style="font-size: 0.84rem; color: #09090b; line-height: 1.45;">
+                ${data.agentMsg}
+              </div>
+            </div>
+
+            <!-- Didactic Takeaway -->
+            <div style="background: #f9fafb; padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-light); font-size: 0.78rem; color: #475569; line-height: 1.4;">
+              ${data.lesson}
+            </div>
+          </div>
+        `;
+        lucide.createIcons();
+      }
     }
 
     window.addEventListener('DOMContentLoaded', initPresentation);

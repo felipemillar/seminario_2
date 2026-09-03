@@ -8,6 +8,23 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Integración de la Diapositiva Didáctica "Flujo Agéntico: De la Idea al Código"
+**Objetivo:** Desarrollar e integrar en el deck de la Masterclass ([`masterclass/index.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index.html) e [`masterclass/index_v2.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index_v2.html)) una diapositiva altamente didáctica (Slide 3) que explique el flujo de co-creación entre el trader y el Agente de IA, manteniendo la identidad visual interactiva y limpia del resto del deck.
+
+### [OK] Cambios Realizados:
+- **[Nueva Diapositiva 3 (Flujo Agéntico)]**:
+  1. *Estructura Pedagógica en 3 Momentos*:
+     - *1. Planteamiento Humano*: El trader propone la idea en lenguaje natural sin sobrecargarse de tecnicismos.
+     - *2. Filtro Cuantitativo (HITL)*: El agente audita la causa estructural ($Z$), normaliza por ATR y formula la Matriz de Co-Creación de 3 Variantes (A, B, C) sin codificar a ciegas.
+     - *3. Código Institucional*: El trader valida y el agente genera código nativo de 7 bloques en MQL5 POO (`CTrade`) y Pine Script v6 con 0 repainting.
+  2. *Simulador Interactivo de Chat*: Interfaz interactiva donde el estudiante alterna entre las 3 etapas para ver los mensajes textuales reales intercambiados y la lección cuantitativa detrás de cada momento.
+  3. *Pilares Metodológicos*: Tres tarjetas de síntesis (Co-Creación HITL, Normalización por ATR y Arquitectura de 7 Bloques).
+- **[Alineación JavaScript en `app.js`]**:
+  * Creada la función `showAgentStep(step)` e inicializada en `initPresentation()`.
+- **[Sincronización Total]**: Integrado en `masterclass/index.html` y `masterclass/index_v2.html` elevando el total a 14 diapositivas dinámicas.
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Rediseño Editorial v2.0 del Deck de Presentación (Anti-AI Aesthetic)
 **Objetivo:** Crear la versión 2.0 de [`masterclass/index.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index.html) (y [`masterclass/index_v2.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index_v2.html)), eliminando todos los tags con bordes de colores, badges pastel redondeados y artefactos visuales propios de plantillas generadas por IA, elevando el diseño a un estándar editorial institucional y humano (estilo Stripe / Linear / Bloomberg).
 

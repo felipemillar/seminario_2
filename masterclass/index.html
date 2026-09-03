@@ -254,6 +254,82 @@
       </div>
     </div>
 
+    
+    <!-- ================= SLIDE 2b: FLUJO DE TRABAJO CON EL AGENTE ================= -->
+    <div class="slide" data-title="Flujo Agéntico: De la Idea al Código" data-notes="Explicación pedagógica de cómo el trader interactúa con el Agente de IA:&#10;&#10;1. NUNCA pedir 'hazme un bot que gane plata'. Eso genera código basura sobreajustado.&#10;2. FASE 1 (Planteamiento): El trader describe en lenguaje natural una observación empírica del mercado.&#10;3. FASE 2 (Filtro Cuantitativo HITL): El agente audita la causa Z, exige justificación económica, normaliza salidas en unidades ATR y presenta una matriz de 3 variantes estructuradas (A, B, C).&#10;4. FASE 3 (Construcción & Paridad): Solo tras la confirmación humana, el agente codifica en MQL5 POO y Pine Script v6 respetando la arquitectura de 7 bloques con 0 repainting.&#10;&#10;Destacar la regla Human-in-the-Loop: el humano aporta la intuición y el juicio; el agente aporta el rigor matemático y la ejecución técnica.">
+      <div class="slide-tag"><i data-lucide="bot"></i> METODOLOGÍA AGÉNTICA · HUMAN-IN-THE-LOOP</div>
+      <h2 class="slide-title">De la Intuición al Código: Cómo Trabajar con el Agente</h2>
+
+      <div class="quote-box">
+        "El agente no programa a ciegas ante una corazonada. El flujo institucional es un diálogo en tres momentos: tú aportas la hipótesis económica, el agente aporta el rigor matemático, y juntos construyen una estrategia probada sin sobreajuste."
+      </div>
+
+      <!-- Tab buttons -->
+      <div style="display: flex; gap: 8px; margin-bottom: 1rem;">
+        <button class="pill-chip active" id="agentStepBtn1" onclick="showAgentStep(1)">
+          <i data-lucide="message-square" style="width:14px;height:14px;"></i> 1. Planteamiento Humano
+        </button>
+        <button class="pill-chip" id="agentStepBtn2" onclick="showAgentStep(2)">
+          <i data-lucide="git-pull-request" style="width:14px;height:14px;"></i> 2. Filtro Cuantitativo (HITL)
+        </button>
+        <button class="pill-chip" id="agentStepBtn3" onclick="showAgentStep(3)">
+          <i data-lucide="code-2" style="width:14px;height:14px;"></i> 3. Código Institucional
+        </button>
+      </div>
+
+      <!-- Main Dual Grid -->
+      <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 16px; align-items: start;">
+        
+        <!-- Interactive Chat Terminal -->
+        <div class="card-panel" style="padding: 1.1rem; background: #ffffff;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; border-bottom: 1px solid var(--border-light); padding-bottom: 6px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="width: 8px; height: 8px; border-radius: 50%; background: #16a34a; display: inline-block;"></span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; color: var(--text-main); text-transform: uppercase;">Simulador de Interacción</span>
+            </div>
+            <span class="interactive-tag">HAZ CLIC EN LOS PASOS SUPERIORES</span>
+          </div>
+
+          <div id="agentChatContent">
+            <!-- Dynamically populated by showAgentStep(1) -->
+          </div>
+        </div>
+
+        <!-- The 3 Pillars of Agentic Collaboration -->
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          
+          <div class="card-panel" style="padding: 0.9rem 1rem;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: #09090b;">01. CO-CREACIÓN HITL</span>
+            </div>
+            <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.45;">
+              El agente nunca asume preferencias a ciegas. Desafía sesgos cognitivos y siempre formula una matriz de 3 variantes en ATR antes de tocar el código.
+            </p>
+          </div>
+
+          <div class="card-panel" style="padding: 0.9rem 1rem;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: #09090b;">02. NORMALIZACIÓN POR ATR</span>
+            </div>
+            <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.45;">
+              Prohibido optimizar puntos o ticks fijos. Todo SL, TP y Breakeven se define en múltiplos de volatilidad (ATR) para garantizar invarianza temporal.
+            </p>
+          </div>
+
+          <div class="card-panel" style="padding: 0.9rem 1rem;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: #09090b;">03. ARQUITECTURA DE 7 BLOQUES</span>
+            </div>
+            <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.45;">
+              El código se compila bajo POO con <code>CTrade</code> en MQL5 y <code>//@version=6</code> en Pine, con control estricto de vela cerrada (0 repainting).
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
     <!-- ================= SLIDE 3: EL TEST DE LA FRASE ÚNICA ================= -->
     <div class="slide" data-title="1.1 Entradas: El Test de la Frase Única" data-notes="Frame de apertura: 'Una entrada es una hipótesis sobre el comportamiento del mercado, no un botón mágico. Si no puedes explicar por qué el mercado se moverá a tu favor ni qué demostraría que estás equivocado, no tienes una estrategia: tienes una creencia.'&#10;&#10;Hacer énfasis en que si falta 'Z' (la causa real detrás del movimiento), cualquier patrón es solo casualidad y sobreajuste.">
       <div class="slide-tag"><i data-lucide="target"></i> BLOQUE 1.1 — TIPOS DE ENTRADA (5 MIN)</div>
