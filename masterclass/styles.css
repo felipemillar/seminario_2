@@ -70,6 +70,12 @@
       letter-spacing: -0.02em;
       color: var(--text-main);
     }
+    .brand-logo {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
     .badge-icon {
       background: #09090b;
       color: #ffffff;
