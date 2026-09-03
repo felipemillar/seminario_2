@@ -9,14 +9,14 @@
 #property script_show_inputs
 
 input string InpSymbolName = "CUSTOM_NQ_M5";            // Simbolo de destino
-input string InpFileName   = "NQ_5M_MT5_2020_2026.csv"; // Archivo CSV (en MQL5/Files)
+input string InpFileName   = "NQ_5M_MT5_ALL.csv";       // Archivo CSV completo 2000-2026 (en MQL5/Files)
 
 //+------------------------------------------------------------------+
 //| Script program start function                                    |
 //+------------------------------------------------------------------+
 void OnStart()
 {
-   Print("[INICIO] Iniciando inyeccion automatica en: ", InpSymbolName);
+   Print("[INICIO] Iniciando inyeccion automatica de HISTORIAL COMPLETO en: ", InpSymbolName);
    Print("[INFO] Leyendo archivo desde MQL5/Files: ", InpFileName);
    
    int handle = FileOpen(InpFileName, FILE_READ | FILE_TXT | FILE_ANSI);
@@ -31,7 +31,7 @@ void OnStart()
    Print("[INFO] Encabezado detectado: ", header_line);
    
    MqlRates rates[];
-   ArrayResize(rates, 500000);
+   ArrayResize(rates, 1800000);
    int count = 0;
    
    while(!FileIsEnding(handle))
