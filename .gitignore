@@ -47,8 +47,8 @@ MT5/data/
 **/Tester/Agent-*/
 
 # Archivos de Datos Masivos (> 50 MB)
-TradingView/masterclass/@NQ_5m.csv
-TradingView/masterclass/@GC_5m.csv
+**/masterclass/*.csv
+masterclass/*.csv
 *.csv.gz
 *.parquet
 *.h5

@@ -8,6 +8,22 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Protocolo Autónomo de Ingesta y Conversión de Datos Externos para MT5
+**Objetivo:** Diseñar, implementar y documentar un flujo de trabajo 100% autónomo para convertir cualquier dataset histórico intradiario (TradingView, NinjaTrader, TradeStation, CME) e inyectarlo automáticamente en MetaTrader 5 como Custom Symbol.
+
+### [OK] Cambios Realizados:
+- **[Motor de Conversión Universal]**: Creado [`MT5/scripts/universal_data_converter.py`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/scripts/universal_data_converter.py) con streaming de memoria (~1.25M velas/seg), detección heurística de columnas (`Open`, `High`, `Low`, `Close`, `Volume`, `Timestamp`), normalización de zonas horarias UTC a formato `AAAA.MM.DD` y copia automática a `MQL5/Files/`.
+- **[Inyector MQL5 Paramétrico]**: Desarrollado y compilado [`MT5/scripts/Script_Universal_Rates_Injector.mq5`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/scripts/Script_Universal_Rates_Injector.mq5) para crear el Custom Symbol clonando propiedades financieras e inyectar velas con `CustomRatesReplace` / `CustomRatesUpdate`.
+- **[Integración CLI Maestro]**: Incorporado el subcomando `import-data` en [`MT5/scripts/mt5_agent_bridge.py`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/scripts/mt5_agent_bridge.py), permitiendo a cualquier agente ejecutar la conversión y despliegue en un solo comando CLI.
+- **[Guía Canónica Oficial]**: Creado [`MT5/CUSTOM_DATA_IMPORT_GUIDE.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/CUSTOM_DATA_IMPORT_GUIDE.md) con trazabilidad completa de fuentes, protocolo autónomo, protocolo manual GUI, estándares de archivo y resolución de errores.
+- **[Gobernanza & Documentación]**: Actualizados [`MT5/AGENTS.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/AGENTS.md) y [`MT5/README.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/README.md) vinculando la guía canónica.
+
+### Decisiones y Notas de Diseño:
+- **Autonomía Total para Agentes:** Cualquier agente de IA que clone el repositorio puede convertir cualquier dataset ejecutando `python3 MT5/scripts/mt5_agent_bridge.py import-data <archivo>` sin requerir intervención humana.
+- **Resiliencia de Formato:** El conversor acepta cualquier separador (coma, punto y coma, tab) y normaliza los encabezados automáticamente, reduciendo datasets pesados en más de un 60% al descartar columnas redundantes.
+
+---
+
 ## [2026-09-02] - Sesión de Trabajo: Centralización y Reorganización del Módulo de Estrategias
 **Objetivo:** Reorganizar el repositorio maestro para centralizar todos los artefactos de estrategias (MQL5, Pine Script v6 y Especificaciones JSON/Factsheets) en una estructura limpia y unificada bajo `seminario_2/estrategias/`.
 

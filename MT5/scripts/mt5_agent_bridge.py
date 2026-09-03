@@ -367,6 +367,12 @@ def main():
     deploy_parser = subparsers.add_parser("deploy", help="Compila y despliega un EA en la carpeta Experts de MT5")
     deploy_parser.add_argument("file", help="Ruta al archivo .mq5 a desplegar")
 
+    import_parser = subparsers.add_parser("import-data", help="Convierte y despliega un dataset externo para MT5")
+    import_parser.add_argument("file", help="Ruta al archivo CSV de entrada")
+    import_parser.add_argument("--symbol", default=None, help="Nombre del Custom Symbol en MT5")
+    import_parser.add_argument("--from-date", default=None, help="Fecha inicio filtro (ej. 2020.01.01)")
+    import_parser.add_argument("--to-date", default=None, help="Fecha fin filtro (ej. 2026.09.01)")
+
     args = parser.parse_args()
 
     if args.command == "status":
@@ -389,6 +395,16 @@ def main():
     elif args.command == "last-test":
         import json
         print(json.dumps(parse_last_backtest(), indent=2))
+    elif args.command == "import-data":
+        import json
+        from universal_data_converter import convert_dataset_to_mt5
+        res = convert_dataset_to_mt5(
+            input_path=args.file,
+            from_date=args.from_date,
+            to_date=args.to_date,
+            deploy_to_mql5=True
+        )
+        print(json.dumps(res, indent=2))
     else:
         parser.print_help()
 

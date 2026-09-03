@@ -80,6 +80,7 @@ Cuando un usuario pregunte sobre un aspecto técnico de MT5, MQL5 o Trading Cuan
 | **Integración de Sistemas** | [`knowledge/Integración de MetaTrader 5 con Sistemas Externos.md`](knowledge/Integración%20de%20MetaTrader%205%20con%20Sistemas%20Externos.md) | WebRequest HTTP, Sockets TCP/TLS, ZeroMQ REQ/REP/PUB/SUB, EA como servidor REST. |
 | **macOS & Infraestructura** | [`knowledge/MT5 macOS Trading Algorítmico: Guía Técnica.md`](knowledge/MT5%20macOS%20Trading%20Algor%C3%ADtmico_%20Gu%C3%ADa%20T%C3%A9cnica.md) | Apple Silicon (M1-M4), Parallels, VPS Windows, latencia brokers, watchdog PowerShell, Telegram. |
 | **Cloud & Resiliencia** | [`knowledge/Informe Técnico: MT5, Python y Cloud.md`](knowledge/Informe%20T%C3%A9cnico_%20MT5,%20Python%20y%20Cloud.md) | Arquitectura monolítica vs enterprise, TimescaleDB, Grafana, alertas Telegram, failover. |
+| **Datos Externos & Custom Symbols** | [`CUSTOM_DATA_IMPORT_GUIDE.md`](CUSTOM_DATA_IMPORT_GUIDE.md) | Protocolo 100% autónomo para convertir e inyectar datasets intradiarios (M1/M5) en MT5. |
 
 ---
 

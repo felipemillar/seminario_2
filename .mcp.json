@@ -8,6 +8,20 @@
       "env": {
         "PYTHONUNBUFFERED": "1"
       }
+    },
+    "metaeditor": {
+      "type": "http",
+      "url": "http://127.0.0.1:22345/mcp",
+      "headers": {
+        "Authorization": "Bearer IIin+jBM/DNuDPG9tBdStKpZ4Vt4YNFjJkHK+0MmwX"
+      }
+    },
+    "terminal": {
+      "type": "http",
+      "url": "http://127.0.0.1:22346/mcp",
+      "headers": {
+        "Authorization": "Bearer IIin+jBM/DNuDPG9tBdStKpZ4Vt4YNFjJkHK+0MmwX"
+      }
     }
   }
 }

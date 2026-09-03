@@ -49,6 +49,7 @@ El directorio [`knowledge/`](knowledge/) contiene **20 tratados técnicos de gra
 - [**Data Engineering para Trading Algorítmico MT5**](knowledge/Data%20Engineering%20para%20Trading%20Algor%C3%ADtmico%20MT5.md): Extracción masiva paginada, Triple Barrier Method, dollar bars, VPIN, almacenamiento en Parquet/TimescaleDB y pipelines ETL.
 
 ### 7. Integración, Infraestructura & macOS
+- [**Guía de Importación de Datos Externos y Custom Symbols**](CUSTOM_DATA_IMPORT_GUIDE.md): Protocolo 100% autónomo para convertir datasets externos intradiarios (M1/M5) e inyectarlos en MT5 con el CLI bridge.
 - [**MT5 macOS Trading Algorítmico: Guía Técnica**](knowledge/MT5%20macOS%20Trading%20Algor%C3%ADtmico_%20Gu%C3%ADa%20T%C3%A9cnica.md): Operativa en Apple Silicon (M1-M4), virtualización Parallels, VPS Windows, latencia por broker, watchdog PowerShell y telemetría por Telegram.
 - [**Integración de MetaTrader 5 con Sistemas Externos**](knowledge/Integración%20de%20MetaTrader%205%20con%20Sistemas%20Externos.md): WebRequest HTTP/REST, sockets TCP/TLS, ZeroMQ REQ/REP/PUB/SUB, memoria compartida y EA como servidor REST.
 - [**Informe Técnico: MT5, Python y Cloud**](knowledge/Informe%20T%C3%A9cnico_%20MT5,%20Python%20y%20Cloud.md): Arquitecturas cloud simple, híbrida y enterprise con TimescaleDB, Grafana y planes de disaster recovery.
