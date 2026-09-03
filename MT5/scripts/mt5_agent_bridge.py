@@ -455,9 +455,10 @@ def call_mt5_mcp(tool_name: str, arguments: dict = None):
         logger.error(f"Error al invocar herramienta MCP {tool_name}: {type(err).__name__} (detalles omitidos por seguridad)")
         return {"error": f"Error de operacion: {type(err).__name__}"}
 
-def query_mcp_symbols(filter_text: str = None, only_tradeable: bool = True):
-    """Consulta y filtra simbolos del Market Watch a traves de MT5 MCP."""
-    data = call_mt5_mcp("get_marketwatch_symbols")
+def query_mcp_symbols(filter_text: str = None, only_tradeable: bool = True, include_hidden: bool = True):
+    """Consulta y filtra simbolos del Market Watch o catalogo completo a traves de MT5 MCP."""
+    args = {"limit": 2000, "include_hidden": include_hidden} if include_hidden else {}
+    data = call_mt5_mcp("get_marketwatch_symbols", args)
     if "error" in data:
         return data
 
