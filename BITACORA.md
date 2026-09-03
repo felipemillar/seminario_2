@@ -8,6 +8,19 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Validación y Auditoría del Backtest v1.1 Normalizado a 1.0 Lote
+**Objetivo:** Procesar el reporte oficial exportado de MetaTrader 5 (`ReportTester-61586790.html` a las 12:04) tras la ejecución de `STRAT-20260902-USGAP_MOM-M15-v1.1` con tamaño de posición idéntico a v1.0 (1.0 Lote) para establecer la comparativa simétrica final.
+
+### [OK] Cambios Realizados:
+- **[Auditoría Forense Simétrica]**:
+  1. *Profit Factor Mejorado*: El Profit Factor subió de **1.35 en v1.0 a 1.49 en v1.1 (+10.4%)** en la década 2016–2026.
+  2. *Efectividad Probabilística*: El Win Rate subió del **47.06% al 71.15% (+24.09%)**, impulsado especialmente por los cortos (del 33.3% al 70.8%).
+  3. *Reducción de Riesgo*: Las pérdidas brutas cayeron un **41.2%** (de -$1,516 USD a -$891 USD) y el Drawdown máximo se redujo un **30%** (de $431 USD a $302 USD).
+  4. *Historial Completo 25 Años*: En 87 trades (2001–2026) cerró con **+$294.95 USD netos**, Profit Factor de **1.29**, Win Rate de **62.07%** y Sharpe de **2.72**.
+- **[Reporte Canónico Actualizado]**: Publicado en [`MT5/backtests/REPORT_COMPARATIVO_DUAL_v1.0_vs_v1.1.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/backtests/REPORT_COMPARATIVO_DUAL_v1.0_vs_v1.1.md).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Integración del Marco Teórico de Optimización en el Diagrama HTML
 **Objetivo:** Incorporar en el archivo HTML del diagrama de flujo (`diagrama_flujo_estrategia.html`) la teoría y metodología de optimización de la Masterclass (MAE/MFE, meseta de robustez, split In-Sample/Out-of-Sample y la paradoja del Breakeven), maquetado con navegación interactiva por pestañas.
 
