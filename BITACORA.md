@@ -8,6 +8,16 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Publicación del Manual de Auditoría de Backtesting y Protocolo de Solicitud de KPIs
+**Objetivo:** Establecer formalmente cómo el usuario debe solicitar reportes de backtesting al agente y documentar el estándar obligatorio del pool de 3 módulos (Evaluación Dual, Diagnóstico de Asimetrías y Diagnóstico de Ejecución/Tiempos).
+
+### [OK] Cambios Realizados:
+- **[Manual Canónico Creado]**: Publicado [`MT5/BACKTEST_AUDIT_MANUAL.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/BACKTEST_AUDIT_MANUAL.md) detallando las frases disparadoras recomendadas, la estructura de 3 módulos y la tabla formal de KPIs con sus fórmulas y referencias bibliográficas.
+- **[Regla Maestra Actualizada en AGENTS.md]**: Ampliada la Sección 4.7 de [`.agents/AGENTS.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/.agents/AGENTS.md) institucionalizando las frases de activación y la obligación del agente de entregar los 3 módulos incluso ante peticiones informales.
+- **[Regla del Módulo MT5 Actualizada]**: Sincronizada la Sección 3.3 de [`MT5/AGENTS.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/AGENTS.md).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Auditoría y Adaptación Profunda a MQL5 del EA USGAP_MOM
 **Objetivo:** Revisar exhaustivamente el código del Expert Advisor `STRAT-20260902-USGAP_MOM-M15-v1.0.mq5` para garantizar paridad matemática total con la especificación y eliminar discrepancias entre el entorno de backtesting y la microestructura de MT5.
 

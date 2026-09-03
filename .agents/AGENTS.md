@@ -134,17 +134,27 @@ Al escribir bloques de manejo de excepciones (`except`) en Python (para el gatew
 - **NUNCA** hardcodear contraseñas de cuentas, llaves API o tokens en archivos versionados.
 - **NUNCA** descargar archivos de video o datasets gigantes que saturen el espacio de trabajo local.
 
-### 4.7. Estándar Obligatorio de Evaluación Dual en Backtesting (Monetario vs Retorno Porcentual Puro)
-Cada vez que el usuario o un proceso del enjambre solicite auditar, reportar o analizar los resultados de backtesting de **cualquier activo o estrategia** (en MT5, Python o TradingView), el agente debe presentar **obligatoriamente y en paralelo** dos capas de métricas:
-1. **Capa Monetaria (USD / Divisa de Cuenta):**
-   - PnL Neto total, Saldo final, Profit Factor monetario, Win Rate, Ganancia y Pérdida media en USD.
-2. **Capa de Variación Porcentual Pura (% Precio del Activo):**
-   - Retorno porcentual acumulado ($\sum R_i$) y compuesto ($\prod (1 + R_i) - 1$).
-     - Compras (BUY): $R_{\text{Long}} = \frac{P_{\text{exit}} - P_{\text{entry}}}{P_{\text{entry}}} \times 100\%$
-     - Ventas (SELL): $R_{\text{Short}} = \frac{P_{\text{entry}} - P_{\text{exit}}}{P_{\text{entry}}} \times 100\%$
-   - Profit Factor porcentual: $\frac{\sum R_{\text{win}}}{\sum |R_{\text{loss}}|}$
-   - Retorno medio por trade ganador (%) vs perdedor (%) y Payoff porcentual.
-   - **Desglose Direccional Mandatorio:** Tabla comparativa obligatoria entre **Compras (Longs)** y **Ventas (Shorts)** para identificar asimetrías de deriva del mercado (*drift*) y sesgos seculares.
+### 4.7. Estándar Obligatorio de Evaluación y Reportes de Backtesting (Pool de 3 Módulos)
+Cada vez que el usuario solicite auditar, reportar o analizar los resultados de backtesting de **cualquier activo o estrategia** (en MT5, Python o TradingView), el agente debe presentar **obligatoriamente y sin excepción** el informe estructurado bajo el **Pool Completo de 3 Módulos de Diagnóstico Cuantitativo**, conforme a la guía canónica [`MT5/BACKTEST_AUDIT_MANUAL.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/BACKTEST_AUDIT_MANUAL.md):
+
+#### Frases Disparadoras Reconocidas (Cómo lo solicita el usuario):
+- *"Audita el backtest de [activo/estrategia] con el pool completo de 3 módulos."*
+- *"Genera el reporte de backtest con evaluación dual y asimetrías."*
+- *"Analiza los KPIs de este backtest."* o *"Dame el reporte cuantitativo de este backtest."*
+- O simplemente: *"Analiza este backtest."*
+
+#### Los 3 Módulos Obligatorios del Reporte:
+1. **Módulo 1: La Evaluación Dual (Monetario vs Retorno Porcentual Puro):**
+   - **Capa Monetaria (USD):** PnL Neto, Saldo final, Profit Factor monetario, Win Rate, Ganancia y Pérdida media en USD.
+   - **Capa Porcentual Pura (% Precio del Activo):** Retorno porcentual acumulado ($\sum R_i$) y compuesto ($\prod (1 + R_i) - 1$), Profit Factor %, Payoff % y Drawdown Máximo %.
+2. **Módulo 2: Diagnóstico de Asimetrías (¿Dónde está el Edge?):**
+   - **Desglose Direccional Mandatorio:** Tabla comparativa obligatoria entre **Compras (Longs)** y **Ventas (Shorts)** (*Elder & Kaufman*).
+   - **Esperanza Matemática por Trade ($E$):** $E = (WR \times \text{Avg Win \%}) - (LR \times \text{Avg Loss \%})$ (*Minervini & Van Tharp*).
+   - **Consistencia Temporal:** Porcentaje de meses positivos sobre el total evaluado (*Aronson & Kaufman*).
+3. **Módulo 3: Diagnóstico de Ejecución y Salidas (¿Cómo Optimizar?):**
+   - **Excursión Adversa y Favorable (MAE / MFE):** Calibración empírica de Stops y Targets (*Sweeney & López de Prado*).
+   - **Tiempo de Permanencia (Time-Stop):** Duración media en barras intradiarias de ganadores vs perdedores (*Crabel*).
+   - **Racha Máxima de Pérdidas y Circuit Breaker:** Conteo de pérdidas continuas y freno automático (*Weissman & Elder*).
 
 ---
 

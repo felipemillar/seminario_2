@@ -57,10 +57,13 @@ Al escribir bloques `except` en Python:
 - **NUNCA** hardcodear contraseñas de cuentas MT5 en archivos versionados.
 - Utilizar variables de entorno (`.env`) o el archivo local no versionado `~/.mt5_accounts.json` generado por [`scripts/setup_accounts.py`](scripts/setup_accounts.py).
 
-### 3.3. Estándar Obligatorio de Evaluación Dual en Backtesting (Monetario vs Retorno Porcentual Puro)
-Todo reporte de backtesting en MT5 debe contener **obligatoriamente y en paralelo**:
-1. **Capa Monetaria (USD):** PnL neto, Profit Factor, Balance final y Win Rate.
-2. **Capa de Retorno Porcentual Puro (% Precio):** Retorno acumulado y compuesto de cada trade ($R_i = \Delta P / P_{\text{entry}}$), Profit Factor porcentual, Payoff porcentual y desglose mandatorio entre **Compras (Longs)** y **Ventas (Shorts)** para detectar asimetrías de deriva del mercado.
+### 3.3. Estándar Obligatorio de Evaluación y Reportes de Backtesting (Pool de 3 Módulos)
+Todo reporte o análisis de backtesting en MT5 debe presentarse **obligatoriamente y sin excepción** bajo el formato estructurado de los **3 Módulos de Diagnóstico Cuantitativo**, conforme a [`MT5/BACKTEST_AUDIT_MANUAL.md`](BACKTEST_AUDIT_MANUAL.md):
+1. **Módulo 1 (Evaluación Dual):** Capa Monetaria (USD) vs Capa de Retorno Porcentual Puro (% del Precio del Activo: retorno acumulado, compuesto, PF % y Payoff %).
+2. **Módulo 2 (Diagnóstico de Asimetrías):** Desglose mandatorio Compras (Longs) vs Ventas (Shorts), Esperanza Matemática ($E$) por trade y Consistencia Temporal (% Meses Positivos).
+3. **Módulo 3 (Diagnóstico de Ejecución y Tiempos):** Eficiencia de Excursión (MAE / MFE), Duración de Permanencia en Barras (Time-Stop) y Racha Máxima de Pérdidas con recomendación de Circuit Breaker.
+
+> **Frases Disparadoras Reconocidas:** *"Audita el backtest de [activo] con el pool de 3 módulos"*, *"Genera el reporte de backtest dual y asimetrías"*, o simplemente *"Analiza los KPIs de este backtest"*.
 
 ---
 
