@@ -8,6 +8,19 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Refinamiento Didáctico y Simplificación de Textos en Masterclass
+**Objetivo:** Simplificar el lenguaje de la diapositiva de flujo agéntico (human-in-the-loop) eliminando jerga innecesaria, cambiando "Código Institucional" a simplemente "Código", y corrigiendo la colisión visual de la etiqueta en la diapositiva de Three White Soldiers.
+
+### [OK] Cambios Realizados:
+- **[Corrección de Colisión Visual (Slide 05 · Three White Soldiers)]**:
+  * Elevada la etiqueta `ENTRADA AL CIERRE` a la banda superior libre con indicador hacia el punto de gatillo, eliminando la superposición con la vela de continuación.
+- **[Simplificación de Textos (Slide 02b / 03 · Flujo Agéntico)]**:
+  * Pestaña y tarjeta renombradas de "Código Institucional" a **"Código"**.
+  * Diálogos del simulador y tarjetas de pilares redactados en lenguaje directo, natural y pedagógico sin tecnicismos innecesarios.
+  * Sincronizado en [`masterclass/index_v2.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index_v2.html), [`masterclass/index.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index.html) y [`masterclass/app.js`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/app.js).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Implementación de Fast-Scanner Sub-Segundo para Activos de Pepperstone
 **Objetivo:** Desarrollar e integrar una herramienta CLI de escaneo de alta velocidad en `MT5/scripts/mt5_agent_bridge.py` para consultar líderes de mercado (Top Gainers, Losers, Spreads) en tiempo sub-segundo (< 10 ms con caché en memoria).
 
