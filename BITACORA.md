@@ -8,6 +8,22 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Co-Creación y Desarrollo de Estrategia STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0
+**Objetivo:** Desarrollar una estrategia cuantitativa pura y simple de Cruce de Medias Móviles bajo la Variante B (SMA 20/50 con Filtro Tendencial EMA 200 y Triple Barrera en ATR Diario), completando las 4 fases del protocolo institucional.
+
+### [OK] Cambios Realizados:
+- **[Fase 1: Co-Creación HITL]**: Aprobada por el usuario la Variante B de la Matriz Comparativa Sintética (Cruce intermedio SMA 20/50 + EMA 200).
+- **[Fase 2: Modelado Matemático y Contrato Formal]**:
+  * Creado el contrato [`quant_agentic_swarm/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0_specification.json`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0_specification.json) con Triple Barrier Method ($TP = 1.50 \times ATR_D$, $SL = 0.75 \times ATR_D$, Time-Stop 48 barras) y modelo de régimen MTF Z-Score Diario de López de Prado.
+- **[Fase 3: Desarrollo de Código Nativo (7 Bloques & Paridad Cruzada)]**:
+  * Generado script nativo Pine Script v6: [`TradingView/pine/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0.pine`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/TradingView/pine/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0.pine) (y su réplica en `quant_agentic_swarm/strategies/`).
+  * Generado código nativo MQL5 POO con `CTrade`: [`MT5/estrategias/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0.mq5`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/estrategias/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0.mq5) (y su réplica en `quant_agentic_swarm/strategies/`).
+- **[Fase 4: Factsheet y Registro]**:
+  * Elaborado el documento técnico [`quant_agentic_swarm/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0_FACTSHEET.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0_FACTSHEET.md).
+  * Actualizado el registro maestro [`quant_agentic_swarm/STRATEGY_REGISTRY.json`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/STRATEGY_REGISTRY.json).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Integración de la Diapositiva Didáctica "Flujo Agéntico: De la Idea al Código"
 **Objetivo:** Desarrollar e integrar en el deck de la Masterclass ([`masterclass/index.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index.html) e [`masterclass/index_v2.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index_v2.html)) una diapositiva altamente didáctica (Slide 3) que explique el flujo de co-creación entre el trader y el Agente de IA, manteniendo la identidad visual interactiva y limpia del resto del deck.
 

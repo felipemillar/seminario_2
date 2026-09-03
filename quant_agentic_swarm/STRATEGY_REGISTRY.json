@@ -1,5 +1,38 @@
 [
   {
+    "strategy_id": "STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0",
+    "timestamp": "2026-09-03T13:25:00Z",
+    "thesis_title": "Cruce Intermedio Direccional con Filtro Tendencial Macro (SMA 20/50 + EMA 200)",
+    "hypothesis": {
+      "condition_x": "Cruce de SMA 20 sobre SMA 50 en vela cerrada de M30 alineado con EMA 200 (Close > EMA 200 para largos; Close < EMA 200 para cortos).",
+      "expected_outcome_y": "Captura del impulso inercial direccional con ratio 2.0 a 1 y filtrado de whipsaws.",
+      "structural_reason_z": "Alineacion del flujo de volumen intermedio con la marea institucional dominante (Kaufman & Elder).",
+      "invalidation": "Cruce opuesto de SMA 20/50 o ejecucion de Stop Loss empírico (0.75x ATR D1)."
+    },
+    "regime_filter": {
+      "model": "Lopez_de_Prado_Daily_ZScore",
+      "timeframe": "D1",
+      "fast_atr": 5,
+      "slow_atr": 14,
+      "min_zscore": -0.67
+    },
+    "triple_barriers": {
+      "b1_take_profit_atr": 1.5,
+      "b2_stop_loss_atr": 0.75,
+      "b3_max_holding_bars": 48
+    },
+    "target_assets": ["XAUUSD", "GOLD", "US100", "EURUSD"],
+    "historical_depth_target": "5 a 10 Años D1",
+    "status": "RESEARCH_CODE_READY",
+    "artifacts": {
+      "specification": "strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0_specification.json",
+      "pine_script": "strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0.pine",
+      "mql5_ea": "strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0.mq5",
+      "mt5_ea": "../MT5/estrategias/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0.mq5",
+      "factsheet": "strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0_FACTSHEET.md"
+    }
+  },
+  {
     "strategy_id": "STRAT-20260902-USGAP_MOM-M15-v1.1",
     "timestamp": "2026-09-03T11:50:00Z",
     "thesis_title": "US Opening Gap Momentum Continuation (Gap and Go) — Version Optimizada",
