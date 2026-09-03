@@ -8,6 +8,19 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Reordenamiento Pedagógico de Diapositivas en Masterclass
+**Objetivo:** Reubicar la diapositiva del flujo de trabajo con el agente de IA para que aparezca inmediatamente después de la diapositiva "¿Por qué crees que el precio se va a mover? (El Test de la Frase Única)", logrando una secuencia didáctica natural: de la formulación de la hipótesis económica a la co-creación de la estrategia con el agente.
+
+### [OK] Cambios Realizados:
+- **[Secuencia Pedagógica Reordenada]**:
+  * Diapositiva 2: Mapa de Ruta (Ciclo de Vida).
+  * Diapositiva 3: ¿Por qué crees que el precio se va a mover? (El Test de la Frase Única).
+  * Diapositiva 4: De la Intuición al Código: Cómo Trabajar con el Agente (Metodología Agéntica).
+  * Diapositiva 5: ¿Cómo se ve cada tipo de entrada? (Cruce de Medias, Breakout, Three White Soldiers).
+  * Sincronizado en [`masterclass/index_v2.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index_v2.html) y [`masterclass/index.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index.html).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Embebido Autónomo de Logos e Iconos en Masterclass
 **Objetivo:** Garantizar la portabilidad 100% autónoma y offline de la presentación HTML (`index_v2.html` e `index.html`) para que pueda compartirse y abrirse en cualquier dispositivo sin depender de archivos de imagen externos ni conexiones a CDN.
 
