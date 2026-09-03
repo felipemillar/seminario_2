@@ -8,6 +8,19 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Despliegue de la Estrategia Optimizada v1.1 (USGAP_MOM)
+**Objetivo:** Desarrollar, compilar y desplegar la versión optimizada `STRAT-20260902-USGAP_MOM-M15-v1.1` en MetaTrader 5 y el enjambre cuantitativo, implementando las mejoras derivadas de la auditoría de 10 años (TP calibrado, motor de Breakeven y Circuit Breaker).
+
+### [OK] Cambios Realizados:
+- **[Expert Advisor MQL5 v1.1]**: Desarrollado [`MT5/estrategias/STRAT-20260902-USGAP_MOM-M15-v1.1.mq5`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/estrategias/STRAT-20260902-USGAP_MOM-M15-v1.1.mq5) incorporando:
+  1. *Take Profit Calibrado*: Reducido a `1.25x ATR D1` para capturar picos favorables intradía (*MFE*).
+  2. *Motor de Breakeven*: Ajuste automático de Stop Loss al precio de entrada (+10 pts) tras alcanzar `+0.75x ATR M15` a favor.
+  3. *Circuit Breaker Mensual*: Bloqueo preventivo de nuevas operaciones tras acumular 3 pérdidas consecutivas en el mes calendario.
+- **[Compilación y Despliegue en MT5]**: Compilado exitosamente con `metaeditor64.exe` (`0 errors, 0 warnings, 926 ms`) y desplegado en `drive_c/Program Files/MetaTrader 5/MQL5/Experts/STRAT-20260902-USGAP_MOM-M15-v1.1.ex5`.
+- **[Artefactos del Swarm]**: Generados el contrato formal [`quant_agentic_swarm/strategies/STRAT-20260902-USGAP_MOM-M15-v1.1_specification.json`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/strategies/STRAT-20260902-USGAP_MOM-M15-v1.1_specification.json), la ficha técnica [`quant_agentic_swarm/strategies/STRAT-20260902-USGAP_MOM-M15-v1.1_FACTSHEET.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/strategies/STRAT-20260902-USGAP_MOM-M15-v1.1_FACTSHEET.md) y actualizado [`quant_agentic_swarm/STRATEGY_REGISTRY.json`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/STRATEGY_REGISTRY.json).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Diagrama de Flujo Táctico Interactivo en HTML (Fondo Blanco)
 **Objetivo:** Desarrollar una representación visual sobria, moderna y estructurada en HTML/CSS nativo que ilustre con máxima claridad los nodos secuenciales de decisión, filtros ex-ante y mecanismos de salida de la estrategia `STRAT-20260902-USGAP_MOM-M15-v1.0`.
 
