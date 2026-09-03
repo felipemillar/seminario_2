@@ -16,7 +16,9 @@ import glob
 import shutil
 import argparse
 import subprocess
+import json
 import logging
+from pathlib import Path
 from typing import Dict, Any, List, Optional
 
 # Configuracion de Logging Seguro (Error Masking)
@@ -352,6 +354,151 @@ def parse_last_backtest() -> Dict[str, Any]:
 
     return results
 
+def get_mcp_config():
+    """Recupera la configuracion de conexion al servidor MCP de MT5 desde .mcp.json."""
+    config = {
+        "url": "http://127.0.0.1:22346/mcp",
+        "headers": {
+            "Authorization": "Bearer IIin+jBM/DNuDPG9tBdStKpZ4Vt4YNFjJkHK+0MmwX",
+            "Content-Type": "application/json"
+        }
+    }
+    # Intentar buscar .mcp.json en la raiz o en la carpeta actual
+    possible_paths = [
+        Path.cwd() / ".mcp.json",
+        Path.cwd() / "MT5" / ".mcp.json",
+        Path(__file__).parent.parent / ".mcp.json",
+        Path(__file__).parent.parent.parent / ".mcp.json"
+    ]
+    for p in possible_paths:
+        if p.exists():
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    terminal = data.get("mcpServers", {}).get("terminal", {})
+                    if terminal.get("url"):
+                        config["url"] = terminal["url"]
+                    if terminal.get("headers"):
+                        config["headers"].update(terminal["headers"])
+                        config["headers"]["Content-Type"] = "application/json"
+                break
+            except Exception as err:
+                logger.error(f"Error al leer .mcp.json: {type(err).__name__} (detalles omitidos por seguridad)")
+    return config
+
+def call_mt5_mcp(tool_name: str, arguments: dict = None):
+    """Ejecuta una llamada al servidor MCP nativo de MT5 respetando el ciclo de vida oficial."""
+    import urllib.request
+    cfg = get_mcp_config()
+    url = cfg["url"]
+    headers = dict(cfg["headers"])
+
+    def _post(payload):
+        req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers=headers)
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            body = resp.read().decode("utf-8")
+            s_id = resp.headers.get("Mcp-Session-Id")
+            return (json.loads(body) if body else {}), s_id
+
+    try:
+        # 1. Initialize
+        init_payload = {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "initialize",
+            "params": {
+                "protocolVersion": "2025-06-18",
+                "capabilities": {"tools": {}},
+                "clientInfo": {"name": "MT5AgentBridge", "version": "1.0"}
+            }
+        }
+        res_init, sess_id = _post(init_payload)
+        if not sess_id:
+            return {"error": "No se obtuvo identificador de sesion Mcp-Session-Id"}
+        headers["Mcp-Session-Id"] = sess_id
+
+        # 2. notifications/initialized
+        try:
+            _post({"jsonrpc": "2.0", "method": "notifications/initialized"})
+        except Exception:
+            pass
+
+        # 3. Pre-flight obligatorio: get_workspace_info
+        _post({
+            "jsonrpc": "2.0",
+            "id": 2,
+            "method": "tools/call",
+            "params": {"name": "get_workspace_info", "arguments": {}}
+        })
+
+        # 4. Invocar herramienta solicitada
+        call_payload = {
+            "jsonrpc": "2.0",
+            "id": 3,
+            "method": "tools/call",
+            "params": {"name": tool_name, "arguments": arguments or {}}
+        }
+        res_tool, _ = _post(call_payload)
+        if "error" in res_tool:
+            return res_tool
+
+        content = res_tool.get("result", {}).get("content", [])
+        if content and content[0].get("type") == "text":
+            raw_text = content[0].get("text", "")
+            try:
+                return json.loads(raw_text)
+            except Exception:
+                return {"raw_output": raw_text}
+        return res_tool.get("result", {})
+
+    except Exception as err:
+        logger.error(f"Error al invocar herramienta MCP {tool_name}: {type(err).__name__} (detalles omitidos por seguridad)")
+        return {"error": f"Error de operacion: {type(err).__name__}"}
+
+def query_mcp_symbols(filter_text: str = None, only_tradeable: bool = True):
+    """Consulta y filtra simbolos del Market Watch a traves de MT5 MCP."""
+    data = call_mt5_mcp("get_marketwatch_symbols")
+    if "error" in data:
+        return data
+
+    symbols = data.get("symbols", [])
+    output = []
+    for s in symbols:
+        sym = s.get("symbol", "")
+        desc = s.get("description", "")
+        sector = s.get("sector", "")
+        trade_mode = s.get("trade_mode_name", "")
+
+        if only_tradeable and trade_mode != "full":
+            continue
+
+        if filter_text:
+            ft = filter_text.upper()
+            if ft not in sym.upper() and ft not in desc.upper() and ft not in sector.upper():
+                continue
+
+        bid = s.get("bid", 0.0)
+        ask = s.get("ask", 0.0)
+        prev_c = s.get("price_close", 0.0)
+        chg = round(((bid - prev_c) / prev_c) * 100.0, 2) if prev_c > 0 and bid > 0 else 0.0
+
+        output.append({
+            "symbol": sym,
+            "description": desc,
+            "sector": sector,
+            "bid": bid,
+            "ask": ask,
+            "prev_close": prev_c,
+            "change_pct": chg,
+            "trade_mode": trade_mode,
+            "digits": s.get("digits", 2),
+            "min_volume": s.get("volume_min", 0.1),
+            "max_volume": s.get("volume_max", 1000),
+            "contract_size": s.get("contract_size", 1.0)
+        })
+
+    return {"total_found": len(output), "symbols": output}
+
 def main():
     parser = argparse.ArgumentParser(description="MT5 Agent Bridge - CLI Universal para Agentes de IA (macOS / Windows)")
     subparsers = parser.add_subparsers(dest="command", help="Comandos disponibles")
@@ -372,6 +519,16 @@ def main():
     import_parser.add_argument("--symbol", default=None, help="Nombre del Custom Symbol en MT5")
     import_parser.add_argument("--from-date", default=None, help="Fecha inicio filtro (ej. 2020.01.01)")
     import_parser.add_argument("--to-date", default=None, help="Fecha fin filtro (ej. 2026.09.01)")
+
+    sym_parser = subparsers.add_parser("mcp-symbols", help="Consulta simbolos del Market Watch via servidor MCP de MT5")
+    sym_parser.add_argument("--filter", default=None, help="Filtro de texto (ej. .US, US100, Tech)")
+    sym_parser.add_argument("--all-modes", action="store_true", help="Incluir activos no tradeables o solo cierre")
+
+    hist_parser = subparsers.add_parser("mcp-history", help="Consulta velas historicas OHLC via servidor MCP de MT5")
+    hist_parser.add_argument("symbol", help="Simbolo a consultar (ej. AAPL.US, US100)")
+    hist_parser.add_argument("--period", default="D1", help="Temporalidad (M1, M5, M15, M30, H1, D1)")
+    hist_parser.add_argument("--from-date", default="2026-08-25T00:00:00Z", help="Fecha inicio ISO")
+    hist_parser.add_argument("--to-date", default="2026-09-03T12:00:00Z", help="Fecha fin ISO")
 
     args = parser.parse_args()
 
@@ -404,6 +561,19 @@ def main():
             to_date=args.to_date,
             deploy_to_mql5=True
         )
+        print(json.dumps(res, indent=2))
+    elif args.command == "mcp-symbols":
+        import json
+        res = query_mcp_symbols(filter_text=args.filter, only_tradeable=not args.all_modes)
+        print(json.dumps(res, indent=2))
+    elif args.command == "mcp-history":
+        import json
+        res = call_mt5_mcp("get_chart_history", {
+            "symbol": args.symbol,
+            "period": args.period,
+            "datetime_from": args.from_date,
+            "datetime_to": args.to_date
+        })
         print(json.dumps(res, indent=2))
     else:
         parser.print_help()

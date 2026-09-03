@@ -103,3 +103,15 @@ Cuando un usuario pregunte sobre un aspecto técnico de MT5, MQL5 o Trading Cuan
   ```bash
   python scripts/build_dashboard_data.py
   ```
+- **Consultar Instrumentos del Broker via Servidor MCP**:
+  ```bash
+  # Escaneo de simbolos tradeables con filtro (ej. acciones americanas)
+  python3 scripts/mt5_agent_bridge.py mcp-symbols --filter .US
+
+  # Consulta de velas historicas OHLCV
+  python3 scripts/mt5_agent_bridge.py mcp-history EIX.US --period D1 --from-date 2026-08-25T00:00:00Z --to-date 2026-09-03T12:00:00Z
+  ```
+- **Importar e Inyectar Datos Externos en MT5**:
+  ```bash
+  python3 scripts/mt5_agent_bridge.py import-data masterclass/@NQ_5m.csv --from-date 2020.01.01
+  ```

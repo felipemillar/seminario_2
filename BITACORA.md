@@ -8,6 +8,25 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Integración y Documentación de Consultas de Mercado via Servidor MCP MT5
+**Objetivo:** Habilitar, probar y documentar la capacidad de agentes de IA para auditar el universo de instrumentos del broker y descargar velas históricas mediante el servidor MCP nativo de MetaTrader 5 (puerto 22346).
+
+### [OK] Cambios Realizados:
+- **[Cliente MCP en CLI Bridge]**: Integradas las funciones `call_mt5_mcp()`, `get_mcp_config()` y `query_mcp_symbols()` en [`MT5/scripts/mt5_agent_bridge.py`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/scripts/mt5_agent_bridge.py).
+- **[Nuevos Subcomandos CLI]**:
+  - `mcp-symbols`: Permite filtrar y auditar activos tradeables (`trade_mode = full`), cotizaciones bid/ask, cierre anterior y variación porcentual diaria.
+  - `mcp-history`: Permite descargar velas OHLCV por temporalidad y rango de fechas ISO.
+- **[Protocolo Handshake Automatizado]**: Implementado el ciclo estricto exigido por MetaQuotes: `initialize` -> `notifications/initialized` -> `get_workspace_info` (pre-flight obligatorio) -> ejecución de herramientas.
+- **[Documentación Maestra Actualizada]**:
+  - [`MT5/AGENT_CONNECTION_GUIDE.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/AGENT_CONNECTION_GUIDE.md): Secciones 3.1, 3.2 y 3.3 agregadas con arquitectura, campos de símbolos y ejemplos de uso.
+  - [`MT5/AGENTS.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/AGENTS.md): Comandos frecuentes de consulta MCP integrados.
+
+### Decisiones y Notas de Diseño:
+- **Extracción Dinámica de Credenciales:** El puente CLI busca automáticamente la URL y el Bearer token en `.mcp.json`, evitando credenciales hardcodeadas en scripts de análisis.
+- **Filtrado de Tradeabilidad:** La consulta filtra por defecto activos con `trade_mode_name == "full"`, protegiendo al agente de intentar operar activos en modo "close only" o inactivos.
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Protocolo Autónomo de Ingesta y Conversión de Datos Externos para MT5
 **Objetivo:** Diseñar, implementar y documentar un flujo de trabajo 100% autónomo para convertir cualquier dataset histórico intradiario (TradingView, NinjaTrader, TradeStation, CME) e inyectarlo automáticamente en MetaTrader 5 como Custom Symbol.
 

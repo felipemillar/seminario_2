@@ -110,6 +110,108 @@ El servidor [`MT5/mcp_server/server.py`](file:///Users/fmillar/Proyectos_Desarro
 }
 ```
 
+```
+
+---
+
+## 3.1. Servidor MCP Nativo de MetaTrader 5 y MetaEditor (HTTP / JSON-RPC 2.0)
+
+MetaTrader 5 integra un **servidor MCP interno nativo** basado en HTTP y Server-Sent Events (SSE), corriendo en:
+* **Terminal MT5 (`terminal`):** `http://127.0.0.1:22346/mcp`
+* **MetaEditor 64 (`metaeditor`):** `http://127.0.0.1:22345/mcp`
+
+### Activacion en MT5:
+1. En el terminal MT5, ir a: *Herramientas -> Opciones -> pestana MCP*.
+2. Marcar la casilla **`Enable internal server`**.
+3. El puerto asignado por defecto es `22346` con token Bearer configurable.
+
+### Configuracion en Clientes de IA:
+Configurado directamente en los archivos del repositorio [`.mcp.json`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/.mcp.json) y [`.codex/config.toml`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/.codex/config.toml):
+
+```json
+{
+  "mcpServers": {
+    "terminal": {
+      "type": "http",
+      "url": "http://127.0.0.1:22346/mcp",
+      "headers": {
+        "Authorization": "Bearer IIin+jBM/DNuDPG9tBdStKpZ4Vt4YNFjJkHK+0MmwX"
+      }
+    }
+  }
+}
+```
+
+### Ciclo de Vida y Protocolo de Handshake Obligatorio:
+El servidor MCP de MetaQuotes exige un handshake estricto en tres fases antes de permitir llamadas a herramientas operativas:
+
+1. **`initialize`**: Se envia la version del protocolo (`2025-06-18`) y las capacidades del cliente. El servidor retorna las cabeceras HTTP con un identificador de sesion unico: `Mcp-Session-Id`.
+2. **`notifications/initialized`**: Confirmacion de sesion activa.
+3. **`tools/call` -> `get_workspace_info` (MANDATORIO)**: Por directiva de MetaQuotes, la primera llamada de toda sesion **debe** ser obligatoriamente `get_workspace_info`. Si no se ejecuta, cualquier llamada posterior fallara con error `-32600 (MCP session is not initialized)`.
+
+---
+
+## 3.2. Consulta de Instrumentos y Datos de Mercado via MCP
+
+El servidor MCP nativo expone herramientas para auditoria cuantitativa del universo de activos del broker:
+
+### 1. `get_marketwatch_symbols`: Auditoria de Activos y Precios en Tiempo Real
+Devuelve la lista completa de simbolos cargados en la ventana de Market Watch con sus propiedades financieras:
+
+* **Estructura del Objeto de Simbolo:**
+  * `symbol`: Ticker oficial (ej. `AAPL.US`, `US100`, `EURUSD`).
+  * `description`: Nombre completo de la compania o ETF.
+  * `sector` / `industry`: Clasificacion sectorial (ej. `Technology`, `Utilities`, `Healthcare`).
+  * `trade_mode_name`: Estado de tradeabilidad:
+    * `"full"`: **100% Tradeable** (Permite ordenes BUY y SELL sin restricciones).
+    * `"close only"`: Solo permite cerrar posiciones abiertas.
+    * `"disabled"`: Trading inhabilitado por el broker.
+  * `bid` / `ask`: Ultima cotizacion de compra y venta.
+  * `price_close`: Precio de cierre oficial de la jornada anterior.
+  * `price_open`: Precio de apertura de la jornada actual.
+  * `spread_float`: Booleano que indica si el spread es flotante.
+  * `volume_min` / `volume_max`: Limites de tamano de posicion.
+  * `contract_size`: Multiplicador del contrato (ej. 1.0 para acciones CFD, 100 para futuros).
+  * `currency_margin` / `currency_profit`: Moneda de liquidacion (USD).
+
+* **Formula para Calcular la Variacion Porcentual Diaria:**
+  ```python
+  change_pct = ((bid - price_close) / price_close) * 100.0
+  ```
+
+### 2. `get_chart_history`: Extraccion de Velas Historicas OHLCV
+Permite descargar directamente las velas del grafico para cualquier activo y temporalidad:
+
+* **Parametros de Entrada:**
+  * `symbol`: Nombre exacto del simbolo (ej. `EIX.US`, `CUSTOM_NQ_M5`).
+  * `period`: Temporalidad (`M1`, `M5`, `M15`, `M30`, `H1`, `D1`, `W1`, `MN1`).
+  * `datetime_from`: Fecha de inicio en formato ISO (ej. `2026-08-25T00:00:00Z`).
+  * `datetime_to`: Fecha de fin en formato ISO (ej. `2026-09-03T12:00:00Z`).
+* **Retorno:** Array de objetos `{ time, open, high, low, close, tick_volume, spread }`.
+
+---
+
+## 3.3. Comandos CLI para Consultas MCP (Uso Inmediato para Agentes)
+
+El script puente [`MT5/scripts/mt5_agent_bridge.py`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/scripts/mt5_agent_bridge.py) encapsula automaticamente el handshake HTTP, la extraccion del token desde `.mcp.json` y la ejecucion de `get_workspace_info`:
+
+```bash
+# 1. Consultar todos los instrumentos del mercado americano que sean tradeables (trade_mode = full)
+python3 MT5/scripts/mt5_agent_bridge.py mcp-symbols --filter .US
+
+# 2. Consultar instrumentos de un sector o empresa especifica (ej. Fortinet o Ciberseguridad)
+python3 MT5/scripts/mt5_agent_bridge.py mcp-symbols --filter FTNT.US
+
+# 3. Consultar indices americanos
+python3 MT5/scripts/mt5_agent_bridge.py mcp-symbols --filter US100
+
+# 4. Descargar velas historicas diarias (D1) de un activo via MCP
+python3 MT5/scripts/mt5_agent_bridge.py mcp-history EIX.US --period D1 --from-date 2026-08-25T00:00:00Z --to-date 2026-09-03T12:00:00Z
+
+# 5. Descargar velas intradiarias M5 de un activo via MCP
+python3 MT5/scripts/mt5_agent_bridge.py mcp-history CUSTOM_NQ_M5 --period M5 --from-date 2026-09-02T14:30:00Z --to-date 2026-09-02T21:00:00Z
+```
+
 ---
 
 ## 4. Mecanismo 2: Script CLI Bridge Multiplataforma (`mt5_agent_bridge.py`)
