@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MT5 Market Intelligence</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-card: #fafafa;
+      --border: #e8e8e8;
+      --text: #1a1a1a;
+      --text-secondary: #6b7280;
+      --text-muted: #9ca3af;
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --green: #059669;
+      --green-bg: #ecfdf5;
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --yellow: #d97706;
+      --yellow-bg: #fffbeb;
+      --radius: 12px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.04), 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    .header {
+      padding: 32px 48px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .header p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    /* ── Navigation ── */
+    .nav {
+      display: flex;
+      gap: 0;
+      padding: 0 48px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-item {
+      padding: 14px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .nav-item:hover { color: var(--text); }
+    .nav-item.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ── Main Content ── */
+    .main { padding: 32px 48px; max-width: 1440px; }
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* ── KPI Row ── */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+    }
+    .kpi-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .kpi-value {
+      font-size: 28px;
+      font-weight: 700;
+      margin-top: 4px;
+      letter-spacing: -1px;
+    }
+    .kpi-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ── Tables ── */
+    .table-container {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 32px;
+    }
+    .table-title {
+      padding: 16px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .table-title .badge {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    thead th {
+      text-align: left;
+      padding: 10px 16px;
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+    thead th:hover { color: var(--text); }
+    tbody td {
+      padding: 10px 16px;
+      border-bottom: 1px solid #f3f4f6;
+      white-space: nowrap;
+    }
+    tbody tr:hover { background: #f9fafb; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    .mono { font-family: 'SF Mono', 'Cascadia Code', monospace; font-size: 12px; }
+    .text-right { text-align: right; }
+    .positive { color: var(--green); font-weight: 600; }
+    .negative { color: var(--red); }
+    .neutral { color: var(--text-muted); }
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+    .tag-green { background: var(--green-bg); color: var(--green); }
+    .tag-red { background: var(--red-bg); color: var(--red); }
+    .tag-yellow { background: var(--yellow-bg); color: var(--yellow); }
+    .tag-blue { background: var(--accent-light); color: var(--accent); }
+
+    /* ── Bar Chart (CSS) ── */
+    .bar-chart { margin-bottom: 32px; }
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .bar-label {
+      width: 160px;
+      font-size: 12px;
+      font-weight: 500;
+      text-align: right;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+    .bar-track {
+      flex: 1;
+      height: 24px;
+      background: #f3f4f6;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      transition: width 0.6s ease;
+      display: flex;
+      align-items: center;
+      padding-left: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: white;
+      min-width: 40px;
+    }
+    .bar-fill.blue { background: var(--accent); }
+    .bar-fill.green { background: var(--green); }
+    .bar-fill.red { background: #ef4444; }
+
+    /* ── Pill Filters ── */
+    .filters {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .filter-pill {
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.15s;
+      background: var(--bg);
+      color: var(--text-secondary);
+      user-select: none;
+    }
+    .filter-pill:hover { border-color: var(--accent); color: var(--accent); }
+    .filter-pill.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    /* ── Search ── */
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .search-box input {
+      padding: 8px 14px;
+      font-size: 13px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 280px;
+      font-family: inherit;
+      outline: none;
+      transition: border 0.15s;
+    }
+    .search-box input:focus { border-color: var(--accent); }
+    .search-box .count {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ── Section Headers ── */
+    .section-header {
+      margin-bottom: 24px;
+    }
+    .section-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .section-header p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* ── Grid layout ── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 900px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .main { padding: 20px; }
+      .header, .nav { padding-left: 20px; padding-right: 20px; }
+    }
+
+    /* ── Modal & Deep Analysis ── */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none; justify-content: center; align-items: center;
+      z-index: 1000; padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-content {
+      background: var(--bg);
+      border-radius: var(--radius);
+      width: 100%; max-width: 1000px;
+      max-height: 90vh; overflow-y: auto;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+    .modal-header {
+      padding: 20px 24px; border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; background: var(--bg); z-index: 10;
+    }
+    .modal-header h2 { font-size: 18px; font-weight: 700; margin: 0; }
+    .modal-close {
+      cursor: pointer; font-size: 24px; color: var(--text-muted);
+      border: none; background: none; line-height: 1;
+    }
+    .modal-close:hover { color: var(--text); }
+    .modal-body { padding: 24px; }
+    .chart-container {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px; margin-bottom: 24px;
+    }
+    .chart-title { font-size: 14px; font-weight: 600; margin-bottom: 16px; color: var(--text); }
+    .chart-wrapper { position: relative; height: 280px; width: 100%; }
+    .clickable-row { cursor: pointer; transition: background 0.15s; }
+    .clickable-row:hover { background: #f0fdf4 !important; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ MODAL ═══════════ -->
+  <div class="modal-overlay" id="analysis-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">Análisis de Instrumento</h2>
+        <button class="modal-close" onclick="closeDetails()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="chart-container">
+          <div class="chart-title">Evolución (5 Años): Precio vs Volatilidad (ATR%)</div>
+          <div class="chart-wrapper"><canvas id="chart-timeseries"></canvas></div>
+        </div>
+        <div class="grid-2">
+          <div class="chart-container">
+            <div class="chart-title">Distribución de Volatilidad (Frecuencia ATR%)</div>
+            <div class="chart-wrapper"><canvas id="chart-distribution"></canvas></div>
+          </div>
+          <div class="chart-container">
+            <div class="chart-title">Dispersión: Volatilidad vs Precio</div>
+            <div class="chart-wrapper"><canvas id="chart-scatter"></canvas></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header">
+    <h1>Market Intelligence</h1>
+    <p>Pepperstone · Capitaria · Grupo Inteligencia — Datos al 29 Jun 2026</p>
+  </div>
+
+  <div class="nav">
+    <div class="nav-item active" data-tab="overview">Resumen</div>
+    <div class="nav-item" data-tab="volatility">Volatilidad (ATR)</div>
+    <div class="nav-item" data-tab="swaps">Swap Costs</div>
+    <div class="nav-item" data-tab="arbitrage">Arbitraje</div>
+    <div class="nav-item" data-tab="history">Tendencia LATAM</div>
+  </div>
+
+  <div class="main">
+
+    <!-- ═══════════ OVERVIEW ═══════════ -->
+    <div class="section active" id="sec-overview">
+      <div class="kpi-row" id="kpi-overview"></div>
+      
+      <div class="section-header">
+        <h2>Volatilidad por Clase de Activo</h2>
+        <p>ATR(14) D1 promedio como % del precio</p>
+      </div>
+      <div class="bar-chart" id="chart-atr-categories"></div>
+
+      <div class="section-header">
+        <h2>Cobertura por Broker</h2>
+        <p>Instrumentos con swap data disponible</p>
+      </div>
+      <div class="bar-chart" id="chart-brokers"></div>
+    </div>
+
+    <!-- ═══════════ VOLATILITY ═══════════ -->
+    <div class="section" id="sec-volatility">
+      <div class="section-header">
+        <h2>Top Instrumentos por Volatilidad</h2>
+        <p>ATR(14) Daily normalizado como % del precio — mayor = más volátil</p>
+      </div>
+      <div class="search-box">
+        <input type="text" id="atr-search" placeholder="Buscar símbolo...">
+        <span class="count" id="atr-count"></span>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Símbolo</th>
+              <th>Descripción</th>
+              <th>Categoría</th>
+              <th class="text-right">Precio</th>
+              <th class="text-right">ATR</th>
+              <th class="text-right">ATR %</th>
+            </tr>
+          </thead>
+          <tbody id="atr-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ═══════════ SWAPS ═══════════ -->
+    <div class="section" id="sec-swaps">
+      <div class="section-header">
+        <h2>Oportunidades de Carry Trade</h2>
+        <p>Instrumentos con swap positivo por broker — te pagan por mantener la posición</p>
+      </div>
+      <div class="filters" id="broker-filters"></div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Broker</th>
+              <th>Símbolo</th>
+              <th>Descripción</th>
+              <th>Categoría</th>
+              <th class="text-right">Swap Long</th>
+              <th class="text-right">Swap Short</th>
+              <th>Modo</th>
+            </tr>
+          </thead>
+          <tbody id="swap-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ═══════════ ARBITRAGE ═══════════ -->
+    <div class="section" id="sec-arbitrage">
+      <div class="section-header">
+        <h2>Arbitraje de Swaps entre Brokers</h2>
+        <p>Posiciones hedgeadas: Long en un broker + Short en otro = ganancia neta diaria de swap</p>
+      </div>
+      <div class="kpi-row" id="kpi-arbitrage"></div>
+      <div class="table-container">
+        <div class="table-title">
+          <span>Oportunidades Confirmadas</span>
+          <span class="badge" id="arb-count"></span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Símbolo</th>
+              <th>Long en</th>
+              <th>Short en</th>
+              <th class="text-right">Swap Long</th>
+              <th class="text-right">Swap Short</th>
+              <th class="text-right">NET / día</th>
+              <th class="text-right">NET / mes</th>
+            </tr>
+          </thead>
+          <tbody id="arb-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ═══════════ HISTORY ═══════════ -->
+    <div class="section" id="sec-history">
+      <div class="section-header">
+        <h2>Tendencia de Volatilidad (Top LATAM)</h2>
+        <p>Evolución del ATR(14) en los últimos 30 días</p>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Símbolo</th>
+              <th>Categoría</th>
+              <th class="text-right">ATR% Hace 30D</th>
+              <th class="text-right">ATR% Actual</th>
+              <th class="text-right">Cambio</th>
+              <th>Tendencia</th>
+              <th>Evolución (30D)</th>
+            </tr>
+          </thead>
+          <tbody id="history-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let DATA = {};
+
+    // ── Load data ──
+    fetch('data.json')
+      .then(r => r.json())
+      .then(d => { DATA = d; render(); })
+      .catch(e => document.body.innerHTML = '<p style="padding:40px;color:red;">Error cargando data.json</p>');
+
+    // ── Navigation ──
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        item.classList.add('active');
+        document.getElementById('sec-' + item.dataset.tab).classList.add('active');
+      });
+    });
+
+    function render() {
+      renderOverview();
+      renderVolatility();
+      renderSwaps();
+      renderArbitrage();
+      if(DATA.atr_history) renderHistory();
+    }
+
+    // ══════════ OVERVIEW ══════════
+    function renderOverview() {
+      const atr = DATA.atr;
+      const brokers = DATA.brokers;
+      const arb = DATA.arbitrage;
+
+      const totalInstruments = Object.values(brokers).reduce((a, b) => a + b.count, 0);
+      const totalPositive = Object.values(brokers).reduce((a, b) => a + b.positive_count, 0);
+
+      document.getElementById('kpi-overview').innerHTML = `
+        <div class="kpi-card">
+          <div class="kpi-label">Brokers Conectados</div>
+          <div class="kpi-value">3</div>
+          <div class="kpi-sub">Pepperstone · Capitaria · GI</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Instrumentos Totales</div>
+          <div class="kpi-value">${totalInstruments.toLocaleString()}</div>
+          <div class="kpi-sub">Sumando los 3 brokers</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Con ATR Calculado</div>
+          <div class="kpi-value">${atr.count.toLocaleString()}</div>
+          <div class="kpi-sub">Pepperstone D1 ATR(14)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Swaps Positivos</div>
+          <div class="kpi-value">${totalPositive}</div>
+          <div class="kpi-sub">Carry trade opportunities</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Arbitraje de Swaps</div>
+          <div class="kpi-value">${arb.length}</div>
+          <div class="kpi-sub">Posiciones hedgeadas rentables</div>
+        </div>
+      `;
+
+      // ATR bar chart by category
+      const cats = DATA.atr_by_category;
+      const sorted = Object.entries(cats).sort((a, b) => b[1].avg - a[1].avg);
+      const maxVal = sorted[0][1].avg;
+
+      document.getElementById('chart-atr-categories').innerHTML = sorted.map(([name, data]) => `
+        <div class="bar-row">
+          <div class="bar-label">${name} <span style="color:var(--text-muted)">(${data.count})</span></div>
+          <div class="bar-track">
+            <div class="bar-fill blue" style="width:${(data.avg / maxVal * 100).toFixed(1)}%">
+              ${data.avg.toFixed(2)}%
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // Broker coverage bar chart
+      const maxBroker = Math.max(...Object.values(brokers).map(b => b.count));
+      const colors = { Pepperstone: 'blue', Capitaria: 'green', GrupoInteligencia: 'red' };
+      document.getElementById('chart-brokers').innerHTML = Object.entries(brokers).map(([name, data]) => `
+        <div class="bar-row">
+          <div class="bar-label">${name}</div>
+          <div class="bar-track">
+            <div class="bar-fill ${colors[name]}" style="width:${(data.count / maxBroker * 100).toFixed(1)}%">
+              ${data.count} instrumentos
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ══════════ VOLATILITY ══════════
+    function renderVolatility() {
+      const results = DATA.atr.top;
+      const tbody = document.getElementById('atr-table');
+      document.getElementById('atr-count').textContent = `Top ${results.length} de ${DATA.atr.count}`;
+
+      function renderRows(data) {
+        tbody.innerHTML = data.map((r, i) => `
+          <tr>
+            <td class="mono neutral">${i + 1}</td>
+            <td><strong>${r.symbol}</strong></td>
+            <td style="color:var(--text-secondary)">${r.description}</td>
+            <td><span class="tag tag-blue">${r.category}</span></td>
+            <td class="mono text-right">${r.price?.toLocaleString() ?? '—'}</td>
+            <td class="mono text-right">${r.atr}</td>
+            <td class="mono text-right"><strong class="${r.atr_pct > 5 ? 'negative' : r.atr_pct > 2 ? '' : 'positive'}">${r.atr_pct.toFixed(2)}%</strong></td>
+          </tr>
+        `).join('');
+      }
+      renderRows(results);
+
+      document.getElementById('atr-search').addEventListener('input', function() {
+        const q = this.value.toLowerCase();
+        const filtered = q ? results.filter(r => 
+          r.symbol.toLowerCase().includes(q) || 
+          r.description.toLowerCase().includes(q) ||
+          r.category.toLowerCase().includes(q)
+        ) : results;
+        renderRows(filtered);
+        document.getElementById('atr-count').textContent = `${filtered.length} resultados`;
+      });
+    }
+
+    // ══════════ SWAPS ══════════
+    function renderSwaps() {
+      const brokers = DATA.brokers;
+      const filtersEl = document.getElementById('broker-filters');
+      let activeBroker = 'all';
+
+      filtersEl.innerHTML = `
+        <div class="filter-pill active" data-broker="all">Todos</div>
+        ${Object.keys(brokers).map(b => `<div class="filter-pill" data-broker="${b}">${b} (${brokers[b].positive_count})</div>`).join('')}
+      `;
+
+      function renderSwapTable(broker) {
+        const tbody = document.getElementById('swap-table');
+        let rows = [];
+        if (broker === 'all') {
+          Object.entries(brokers).forEach(([name, data]) => {
+            data.top_positive.forEach(r => rows.push({ ...r, broker: name }));
+          });
+          rows.sort((a, b) => Math.max(b.swap_long, b.swap_short) - Math.max(a.swap_long, a.swap_short));
+        } else {
+          rows = brokers[broker].top_positive.map(r => ({ ...r, broker }));
+        }
+
+        tbody.innerHTML = rows.map((r, i) => `
+          <tr>
+            <td class="mono neutral">${i + 1}</td>
+            <td><span class="tag tag-blue">${r.broker}</span></td>
+            <td><strong>${r.symbol}</strong></td>
+            <td style="color:var(--text-secondary)">${r.description}</td>
+            <td><span class="tag tag-yellow">${r.category}</span></td>
+            <td class="mono text-right ${r.swap_long > 0 ? 'positive' : 'negative'}">${r.swap_long > 0 ? '+' : ''}${r.swap_long.toFixed(2)}</td>
+            <td class="mono text-right ${r.swap_short > 0 ? 'positive' : 'negative'}">${r.swap_short > 0 ? '+' : ''}${r.swap_short.toFixed(2)}</td>
+            <td class="mono">${r.swap_mode_desc}</td>
+          </tr>
+        `).join('');
+      }
+
+      renderSwapTable('all');
+
+      filtersEl.addEventListener('click', e => {
+        if (!e.target.classList.contains('filter-pill')) return;
+        filtersEl.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+        e.target.classList.add('active');
+        renderSwapTable(e.target.dataset.broker);
+      });
+    }
+
+    // ══════════ ARBITRAGE ══════════
+    function renderArbitrage() {
+      const arb = DATA.arbitrage;
+      document.getElementById('arb-count').textContent = `${arb.length} oportunidades`;
+
+      const best = arb[0];
+      const totalDaily = arb.reduce((a, b) => a + b.net_daily, 0);
+
+      document.getElementById('kpi-arbitrage').innerHTML = `
+        <div class="kpi-card">
+          <div class="kpi-label">Mejor Oportunidad</div>
+          <div class="kpi-value" style="color:var(--green)">${best.symbol}</div>
+          <div class="kpi-sub">Long ${best.long_broker} / Short ${best.short_broker}</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Mejor NET / día</div>
+          <div class="kpi-value" style="color:var(--green)">+${best.net_daily.toLocaleString()}</div>
+          <div class="kpi-sub">puntos por lote</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Oportunidades</div>
+          <div class="kpi-value">${arb.length}</div>
+          <div class="kpi-sub">Posiciones hedgeadas confirmadas</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">NET Total / día</div>
+          <div class="kpi-value" style="color:var(--green)">+${totalDaily.toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
+          <div class="kpi-sub">Sumando todas las oportunidades</div>
+        </div>
+      `;
+
+      const tbody = document.getElementById('arb-table');
+      tbody.innerHTML = arb.map((r, i) => {
+        const net30 = (r.net_daily * 30).toFixed(0);
+        return `
+          <tr>
+            <td class="mono neutral">${i + 1}</td>
+            <td><strong>${r.symbol}</strong></td>
+            <td><span class="tag tag-green">${r.long_broker}</span></td>
+            <td><span class="tag tag-red">${r.short_broker}</span></td>
+            <td class="mono text-right negative">${r.swap_long_val.toFixed(2)}</td>
+            <td class="mono text-right positive">+${r.swap_short_val.toFixed(2)}</td>
+            <td class="mono text-right positive" style="font-weight:700">+${r.net_daily.toFixed(2)}</td>
+            <td class="mono text-right positive">+${Number(net30).toLocaleString()}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // ══════════ HISTORY ══════════
+    function renderHistory() {
+      const hist = DATA.atr_history;
+      if (!hist || hist.length === 0) return;
+
+      const tbody = document.getElementById('history-table');
+      tbody.innerHTML = hist.map(r => {
+        let trendTag = '<span class="tag neutral">Estable</span>';
+        let lineColor = 'var(--text-muted)';
+        if (r.trend === 'expanding') {
+          trendTag = '<span class="tag tag-red">Expandiendo ↑</span>';
+          lineColor = 'var(--red)';
+        } else if (r.trend === 'contracting') {
+          trendTag = '<span class="tag tag-green">Contrayendo ↓</span>';
+          lineColor = 'var(--green)';
+        }
+
+        // Generate Sparkline SVG
+        let sparkline = '';
+        if (r.history && r.history.length > 1) {
+          const w = 100, h = 24;
+          const maxAtr = Math.max(...r.history.map(x => x.atr_pct));
+          const minAtr = Math.min(...r.history.map(x => x.atr_pct));
+          const range = maxAtr - minAtr || 1;
+          const pts = r.history.map((x, i) => {
+            const px = (i / (r.history.length - 1)) * w;
+            const py = h - ((x.atr_pct - minAtr) / range) * h;
+            return `${px},${py}`;
+          }).join(' ');
+          sparkline = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="overflow:visible"><polyline points="${pts}" fill="none" stroke="${lineColor}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
+        }
+
+        return `
+          <tr class="clickable-row" onclick="openDetails('${r.symbol}')" title="Clic para análisis profundo">
+            <td><strong>${r.symbol}</strong></td>
+            <td><span class="tag tag-blue">${r.category}</span></td>
+            <td class="mono text-right">${r.atr_30d_ago.toFixed(2)}%</td>
+            <td class="mono text-right" style="font-weight:700">${r.atr_current.toFixed(2)}%</td>
+            <td class="mono text-right ${r.atr_change > 0 ? 'negative' : (r.atr_change < 0 ? 'positive' : 'neutral')}">
+              ${r.atr_change > 0 ? '+' : ''}${r.atr_change.toFixed(2)}%
+            </td>
+            <td>${trendTag}</td>
+            <td style="padding-top:4px; padding-bottom:4px;">${sparkline}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // ══════════ DEEP ANALYSIS MODAL ══════════
+    let chartObjTimeseries = null;
+    let chartObjDistribution = null;
+    let chartObjScatter = null;
+
+    function closeDetails() {
+      document.getElementById('analysis-modal').classList.remove('active');
+    }
+
+    // Close on click outside
+    document.getElementById('analysis-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeDetails();
+    });
+
+    function openDetails(symbol) {
+      const r = DATA.atr_history.find(x => x.symbol === symbol);
+      if (!r || !r.history || r.history.length === 0) return;
+
+      document.getElementById('modal-title').textContent = `Análisis Profundo: ${symbol} (${r.category})`;
+      document.getElementById('analysis-modal').classList.add('active');
+
+      const labels = r.history.map(x => x.date);
+      const closeData = r.history.map(x => x.close);
+      const atrData = r.history.map(x => x.atr_pct);
+
+      // --- 1. Timeseries Chart ---
+      if (chartObjTimeseries) chartObjTimeseries.destroy();
+      chartObjTimeseries = new Chart(document.getElementById('chart-timeseries'), {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            { label: 'Precio', data: closeData, yAxisID: 'yPrice', borderColor: '#2563eb', borderWidth: 2, pointRadius: 0, tension: 0.1 },
+            { label: 'ATR %', data: atrData, yAxisID: 'yAtr', borderColor: '#d97706', backgroundColor: 'rgba(217, 119, 6, 0.1)', fill: true, borderWidth: 1.5, pointRadius: 0, tension: 0.1 }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: { tooltip: { enabled: true } },
+          scales: {
+            x: { grid: { display: false }, ticks: { maxTicksLimit: 12 } },
+            yPrice: { type: 'linear', position: 'left', title: { display: true, text: 'Precio' } },
+            yAtr: { type: 'linear', position: 'right', title: { display: true, text: 'ATR %' }, grid: { display: false } }
+          }
+        }
+      });
+
+      // --- 2. Distribution Chart (Histogram of ATR%) ---
+      const minAtr = Math.min(...atrData);
+      const maxAtr = Math.max(...atrData);
+      const binCount = 20;
+      const binSize = (maxAtr - minAtr) / binCount || 1;
+      const bins = Array(binCount).fill(0);
+      atrData.forEach(v => {
+        let idx = Math.floor((v - minAtr) / binSize);
+        if (idx >= binCount) idx = binCount - 1;
+        bins[idx]++;
+      });
+      const binLabels = Array(binCount).fill(0).map((_, i) => (minAtr + i * binSize).toFixed(2) + '%');
+
+      if (chartObjDistribution) chartObjDistribution.destroy();
+      chartObjDistribution = new Chart(document.getElementById('chart-distribution'), {
+        type: 'bar',
+        data: {
+          labels: binLabels,
+          datasets: [{ label: 'Días', data: bins, backgroundColor: '#059669', borderRadius: 4, barPercentage: 0.95, categoryPercentage: 1 }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { title: { display: true, text: 'Niveles de ATR %' }, grid: { display: false }, ticks: { maxTicksLimit: 10 } },
+            y: { title: { display: true, text: 'Frecuencia (Días)' } }
+          }
+        }
+      });
+
+      // --- 3. Scatter Chart (Price vs ATR%) ---
+      const scatterData = r.history.map(x => ({ x: x.close, y: x.atr_pct }));
+      if (chartObjScatter) chartObjScatter.destroy();
+      chartObjScatter = new Chart(document.getElementById('chart-scatter'), {
+        type: 'scatter',
+        data: {
+          datasets: [{ label: 'Días Históricos', data: scatterData, backgroundColor: 'rgba(37, 99, 235, 0.4)', borderColor: '#2563eb', pointRadius: 3, borderWidth: 1 }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { title: { display: true, text: 'Precio' } },
+            y: { title: { display: true, text: 'ATR %' } }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "metatrader5": {
+      "command": "python3",
+      "args": [
+        "/Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/mcp_server/server.py"
+      ],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      }
+    }
+  }
+}

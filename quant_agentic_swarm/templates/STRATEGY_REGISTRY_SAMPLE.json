@@ -1,0 +1,33 @@
+[
+  {
+    "strategy_id": "STRAT-20260901-ORB_D1Z-M15-v1.0",
+    "timestamp": "2026-09-01T11:00:00Z",
+    "thesis_title": "Asian High Breakout Retest with Daily Volatility Expansion",
+    "hypothesis": {
+      "condition_x": "Vela M15 quiebra el máximo de la sesión asiática y realiza retesteo",
+      "expected_outcome_y": "Expansión direccional sostenida en apertura de Londres",
+      "structural_reason_z": "Absorción institucional de liquidez y ejecución de órdenes Buy-Stop acumuladas",
+      "invalidation": "Cierre de vela M15 por debajo del nivel de ruptura retesteado"
+    },
+    "regime_filter": {
+      "model": "Lopez_de_Prado_ZScore_D1",
+      "timeframe": "D1",
+      "fast_atr": 5,
+      "slow_atr": 14,
+      "min_zscore": 0.67
+    },
+    "triple_barriers": {
+      "b1_take_profit_atr": 2.0,
+      "b2_stop_loss_atr": 1.5,
+      "b3_max_holding_bars": 24
+    },
+    "target_assets": ["EURUSD", "USDCLP", "GBPUSD"],
+    "historical_depth_target": "5 a 10 Años D1",
+    "status": "RESEARCH_CODE_READY",
+    "artifacts": {
+      "pine_strategy": "strategies/STRAT-20260901-ORB_D1Z-M15-v1.0.pine",
+      "mql5_ea": "strategies/STRAT-20260901-ORB_D1Z-M15-v1.0.mq5",
+      "factsheet": "strategies/STRAT-20260901-ORB_D1Z-M15-v1.0_FACTSHEET.md"
+    }
+  }
+]

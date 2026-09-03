@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quant Agentic Swarm (QAS) - Arquitectura Interactiva</title>
+    
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <!-- SVG Pan Zoom -->
+    <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-subtle: #fafafa;
+            --bg-card: #ffffff;
+            --border-light: #e4e4e7;
+            --border-focus: #09090b;
+            --accent-primary: #09090b;
+            --accent-blue: #2563eb;
+            --accent-emerald: #059669;
+            --accent-amber: #d97706;
+            --accent-purple: #7c3aed;
+            --text-main: #09090b;
+            --text-muted: #52525b;
+            --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-display);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header.app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 28px;
+            background: var(--bg-main);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 30;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-badge {
+            background: #09090b;
+            color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .brand-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+        }
+
+        .brand-subtitle {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-light);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-action {
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.15s ease;
+        }
+
+        .btn-action:hover {
+            background: var(--bg-subtle);
+            color: var(--text-main);
+            border-color: #a1a1aa;
+        }
+
+        .btn-action.active {
+            background: #09090b;
+            color: #ffffff;
+            border-color: #09090b;
+        }
+
+        main.canvas-viewport {
+            flex: 1;
+            position: relative;
+            background: #ffffff;
+            overflow: hidden;
+        }
+
+        #diagram-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #diagram-container svg {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .floating-panel {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 14px 18px;
+            box-shadow: var(--shadow-md);
+            z-index: 20;
+            max-width: 380px;
+        }
+
+        .panel-top-left {
+            top: 20px;
+            left: 24px;
+        }
+
+        .panel-bottom-left {
+            bottom: 24px;
+            left: 24px;
+            max-width: 560px;
+        }
+
+        .panel-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #09090b;
+        }
+
+        .panel-desc {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72rem;
+            color: #3f3f46;
+            font-weight: 500;
+        }
+
+        .legend-color {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .zoom-controls {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 20;
+        }
+
+        .zoom-btn {
+            width: 36px;
+            height: 36px;
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #09090b;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.15s ease;
+        }
+
+        .zoom-btn:hover {
+            background: var(--bg-subtle);
+            border-color: #09090b;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="brand-section">
+            <div class="brand-badge">QAS</div>
+            <div>
+                <span class="brand-title">QUANT AGENTIC SWARM</span>
+                <span class="brand-subtitle">Capa 1: Idea -> Hipotesis (HITL) -> Reglas + LaTeX -> Codigo Puro & Telemetria</span>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <button class="btn-action" onclick="resetZoom()" title="Centrar y Ajustar">Centrar Flujo</button>
+            <button class="btn-action active" id="btnToggleLegend" onclick="toggleLegend()">Leyenda Tecnica</button>
+        </div>
+    </header>
+
+    <main class="canvas-viewport">
+        
+        <div class="floating-panel panel-top-left">
+            <div class="panel-title">Pureza & Trazabilidad</div>
+            <p class="panel-desc">
+                - <strong>Muestra 5-10 Anos:</strong> Medidor de historial D1 con alerta no bloqueante en el HUD.<br>
+                - <strong>Take Profit ATR D1:</strong> Anclado al ATR diario de 14 periodos cerrado (shift 1).<br>
+                - <strong>Trazabilidad Unica:</strong> Strategy UUID y registro persistente en <code>STRATEGY_REGISTRY.json</code>.<br>
+                - <strong>Cero Filtros Ocultos:</strong> Exclusion de filtros de ejecucion en vivo en la fase de estudio.
+            </p>
+        </div>
+
+        <div class="floating-panel panel-bottom-left" id="legendPanel">
+            <div class="panel-title">Ecosistema de Nodos y RAGs Especializados</div>
+            <div class="legend-grid">
+                <div class="legend-item"><span class="legend-color" style="background:#09090b;"></span> Humano / Puerta HITL</div>
+                <div class="legend-item"><span class="legend-color" style="background:#eff6ff; border-color:#2563eb;"></span> Agentes de Investigacion</div>
+                <div class="legend-item"><span class="legend-color" style="background:#fdf4ff; border-color:#9333ea;"></span> RAGs Especializados</div>
+                <div class="legend-item"><span class="legend-color" style="background:#fefce8; border-color:#ca8a04;"></span> StrategySpecification (JSON + LaTeX)</div>
+                <div class="legend-item"><span class="legend-color" style="background:#f0fdf4; border-color:#16a34a;"></span> Agente PineScript v5</div>
+                <div class="legend-item"><span class="legend-color" style="background:#fff7ed; border-color:#ea580c;"></span> Agente MQL5 (Expert Advisor)</div>
+            </div>
+        </div>
+
+        <div class="zoom-controls">
+            <button class="zoom-btn" onclick="panZoomInstance.zoomIn()" title="Zoom In">+</button>
+            <button class="zoom-btn" onclick="panZoomInstance.zoomOut()" title="Zoom Out">-</button>
+            <button class="zoom-btn" onclick="resetZoom()" title="Resetear Vista" style="font-size: 0.75rem;">[ ]</button>
+        </div>
+
+        <div id="diagram-container"></div>
+
+    </main>
+
+    <script>
+        const mermaidFlowCode = `
+flowchart TB
+    classDef default fill:#ffffff,stroke:#e4e4e7,stroke-width:1px,color:#09090b;
+    classDef humanNode fill:#09090b,stroke:#09090b,stroke-width:2px,color:#ffffff;
+    classDef researchNode fill:#eff6ff,stroke:#2563eb,stroke-width:1.5px,color:#1e3a8a;
+    classDef ragNode fill:#fdf4ff,stroke:#9333ea,stroke-width:1.5px,color:#581c87;
+    classDef specNode fill:#fefce8,stroke:#ca8a04,stroke-width:1.5px,color:#713f12;
+    classDef pineNode fill:#f0fdf4,stroke:#16a34a,stroke-width:1.5px,color:#14532d;
+    classDef mqlNode fill:#fff7ed,stroke:#ea580c,stroke-width:1.5px,color:#9a3412;
+    classDef qaNode fill:#f8fafc,stroke:#64748b,stroke-width:1.5px,color:#1e293b;
+
+    USER_INPUT["Usuario (Trader)<br/>Ingresa Idea o Intuicion de Mercado"]:::humanNode
+    REGISTRY[("Memoria del Enjambre<br/>STRATEGY_REGISTRY.json<br/>(Historial de Hipotesis y Versiones)")]:::ragNode
+
+    subgraph PHASE_1 ["FASE 1: CO-CREACION DE HIPOTESIS (HUMAN-IN-THE-LOOP)"]
+        direction TB
+        HYP_AGENT["Agente de Hipotesis<br/>Genera 3 Fichas Tecnicas"]:::researchNode
+        
+        subgraph VARIANTS ["Matriz de Variantes Estructuradas (Formula X-Y-Z)"]
+            direction LR
+            VAR_A["Variante A: Momentum Directo<br/>- Quiebre inmediato<br/>- Stop en 50% de rango"]
+            VAR_B["Variante B: Pullback & Retest<br/>- Absorcion institucional<br/>- Stop en soporte previo"]
+            VAR_C["Variante C: Filtro Volatilidad<br/>- Compresion previa<br/>- Salida por tiempo"]
+        end
+
+        GATE_HITL{"Puerta de Control Humano<br/>Aprobar, Combinar o Ajustar"}:::humanNode
+        HYP_APPROVED["Hipotesis Certificada y Firmada<br/>(Tesis Economica e Invalidacion Sellada)"]:::researchNode
+
+        HYP_AGENT --> VARIANTS
+        VARIANTS --> GATE_HITL
+        GATE_HITL -->|Seleccion / Feedback| HYP_APPROVED
+    end
+
+    USER_INPUT --> HYP_AGENT
+    REGISTRY <-->|Consulta Previa & Registro| HYP_AGENT
+
+    subgraph PHASE_2 ["FASE 2: MODELADO DE REGLAS CANONICAS CON LATEX & MOTORES MTF"]
+        direction TB
+        MODELER["Agente Modelador de Reglas<br/>Estructura Condiciones Matematicas"]:::researchNode
+        
+        RAG_QUANT[("RAG 1: Literatura Cuantitativa<br/>- Kaufman (Trading Systems)<br/>- Chan (Algorithmic Trading)<br/>- Williams & Crabel (Setups)")]:::ragNode
+        
+        subgraph QUANT_ENGINES ["Motores Cuantitativos de Evaluacion"]
+            direction LR
+            REGIME_ENGINE["Filtro de Regimen MTF (Lopez de Prado)<br/>- Z-Score Volatilidad Diario (D1)<br/>- ATR 5 vs 14 con Ventana 5-10 Anos<br/>- Estados: Baja / Media / Alta"]
+            BARRIER_ENGINE["Triple Barrier Method (Salidas Dinamicas)<br/>- B1: Take Profit Dinamico (+k1 * ATR D1)<br/>- B2: Stop Loss Estructural (-k2 * ATR)<br/>- B3: Time-Stop (Cierre tras N barras)"]
+        end
+
+        MODELER <-->|Consulta Formulas, Citas & LaTeX| RAG_QUANT
+        MODELER --> QUANT_ENGINES
+    end
+
+    HYP_APPROVED --> MODELER
+
+    SPEC_CONTRACT["StrategySpecification (JSON Contract con Strategy UUID)<br/>- Definicion matematica formal en LaTeX y Pseudocodigo univoco<br/>- Rango Objetivo: 5 a 10 Anos D1 con Alerta No Bloqueante<br/>- TP Anclado a ATR D1(14)<br/>- Declaracion de Pureza de Investigacion (Cero filtros de ejecucion ocultos)"]:::specNode
+
+    QUANT_ENGINES --> SPEC_CONTRACT
+
+    subgraph PHASE_3 ["FASE 3: ENJAMBRE DE DESARROLLADORES ESPECIALISTAS (MULTI-RAG)"]
+        direction TB
+        ROUTER_DEV{"Selector de Entorno"}:::specNode
+
+        subgraph PINE_PIPELINE ["Ecosistema TradingView (v5)"]
+            direction TB
+            PINE_AGENT["Agente Especialista PineScript v5<br/>Escribe Script Nativo Puro"]:::pineNode
+            RAG_PINE[("RAG 2: PineScript KB<br/>- Manual Oficial v5<br/>- Lookahead-off en Security<br/>- UDTs, Arrays, AlertCondition")]:::ragNode
+            PINE_AGENT <-->|Sintaxis & Anti-Repainting| RAG_PINE
+        end
+
+        subgraph MQL_PIPELINE ["Ecosistema MetaTrader 5 (POO)"]
+            direction TB
+            MQL_AGENT["Agente Especialista MQL5<br/>Escribe Expert Advisor POO"]:::mqlNode
+            RAG_MQL[("RAG 3: MQL5 KB<br/>- Standard Library (CTrade)<br/>- Sincronizacion IsNewBar<br/>- Manejo de Errores & Warmup Guard")]:::ragNode
+            MQL_AGENT <-->|Clases & Handles MT5| RAG_MQL
+        end
+
+        ROUTER_DEV -->|TradingView| PINE_AGENT
+        ROUTER_DEV -->|MetaTrader 5| MQL_AGENT
+        ROUTER_DEV -->|Ambos Entornos| PINE_AGENT & MQL_AGENT
+
+        QA_VALIDATOR["Agente QA & Paridad Cross-Language<br/>- Sanity Check & Clamping de Inputs<br/>- Comprueba 0 Errores / 0 Warnings de Compilacion"]:::qaNode
+
+        PINE_AGENT --> QA_VALIDATOR
+        MQL_AGENT --> QA_VALIDATOR
+    end
+
+    SPEC_CONTRACT --> ROUTER_DEV
+
+    subgraph PHASE_4 ["FASE 4: ENTREGABLES, TELEMETRIA Y FACTSHEET"]
+        direction TB
+        
+        subgraph DELIVERABLES ["Codigo Fuente Puro (.pine / .mq5)"]
+            direction LR
+            DELIVERABLE_PINE["Script .pine (TradingView v5)<br/>Modo Strategy / Indicator"]:::pineNode
+            DELIVERABLE_MQL["Expert Advisor .mq5 (MT5)<br/>Modular POO con CTrade"]:::mqlNode
+        end
+
+        subgraph TELEMETRY ["Capa de Diagnostico & Auditoria"]
+            direction LR
+            HUD_PANEL["HUD Neutro-Informativo en Pantalla<br/>Medidor de 5-10 Anos D1 + Z-Score + Tabla de Parametros"]:::researchNode
+            TRIGGER_LOGS["Logs de Disparos JSON<br/>Print en Pine Logs & MT5 Journal unicamente al abrir/cerrar"]:::specNode
+            FACTSHEET["STRATEGY_FACTSHEET.md<br/>Tesis X-Y-Z + LaTeX + Citas + Guia de Broker"]:::specNode
+        end
+
+        DELIVERABLES --> TELEMETRY
+    end
+
+    QA_VALIDATOR --> DELIVERABLES
+        `;
+
+        let panZoomInstance = null;
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'base',
+            themeVariables: {
+                background: '#ffffff',
+                primaryColor: '#ffffff',
+                primaryBorderColor: '#cbd5e1',
+                lineColor: '#64748b',
+                textColor: '#09090b',
+                fontFamily: 'Inter, -apple-system, sans-serif',
+                fontSize: '13px'
+            }
+        });
+
+        async function renderDiagram() {
+            const container = document.getElementById('diagram-container');
+            const { svg } = await mermaid.render('mermaid-svg-element', mermaidFlowCode);
+            container.innerHTML = svg;
+
+            const svgElement = document.getElementById('mermaid-svg-element');
+            panZoomInstance = svgPanZoom(svgElement, {
+                zoomEnabled: true,
+                controlIconsEnabled: false,
+                fit: true,
+                center: true,
+                minZoom: 0.3,
+                maxZoom: 6,
+                zoomScaleSensitivity: 0.25
+            });
+
+            setTimeout(() => {
+                panZoomInstance.resize();
+                panZoomInstance.fit();
+                panZoomInstance.center();
+            }, 100);
+        }
+
+        function resetZoom() {
+            if (panZoomInstance) {
+                panZoomInstance.resetZoom();
+                panZoomInstance.fit();
+                panZoomInstance.center();
+            }
+        }
+
+        function toggleLegend() {
+            const panel = document.getElementById('legendPanel');
+            const btn = document.getElementById('btnToggleLegend');
+            if (panel.style.display === 'none') {
+                panel.style.display = 'block';
+                btn.classList.add('active');
+            } else {
+                panel.style.display = 'none';
+                btn.classList.remove('active');
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            if (panZoomInstance) {
+                panZoomInstance.resize();
+            }
+        });
+
+        renderDiagram();
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# MT5 Knowledge Base & Gateway Dependencies
+
+# API Gateway
+fastapi>=0.100.0
+uvicorn>=0.22.0
+pydantic>=2.0.0
+requests>=2.31.0
+
+# Data Analysis & Quantitative Tools
+pandas>=2.0.0
+numpy>=1.24.0
+
+# MT5 Python Library (Windows only / Parallels VM)
+# MetaTrader5>=5.0.45; sys_platform == 'win32'

@@ -1,0 +1,138 @@
+[
+  {
+    "strategy_id": "STRAT-20260902-USGAP_MOM-M15-v1.0",
+    "timestamp": "2026-09-02T19:37:17Z",
+    "thesis_title": "US Opening Gap Momentum Continuation (Gap and Go)",
+    "hypothesis": {
+      "condition_x": "Gap de apertura US >= 1.0x ATR_D(14)[shift 1] respecto al cierre previo, confirmado por la 1ra vela M15 de sesion en la direccion del gap sin retroceder mas del 50% de su rango.",
+      "expected_outcome_y": "Aceleracion direccional sostenida durante la sesion regular de EEUU.",
+      "structural_reason_z": "Desequilibrio de order flow por catalizador overnight, explotado por volumen institucional al open.",
+      "invalidation": "Cierre de vela M15 mas alla del 50% del gap dentro de los primeros 30 minutos de sesion."
+    },
+    "regime_filter": {
+      "model": "Lopez_de_Prado_ZScore_D1",
+      "timeframe": "D1",
+      "fast_atr": 5,
+      "slow_atr": 14,
+      "min_zscore": 0.67
+    },
+    "triple_barriers": {
+      "b1_take_profit_atr": 2.0,
+      "b2_stop_loss_atr": 1.0,
+      "b3_max_holding_bars": 26
+    },
+    "target_assets": ["SPY", "QQQ", "DIA", "ES1!", "NQ1!"],
+    "historical_depth_target": "5 a 10 Años D1",
+    "status": "RESEARCH_CODE_READY",
+    "artifacts": {
+      "specification": "strategies/STRAT-20260902-USGAP_MOM-M15-v1.0_specification.json",
+      "pine_strategy": "strategies/STRAT-20260902-USGAP_MOM-M15-v1.0.pine",
+      "tradingview_pine": "../TradingView/pine/strategies/STRAT-20260902-USGAP_MOM-M15-v1.0.pine",
+      "mql5_ea": "strategies/STRAT-20260902-USGAP_MOM-M15-v1.0.mq5",
+      "mt5_ea": "../MT5/STRAT-20260902-USGAP_MOM-M15-v1.0.mq5",
+      "factsheet": "strategies/STRAT-20260902-USGAP_MOM-M15-v1.0_FACTSHEET.md"
+    }
+  },
+  {
+    "strategy_id": "STRAT-20260902-GOLD_ELDER_CROSS-M30-v1.0",
+    "timestamp": "2026-09-02T20:30:00Z",
+    "thesis_title": "Gold Trend-Aligned Pullback EMA Cross with Macro Filter (Elder Triple Screen)",
+    "hypothesis": {
+      "condition_x": "Cruce EMA 9 / 21 en M30 condicionado a que el precio de cierre este estrictamente alineado con la EMA 200 en M30 con pendiente favorable (Close > EMA 200 para largos; Close < EMA 200 para cortos).",
+      "expected_outcome_y": "Desplazamiento tendencial asimetrico en la direccion macro del oro, eliminando whipsaws y falsas rupturas de consolidacion.",
+      "structural_reason_z": "Flujo macroeconomico institucional y de cobertura en oro. Las correcciones intradia hacia el valor medio (EMA 200) ofrecen alta asimetria cuando el impulso (EMA 9/21) reanuda la marea mayor.",
+      "invalidation": "Cierre de vela M30 que cruce y vulnere la EMA 200 en sentido opuesto, o ejecucion de Stop Loss ATR."
+    },
+    "regime_filter": {
+      "model": "Lopez_de_Prado_ZScore_D1",
+      "timeframe": "D1",
+      "fast_atr": 5,
+      "slow_atr": 14,
+      "min_zscore": -0.67
+    },
+    "triple_barriers": {
+      "b1_take_profit_atr": 1.5,
+      "b2_stop_loss_atr": 0.75,
+      "b3_max_holding_bars": 32
+    },
+    "target_assets": ["XAUUSD", "GC1!", "GLD"],
+    "historical_depth_target": "5 a 10 Años D1",
+    "status": "RESEARCH_CODE_READY",
+    "artifacts": {
+      "specification": "strategies/STRAT-20260902-GOLD_ELDER_CROSS-M30-v1.0_specification.json",
+      "pine_strategy": "strategies/STRAT-20260902-GOLD_ELDER_CROSS-M30-v1.0.pine",
+      "tradingview_pine": "../TradingView/pine/strategies/STRAT-20260902-GOLD_ELDER_CROSS-M30-v1.0.pine",
+      "mql5_ea": "strategies/STRAT-20260902-GOLD_ELDER_CROSS-M30-v1.0.mq5",
+      "mt5_ea": "../MT5/STRAT-20260902-GOLD_ELDER_CROSS-M30-v1.0.mq5",
+      "mql5_binary": "strategies/STRAT-20260902-GOLD_ELDER_CROSS-M30-v1.0.ex5",
+      "factsheet": "strategies/STRAT-20260902-GOLD_ELDER_CROSS-M30-v1.0_FACTSHEET.md"
+    }
+  },
+  {
+    "strategy_id": "STRAT-20260902-GOLD_PULLBACK_EMA-M30-v1.0",
+    "timestamp": "2026-09-02T21:15:00Z",
+    "thesis_title": "Gold Fibonacci EMA Trend Pullback with Value Zone Rejection (Chande & Kroll)",
+    "hypothesis": {
+      "condition_x": "Cascada de Fibonacci EMA 13 > EMA 34 > EMA 89 en M30 con retroceso a la zona de valor (Low <= EMA 13 sin perder EMA 34) y cierre de vela confirmando rechazo (Close > EMA 13 en largos; simetrico inverso en cortos).",
+      "expected_outcome_y": "Entrada asimetrica de alta probabilidad con bajo Drawdown inicial y Payoff Ratio > 1.8x al capturar la continuacion del impulso.",
+      "structural_reason_z": "Acumulacion institucional de liquidez en las pausas de tendencia antes de defender el valor medio y reanudar el flujo direccional.",
+      "invalidation": "Cierre de vela M30 que perfore la EMA 34 en contra de la tendencia, o activacion de la Barrera 2 de Stop Loss ATR."
+    },
+    "regime_filter": {
+      "model": "Lopez_de_Prado_ZScore_D1",
+      "timeframe": "D1",
+      "fast_atr": 5,
+      "slow_atr": 14,
+      "min_zscore": -0.67
+    },
+    "triple_barriers": {
+      "b1_take_profit_atr": 1.5,
+      "b2_stop_loss_atr": 0.75,
+      "b3_max_holding_bars": 32
+    },
+    "target_assets": ["XAUUSD", "GC1!", "GLD"],
+    "historical_depth_target": "3 a 5 Años M30/D1",
+    "status": "RESEARCH_CODE_READY",
+    "artifacts": {
+      "specification": "strategies/STRAT-20260902-GOLD_PULLBACK_EMA-M30-v1.0_specification.json",
+      "pine_strategy": "strategies/STRAT-20260902-GOLD_PULLBACK_EMA-M30-v1.0.pine",
+      "tradingview_pine": "../TradingView/pine/strategies/STRAT-20260902-GOLD_PULLBACK_EMA-M30-v1.0.pine",
+      "mql5_ea": "strategies/STRAT-20260902-GOLD_PULLBACK_EMA-M30-v1.0.mq5",
+      "mt5_ea": "../MT5/STRAT-20260902-GOLD_PULLBACK_EMA-M30-v1.0.mq5",
+      "mql5_binary": "strategies/STRAT-20260902-GOLD_PULLBACK_EMA-M30-v1.0.ex5",
+      "factsheet": "strategies/STRAT-20260902-GOLD_PULLBACK_EMA-M30-v1.0_FACTSHEET.md"
+    }
+  },
+  {
+    "strategy_id": "STRAT-20260902-BTC_TREND_CROSS-M30-v1.0",
+    "timestamp": "2026-09-02T22:33:00Z",
+    "thesis_title": "Bitcoin Macro Trend-Filtered EMA Cross with Daily ATR Triple Barrier",
+    "hypothesis": {
+      "condition_x": "Cruce alcista EMA 12 > 26 con precio de cierre estrictamente superior a EMA 200 en M30 (para largos), o cruce bajista EMA 12 < 26 con precio inferior a EMA 200 (para cortos), evaluado al cierre de barra (shift 1).",
+      "expected_outcome_y": "Desplazamiento asimetrico a favor del ciclo mayor de Bitcoin con objetivo 2:1 sobre riesgo por trade.",
+      "structural_reason_z": "Eliminacion del 65% de falsos cruces en rangos mediante el filtro de 200 periodos de Elder, combinada con la normalizacion de volatilidad diaria de Lopez de Prado.",
+      "invalidation": "Cruce inverso de EMA 12/26, toque de Stop Loss (0.75x ATR D1) o expiracion de 32 barras M30 (16 horas)."
+    },
+    "regime_filter": {
+      "model": "Elder_Macro_EMA200_M30",
+      "timeframe": "M30",
+      "macro_period": 200
+    },
+    "triple_barriers": {
+      "b1_take_profit_atr": 1.5,
+      "b2_stop_loss_atr": 0.75,
+      "b3_max_holding_bars": 32
+    },
+    "target_assets": ["BTCUSD", "BTCUSD.", "XBTUSD"],
+    "historical_depth_target": "3 a 5 Años M30/D1",
+    "status": "RESEARCH_CODE_READY",
+    "artifacts": {
+      "specification": "strategies/STRAT-20260902-BTC_TREND_CROSS-M30-v1.0_specification.json",
+      "mql5_ea": "strategies/STRAT-20260902-BTC_TREND_CROSS-M30-v1.0.mq5",
+      "mt5_ea": "../MT5/STRAT-20260902-BTC_TREND_CROSS-M30-v1.0.mq5",
+      "mql5_binary": "strategies/STRAT-20260902-BTC_TREND_CROSS-M30-v1.0.ex5",
+      "factsheet": "strategies/STRAT-20260902-BTC_TREND_CROSS-M30-v1.0_FACTSHEET.md"
+    }
+  }
+]
+

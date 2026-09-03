@@ -1,0 +1,7 @@
+# Cursor Rules — MetaTrader 5 (MT5) Knowledge Base & Ecosistema
+
+- Consulta siempre `AGENTS.md` para reglas de proyecto y arquitectura.
+- Consulta `llms.txt` o `knowledge/INDEX.md` para ubicar el tratado técnico relevante entre los 20 documentos disponibles en `knowledge/`.
+- Regla de Error Masking en Python: En bloques `except`, usa siempre `type(err).__name__` y el sufijo `(detalles omitidos por seguridad)`.
+- Distinción MT5 vs GIF: "servidor" en este repo refiere a la VM local FastAPI (`10.211.55.4:8000`), a menos que se trate del proyecto de Business Intelligence SQL remoto (`185.56.138.170`).
+- No hardcodear credenciales; usa `.env` o `~/.mt5_accounts.json`.

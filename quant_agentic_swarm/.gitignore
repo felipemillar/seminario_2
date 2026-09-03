@@ -1,0 +1,13 @@
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Temporary and log files
+*.log
+tmp/
+scratch/
+
+# Compiled Binaries
+*.ex5

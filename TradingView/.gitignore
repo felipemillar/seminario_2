@@ -1,0 +1,61 @@
+# =============================================================================
+# TRADINGVIEW QUANT SUITE — GITIGNORE
+# QRT Solutions
+# =============================================================================
+
+# Entornos Virtuales de Python
+.venv/
+venv/
+env/
+ENV/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Archivos de Sistema Operativo
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE & Editores
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.ipynb_checkpoints/
+
+# Archivos de Datos Masivos (> 100 MB - GitHub Limit)
+masterclass/@NQ_5m.csv
+masterclass/@GC_5m.csv
+*.csv.gz
+*.parquet
+*.h5
+
+# Logs y Archivos Temporales
+*.log
+scratch/
+tmp/
+.temp/

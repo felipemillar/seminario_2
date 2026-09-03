@@ -1,0 +1,54 @@
+# MetaTrader 5 (MT5) & MQL5 Algorithmic Trading Knowledge Base
+
+> Base de conocimiento técnica y exhaustiva sobre MetaTrader 5, MQL5, Python API, Backtesting, Arquitectura de Sistemas y Trading Cuantitativo.
+
+## Resumen del Proyecto
+
+Este repositorio contiene más de 1.8 MB de documentación técnica de alta densidad dividida en 20 tratados exhaustivos, junto con una pasarela FastAPI Gateway (`src/gateway/`) y un conjunto de herramientas analíticas (`scripts/`) para escaneo de spreads, swap carry trade, volatilidad ATR y arbitraje entre brokers.
+
+## Documentos Principales de Conocimiento (`knowledge/`)
+
+### Fundamentos y Arquitectura del Sistema
+- [Informe Técnico MT5 y MQL5](knowledge/Informe%20T%C3%A9cnico%20MT5%20y%20MQL5.md): Arquitectura de clúster MT5, modelo de eventos, tipos de datos MQL5, memoria y concurrencia.
+- [Informe Técnico Arquitectura MetaTrader 5](knowledge/Informe%20T%C3%A9cnico%20Arquitectura%20MetaTrader%205.md): Servidores de trading vs históricos, event loop, coalescencia de eventos, live update y modo portable.
+- [Integración de MetaTrader 5 con Sistemas Externos](knowledge/Integración%20de%20MetaTrader%205%20con%20Sistemas%20Externos.md): WebRequest HTTP/REST, sockets TCP/TLS, ZeroMQ, Named Pipes, archivos compartidos y comparativa de integración.
+- [MT5 macOS Trading Algorítmico: Guía Técnica](knowledge/MT5%20macOS%20Trading%20Algor%C3%ADtmico_%20Gu%C3%ADa%20T%C3%A9cnica.md): Soluciones para macOS (Apple Silicon), virtualización, VPS Windows, latencias, telemetría Telegram y auto-recovery.
+- [Informe Técnico: MT5, Python y Cloud](knowledge/Informe%20T%C3%A9cnico_%20MT5,%20Python%20y%20Cloud.md): Arquitecturas de despliegue monolítica, híbrida y enterprise con TimescaleDB, Grafana y circuit breakers.
+
+### Programación MQL5 y Desarrollo de EAs
+- [Informe Técnico MQL5 para Desarrolladores](knowledge/Informe%20T%C3%A9cnico%20MQL5%20para%20Desarrolladores.md): Referencia exhaustiva de MQL5, OOP, punteros, gestión de memoria, matrices y gotchas críticos vs C++.
+- [MQL5: Capacidades Avanzadas y Extensión](knowledge/MQL5_%20Capacidades%20Avanzadas%20y%20Extensi%C3%B3n.md): OpenCL en GPU, DLL marshaling, base de datos SQLite integrada, Services en background y símbolos sintéticos.
+- [Desarrollo Profesional de Expert Advisors en MQL5](knowledge/Desarrollo%20Profesional%20de%20Expert%20Advisors%20en%20MQL5.md): Ciclo de vida (OnInit, OnTick, OnTradeTransaction), State Machine resiliente, multi-timeframe, logging JSON y control de Magic Numbers.
+- [Desarrollo Profesional de EAs con IA](knowledge/Desarrollo%20Profesional%20de%20EAs%20con%20IA.md): Patrones modulares de diseño, ingeniería de prompts para código financiero, testing de robustez y hot-swap.
+
+### Indicadores, Visualización y Microestructura
+- [Creación Indicadores MQL5 Avanzados y ML](knowledge/Creación%20Indicadores%20MQL5%20Avanzados%20y%20ML.md): OnCalculate, buffers de dibujo, VWAP, Order Flow, Volume Profile, Heikin Ashi Smoothed y feature engineering.
+- [Informe Técnico: Indicadores y Gráficos MT5](knowledge/Informe%20T%C3%A9cnico_%20Indicadores%20y%20Gr%C3%A1ficos%20MT5.md): 18 estilos de dibujo, caché de handles, objetos gráficos interactivos, paneles con CAppDialog y optimización.
+- [MT5: Flujos de Datos en Tiempo Real](knowledge/MT5_%20Flujos%20de%20Datos%20en%20Tiempo%20Real.md): Streaming de ticks y DOM (Level 2), IPC por Named Pipes vs ZeroMQ, ring buffers y benchmarks de microsegundos.
+
+### Motor de Trading, Ejecución y Gestión de Riesgo
+- [MT5: Órdenes, Trades y Posiciones](knowledge/MT5_%20%C3%93rdenes,%20Trades%20y%20Posiciones.md): Modelo Order-Deal-Position, modos de ejecución, fill policies (FOK, IOC, Return), MqlTradeRequest y OnTradeTransaction tracker.
+- [Gestión de Órdenes y Riesgo MT5](knowledge/Gesti%C3%B3n%20de%20%C3%93rdenes%20y%20Riesgo%20MT5.md): Modelos de position sizing (Kelly, Risk Parity), circuit breakers, trailing stops ATR, control de retcodes y cálculo de margen.
+
+### Python API y Data Engineering Cuantitativo
+- [Informe Técnico MetaTrader5 Python API](knowledge/Informe%20T%C3%A9cnico%20MetaTrader5%20Python%20API.md): Guía de referencia de la librería `MetaTrader5`, extracción OHLCV/Ticks vectorizada, manejo de sesiones y servidor pasarela.
+- [Informe Técnico Python para MetaTrader 5](knowledge/Informe%20T%C3%A9cnico%20Python%20para%20MetaTrader%205.md): Wrapper asíncrono, conexión multiterminal, pipelines en pandas y gestión de zonas horarias UTC.
+- [Data Engineering para Trading Algorítmico MT5](knowledge/Data%20Engineering%20para%20Trading%20Algor%C3%ADtmico%20MT5.md): Extracción masiva paginada, Triple Barrier Method, dollar bars, VPIN, almacenamiento en Parquet/TimescaleDB y pipelines ETL.
+
+### Validación Estadística y Backtesting
+- [Strategy Tester MT5: Guía Exhaustiva](knowledge/Strategy%20Tester%20MT5_%20Gu%C3%ADa%20Exhaustiva.md): 4 modos de modelado (Every Tick, Real Ticks), optimización genética, Frames API, OnTester custom y automatización CLI.
+- [Backtesting Estrategias Trading: MT5 y Python](knowledge/Backtesting%20Estrategias%20Trading_%20MT5%20y%20Python.md): Mitigación de sesgos (Deflated Sharpe Ratio), Walk-Forward Analysis (WFA), simulaciones Monte Carlo y pipeline Go/No-Go.
+
+### Inteligencia Artificial y Agentes
+- [IA para Trading Algorítmico MT5](knowledge/IA%20para%20Trading%20Algor%C3%ADtmico%20MT5.md): Protocolos de interacción para agentes LLM, auditoría de código algorítmico, Skills y buenas prácticas éticas/riesgo.
+- [Índice Maestro y Tags](knowledge/INDEX.md): Catálogo completo, relaciones v1/v2 y matriz de tags cruzados.
+
+## Código y Servicios Incluidos
+
+- [Gateway FastAPI (Windows/VM)](src/gateway/server.py): API REST con endpoints `/initialize`, `/symbols`, `/rates`, `/ticks`, `/order`, `/positions`, `/switch_account` para operar MT5 remotamente desde macOS/Linux.
+- [Scripts de Análisis](scripts/):
+  - `fetch_broker_data.py`: Extracción automatizada de metadatos de símbolos por broker.
+  - `fetch_swap_scan.py` / `analyze_swap_arbitrage.py`: Escaneo de tasas de interés y arbitraje de swaps.
+  - `fetch_atr_scan.py` / `fetch_atr_history.py`: Análisis de volatilidad porcentual en activos.
+  - `analyze_carry_trade.py`: Detección de oportunidades de carry trading.
+  - `build_dashboard_data.py`: Compilador de datos para visualización web.

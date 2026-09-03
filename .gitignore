@@ -1,0 +1,60 @@
+# =============================================================================
+# REPOSITORIO MAESTRO SEMINARIO_2 — GITIGNORE
+# QRT Solutions
+# =============================================================================
+
+# Sistema Operativo y Editores
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.ipynb_checkpoints/
+
+# Entornos Virtuales y Python
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# Archivos de Configuracion Sensibles
+.env
+*.env
+!.env.example
+
+# Binarios Compilados de MetaTrader 5
+*.ex5
+*.tst
+
+# Datos Temporales y Cache de MT5
+MT5/data/
+**/Tester/cache/
+**/Tester/logs/
+**/Tester/Agent-*/
+
+# Archivos de Datos Masivos (> 50 MB)
+TradingView/masterclass/@NQ_5m.csv
+TradingView/masterclass/@GC_5m.csv
+*.csv.gz
+*.parquet
+*.h5
+
+# Logs y Archivos Temporales
+*.log
+tmp/
+scratch/
+.temp/
