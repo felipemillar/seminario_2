@@ -8,6 +8,20 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Ejecución del Pool Completo de Diagnóstico Cuantitativo en Nasdaq
+**Objetivo:** Aplicar el nuevo marco de diagnóstico de 3 módulos (Evaluación Dual, Diagnóstico de Asimetrías y Diagnóstico de Ejecución/Tiempos) sobre las 1,239 operaciones del backtest de Nasdaq en MT5.
+
+### [OK] Cambios Realizados:
+- **[Ejecución de Diagnóstico Exhaustivo]**: Procesados 1,239 trades reconstruidos en Python, computando métricas de Esperanza Matemática ($E$), Consistencia Mensual (32 meses), Duración en Barras (Time-Stop), Rachas Máximas y Segmentación Horaria (RTH vs Overnight).
+- **[Reporte Maestro Publicado]**: Generado [`MT5/backtests/REPORT_BACKTEST_NQ_FULL_DIAGNOSTIC_POOL.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/backtests/REPORT_BACKTEST_NQ_FULL_DIAGNOSTIC_POOL.md) con todas las tablas comparativas y métricas de soporte.
+- **[Hallazgos Revelados por el Diagnóstico]**:
+  - **Asimetría Direccional:** Compras ($E = +0.0456\%$ por trade, retorno $+28.27\%$, PF $1.18$) vs Ventas ($E = -0.0312\%$, retorno $-19.31\%$, PF $0.89$).
+  - **Duración (Time-Stop):** Trades ganadores duran $78.3$ barras M30 ($39.2$ hrs) vs perdedores que duran $19.2$ barras ($9.6$ hrs).
+  - **Racha de Pérdidas:** Máximo de 18 pérdidas consecutivas globales (15 en shorts), justificando un Circuit Breaker diario.
+  - **Consistencia Temporal:** Exactamente 50% de meses positivos (16 de 32 meses), con meses pico de $+7.75\%$ y $-17.37\%$.
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Auditoría de Backtest Dual (Monetaria vs Variación Porcentual Pura) en Nasdaq
 **Objetivo:** Evaluar cuantitativamente la primera simulación histórica ejecutada sobre los datos externos de Nasdaq (`CUSTOM_NQ_M5`) analizando paralelamente la dimensión monetaria en USD y el retorno porcentual puro no apalancado del precio.
 
