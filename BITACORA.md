@@ -8,6 +8,19 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Actualización de Reglas del Agente — Triada Gráfica Obligatoria en Auditorías
+**Objetivo:** Modificar las directrices normativas del agente (`.agents/AGENTS.md`, `MT5/AGENTS.md` y `MT5/BACKTEST_AUDIT_MANUAL.md`) para exigir que, junto con los 3 módulos tabulares de auditoría, se genere e incruste siempre la terna visual: Curva de Equity, Gráfico de Drawdown Underwater y Gráfico de Excursiones (MAE vs MFE).
+
+### [OK] Cambios Realizados:
+- **[Actualización de Reglas Maestras (`.agents/AGENTS.md` & `MT5/AGENTS.md`)]**:
+  * Incorporada la sección "Triada Gráfica Obligatoria (3 Gráficos Mandatorios)" en la cláusula 4.7 de `AGENTS.md` y 3.3 de `MT5/AGENTS.md`.
+- **[Manual de Auditoría (`MT5/BACKTEST_AUDIT_MANUAL.md`)]**:
+  * Actualizado el diagrama de arquitectura y la plantilla de salida oficial para incluir los enlaces e imágenes de la triada gráfica cuantitativa.
+- **[Herramienta de Renderizado (`MT5/scripts/generate_backtest_charts.py`)]**:
+  * Creado script Python autónomo para generar automáticamente la Curva de Equity, el área de Drawdown y la dispersión MAE/MFE con líneas guía de percentil 90 y masa modal.
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Reordenamiento Pedagógico de Diapositivas en Masterclass
 **Objetivo:** Reubicar la diapositiva del flujo de trabajo con el agente de IA para que aparezca inmediatamente después de la diapositiva "¿Por qué crees que el precio se va a mover? (El Test de la Frase Única)", logrando una secuencia didáctica natural: de la formulación de la hipótesis económica a la co-creación de la estrategia con el agente.
 

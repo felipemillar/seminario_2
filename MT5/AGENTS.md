@@ -63,6 +63,11 @@ Todo reporte o análisis de backtesting en MT5 debe presentarse **obligatoriamen
 2. **Módulo 2 (Diagnóstico de Asimetrías):** Desglose mandatorio Compras (Longs) vs Ventas (Shorts), Esperanza Matemática ($E$) por trade y Consistencia Temporal (% Meses Positivos).
 3. **Módulo 3 (Diagnóstico de Ejecución y Tiempos):** Eficiencia de Excursión (MAE / MFE), Duración de Permanencia en Barras (Time-Stop) y Racha Máxima de Pérdidas con recomendación de Circuit Breaker.
 
+**Triada Gráfica Obligatoria:** Además de las tablas métricas, el agente debe generar e incorporar siempre:
+- **Curva de Equity:** Crecimiento temporal acumulado del balance/equidad.
+- **Gráfico de Drawdown:** Curva de área submarina (underwater) exponiendo la profundidad y duración de caídas.
+- **Gráfico de Excursiones (MAE vs MFE):** Dispersión de excursiones adversas vs favorables con los percentiles de calibración.
+
 > **Frases Disparadoras Reconocidas:** *"Audita el backtest de [activo] con el pool de 3 módulos"*, *"Genera el reporte de backtest dual y asimetrías"*, o simplemente *"Analiza los KPIs de este backtest"*.
 
 ---

@@ -157,6 +157,12 @@ Cada vez que el usuario solicite auditar, reportar o analizar los resultados de 
    - **Tiempo de Permanencia (Time-Stop):** Duración media en barras intradiarias de ganadores vs perdedores (*Crabel*).
    - **Racha Máxima de Pérdidas y Circuit Breaker:** Conteo de pérdidas continuas y freno automático (*Weissman & Elder*).
 
+#### Triada Gráfica Obligatoria (3 Gráficos Mandatorios):
+Además de los 3 módulos tabulares, cada reporte cuantitativo debe generar e incorporar **obligatoriamente y sin excepción** los siguientes 3 artefactos visuales:
+1. **Curva de Equity (Capital Growth Curve):** Gráfico de línea temporal que muestra la evolución acumulada de la curva de balance/equidad a lo largo del tiempo y número de operaciones.
+2. **Gráfico de Drawdown (Underwater Chart):** Gráfico de área submarina que expone con precisión la profundidad y duración temporal de cada retroceso de capital desde máximos históricos.
+3. **Gráfico de Excursiones (MAE vs MFE Scatter Plot):** Gráfico de dispersión bidimensional que mapea la Máxima Excursión Adversa (eje X en múltiplos de ATR) versus la Máxima Excursión Favorable (eje Y en múltiplos de ATR) por cada operación, integrando las líneas de referencia del percentil 90 de MAE y la masa modal de MFE para sustentar la calibración de Stops y Targets.
+
 ### 4.8. Estándar Obligatorio de Optimización Cuantitativa (Meseta de Robustez & MAE/MFE)
 Cada vez que el usuario solicite calibrar, optimizar o mejorar los parámetros de **cualquier estrategia o activo** (en MT5, Python o TradingView), el agente debe someterse **sin excepción** al protocolo canónico documentado en [`quant_agentic_swarm/docs/OPTIMIZATION_PROTOCOL.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/docs/OPTIMIZATION_PROTOCOL.md).
 
