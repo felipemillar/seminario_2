@@ -8,6 +8,16 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Reorganización Estructural de Datasets en masterclass/data/
+**Objetivo:** Centralizar y ordenar todos los archivos de datos históricos (CSVs y comprimidos) dentro de una subcarpeta dedicada `masterclass/data/` para mantener la raíz del módulo limpia y modular.
+
+### [OK] Cambios Realizados:
+- **[Migración de Archivos]**: Creada la carpeta [`masterclass/data/`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/data) y movidos todos los datasets: `@GC_5m.csv`, `@GC_5m.csv.gz`, `@NQ_5m.csv`, `@NQ_5m.csv.gz`, `GC_5M_MT5_2022_2026.csv`, `NQ_5M_MT5_2020_2026.csv` y `NQ_5M_MT5_ALL.csv`.
+- **[Sincronización de Rutas del Ecosistema]**: Actualizadas las referencias y rutas relativas en [`.gitignore`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/.gitignore), [`MT5/CUSTOM_DATA_IMPORT_GUIDE.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/CUSTOM_DATA_IMPORT_GUIDE.md), [`MT5/AGENTS.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/AGENTS.md) y [`MT5/scripts/convert_nq_for_mt5.py`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/scripts/convert_nq_for_mt5.py).
+- **[Compatibilidad Hacia Atrás]**: Creados enlaces simbólicos para que los notebooks existentes de Python en `masterclass/notebooks/` sigan resolviendo los datos sin interrupción.
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Publicación y Sincronización de Datasets de Masterclass en GitHub
 **Objetivo:** Asegurar que los datos históricos de Nasdaq y Oro de la carpeta `masterclass` estén versionados y disponibles en el repositorio remoto de GitHub respetando los límites de tamaño de archivo de la plataforma.
 

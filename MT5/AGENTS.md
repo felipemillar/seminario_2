@@ -118,5 +118,5 @@ Cuando un usuario pregunte sobre un aspecto técnico de MT5, MQL5 o Trading Cuan
   ```
 - **Importar e Inyectar Datos Externos en MT5**:
   ```bash
-  python3 scripts/mt5_agent_bridge.py import-data masterclass/@NQ_5m.csv --from-date 2020.01.01
+  python3 scripts/mt5_agent_bridge.py import-data masterclass/data/@NQ_5m.csv.gz --from-date 2020.01.01
   ```

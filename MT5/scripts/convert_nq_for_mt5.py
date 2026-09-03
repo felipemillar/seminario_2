@@ -9,8 +9,8 @@ import os
 import shutil
 import time
 
-SRC_FILE = "/Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/@NQ_5m.csv"
-OUT_DIR = "/Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass"
+SRC_FILE = "/Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/data/@NQ_5m.csv"
+OUT_DIR = "/Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/data"
 WINE_DESKTOP = "/Users/fmillar/Library/Application Support/net.metaquotes.wine.metatrader5/drive_c/users/user/Desktop"
 
 OUT_ALL = os.path.join(OUT_DIR, "NQ_5M_MT5_ALL.csv")

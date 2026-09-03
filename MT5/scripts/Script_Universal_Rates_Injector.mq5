@@ -79,6 +79,27 @@ void OnStart()
          return;
       }
       Print("[OK] Símbolo personalizado creado con éxito clonando de: ", base);
+
+      // CustomSymbolCreate() no garantiza copiar de forma confiable las propiedades
+      // de calculo de ganancia (son valores en vivo del simbolo base, no estaticos).
+      // Sin esto, MT5 ejecuta las operaciones pero el profit/loss siempre da 0,
+      // porque multiplica la diferencia de precio por tick_value/contract_size.
+      double base_contract_size = SymbolInfoDouble(base, SYMBOL_TRADE_CONTRACT_SIZE);
+      double base_tick_value    = SymbolInfoDouble(base, SYMBOL_TRADE_TICK_VALUE);
+      double base_tick_size     = SymbolInfoDouble(base, SYMBOL_TRADE_TICK_SIZE);
+      long   base_calc_mode     = SymbolInfoInteger(base, SYMBOL_TRADE_CALC_MODE);
+
+      if(base_contract_size <= 0.0) base_contract_size = 100.0;
+      if(base_tick_size <= 0.0) base_tick_size = InpPoint;
+      if(base_tick_value <= 0.0) base_tick_value = base_tick_size * base_contract_size;
+
+      CustomSymbolSetInteger(InpSymbolName, SYMBOL_TRADE_CALC_MODE, base_calc_mode);
+      CustomSymbolSetDouble(InpSymbolName, SYMBOL_TRADE_CONTRACT_SIZE, base_contract_size);
+      CustomSymbolSetDouble(InpSymbolName, SYMBOL_TRADE_TICK_SIZE, base_tick_size);
+      CustomSymbolSetDouble(InpSymbolName, SYMBOL_TRADE_TICK_VALUE, base_tick_value);
+
+      PrintFormat("[OK] Propiedades de calculo copiadas de %s -> contract_size=%.2f, tick_size=%.5f, tick_value=%.5f",
+                  base, base_contract_size, base_tick_size, base_tick_value);
    }
    else
    {

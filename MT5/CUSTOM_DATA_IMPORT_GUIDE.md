@@ -51,7 +51,7 @@ python3 MT5/scripts/mt5_agent_bridge.py import-data <RUTA_AL_ARCHIVO_CSV> [--fro
 
 **Ejemplo real con el dataset de Nasdaq:**
 ```bash
-python3 MT5/scripts/mt5_agent_bridge.py import-data masterclass/@NQ_5m.csv --from-date 2020.01.01
+python3 MT5/scripts/mt5_agent_bridge.py import-data masterclass/data/@NQ_5m.csv.gz --from-date 2020.01.01
 ```
 
 #### ¿Qué ejecuta este comando automáticamente?
