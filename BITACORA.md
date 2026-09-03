@@ -8,6 +8,20 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Embebido Autónomo de Logos e Iconos en Masterclass
+**Objetivo:** Garantizar la portabilidad 100% autónoma y offline de la presentación HTML (`index_v2.html` e `index.html`) para que pueda compartirse y abrirse en cualquier dispositivo sin depender de archivos de imagen externos ni conexiones a CDN.
+
+### [OK] Cambios Realizados:
+- **[Logo QRT Embebido en Base64]**:
+  * Convertido `QRT-LOGO.png` a Data URI Base64 e inyectado directamente en el tag `<img>`. El logo ahora se visualiza siempre, incluso si el HTML se mueve fuera de la carpeta.
+- **[Iconos Lucide Autónomos]**:
+  * Embebida la librería completa de Lucide Icons directamente en un bloque `<script>` interno en el `<head>`, eliminando la dependencia externa a `unpkg.com`. Los 75 iconos se renderizan sin conexión a internet.
+- **[Chart.js Embebido]**:
+  * Embebido el bundle UMD de `Chart.js` para asegurar que los gráficos de simulación y riesgo funcionen de forma 100% autónoma.
+  * Sincronizado y verificado en [`masterclass/index_v2.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index_v2.html) e [`masterclass/index.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index.html).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Refinamiento Didáctico y Simplificación de Textos en Masterclass
 **Objetivo:** Simplificar el lenguaje de la diapositiva de flujo agéntico (human-in-the-loop) eliminando jerga innecesaria, cambiando "Código Institucional" a simplemente "Código", y corrigiendo la colisión visual de la etiqueta en la diapositiva de Three White Soldiers.
 
