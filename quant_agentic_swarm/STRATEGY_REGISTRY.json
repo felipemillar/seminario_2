@@ -1,5 +1,40 @@
 [
   {
+    "strategy_id": "STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1",
+    "timestamp": "2026-09-03T13:40:00Z",
+    "thesis_title": "Cruce Intermedio Direccional (SMA 20/50 + EMA 200) — Version Optimizada (Long-Only, TP MFE, Breakeven)",
+    "hypothesis": {
+      "condition_x": "Cruce de SMA 20 sobre SMA 50 en vela cerrada de M30 con Close > EMA 200, operando exclusivamente en compras (Long-Only) para capturar el sesgo macro del Oro.",
+      "expected_outcome_y": "Elevacion del Profit Factor (> 1.40) y de la esperanza matematica (+2.81 USD/trade) erradicando la friccion negativa de los cortos, asegurando ganancias con TP MFE (1.10x ATR D1) y Breakeven.",
+      "structural_reason_z": "Alineacion pura con la marea secular alcista del Oro y proteccion contra devoluciones de beneficios por cruces inversos tardios.",
+      "invalidation": "Cruce opuesto de SMA 20/50, activacion de Breakeven o ejecucion del Stop Loss de 0.75x ATR D1."
+    },
+    "regime_filter": {
+      "model": "Lopez_de_Prado_Daily_ZScore",
+      "timeframe": "D1",
+      "fast_atr": 5,
+      "slow_atr": 14,
+      "min_zscore": -0.67
+    },
+    "triple_barriers": {
+      "b1_take_profit_atr": 1.10,
+      "b2_stop_loss_atr": 0.75,
+      "b3_max_holding_bars": 48,
+      "breakeven_trigger_atr": 0.50,
+      "circuit_breaker_max_losses": 3
+    },
+    "target_assets": ["XAUUSD", "GOLD", "XAUAUD"],
+    "historical_depth_target": "5 a 10 Años D1",
+    "status": "OPTIMIZED_CODE_CERTIFIED",
+    "artifacts": {
+      "specification": "strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1_specification.json",
+      "pine_script": "strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1.pine",
+      "mql5_ea": "strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1.mq5",
+      "mt5_ea": "../MT5/estrategias/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1.mq5",
+      "factsheet": "strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1_FACTSHEET.md"
+    }
+  },
+  {
     "strategy_id": "STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0",
     "timestamp": "2026-09-03T13:25:00Z",
     "thesis_title": "Cruce Intermedio Direccional con Filtro Tendencial Macro (SMA 20/50 + EMA 200)",

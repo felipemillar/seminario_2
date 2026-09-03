@@ -8,6 +8,23 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Optimización Cuantitativa STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1
+**Objetivo:** Implementar las optimizaciones derivadas de la auditoría de 3 módulos del backtest en XAUUSD (2020–2026): erradicación del arrastre negativo de ventas (Modo Long-Only), calibración del Take Profit en la masa modal de MFE ($1.10\times ATR_D$), Breakeven elástico ($+0.50\times ATR_D$) y Circuit Breaker mensual.
+
+### [OK] Cambios Realizados:
+- **[Contrato Formal v1.1]**:
+  * Creado [`quant_agentic_swarm/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1_specification.json`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1_specification.json).
+- **[TradingView (Pine Script v6)]**:
+  * Implementado [`TradingView/pine/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1.pine`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/TradingView/pine/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1.pine) (y su réplica en `quant_agentic_swarm/strategies/`) con selector de dirección, Breakeven y telemetría de Circuit Breaker.
+- **[MetaTrader 5 (MQL5 POO con CTrade)]**:
+  * Implementado [`MT5/estrategias/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1.mq5`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/estrategias/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1.mq5) (y su réplica en `quant_agentic_swarm/strategies/`).
+  * Compilado exitosamente con `metaeditor64.exe` (`0 errors, 0 warnings, 954 ms`) y desplegado en MT5: `drive_c/Program Files/MetaTrader 5/MQL5/Experts/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1.ex5` (y alias `EAGold_SMACross_v1.1.ex5`).
+- **[Factsheet y Registro Maestro]**:
+  * Creado [`quant_agentic_swarm/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1_FACTSHEET.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1_FACTSHEET.md).
+  * Actualizado [`quant_agentic_swarm/STRATEGY_REGISTRY.json`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/STRATEGY_REGISTRY.json).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Co-Creación y Desarrollo de Estrategia STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0
 **Objetivo:** Desarrollar una estrategia cuantitativa pura y simple de Cruce de Medias Móviles bajo la Variante B (SMA 20/50 con Filtro Tendencial EMA 200 y Triple Barrera en ATR Diario), completando las 4 fases del protocolo institucional.
 
