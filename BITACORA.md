@@ -8,6 +8,20 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Rediseño Minimalista de la Documentación Operativa en HTML
+**Objetivo:** Reestructurar [`masterclass/diagrama_flujo_estrategia.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/diagrama_flujo_estrategia.html) bajo un estándar visual estrictamente minimalista (sin iconos, sin etiquetas con bordes, fondo blanco puro, tipografía Inter y JetBrains Mono) con carácter de documentación técnica y operativa institucional.
+
+### [OK] Cambios Realizados:
+- **[Estilo Minimalista Puro]**: Eliminados todos los emojis, iconos y badges con bordes. Maquetado limpio con líneas verticales conectoras de 1px, fondos neutros sutiles (`#f9fafb`) y tipografía con jerarquía visual precisa.
+- **[Enfoque de Documentación Técnica]**: Se eliminó cualquier referencia a "clase" o "alumnos", presentándose formalmente como la documentación operativa canónica de la estrategia `STRAT-20260902-USGAP_MOM-M15-v1.1`.
+- **[Contenido Consolidado]**:
+  1. *Diagrama de Flujo Operativo*: Pasos 01 al 05 con sincronización horaria, filtros ex-ante, bifurcación compra/venta y salidas Triple Barrier.
+  2. *Fundamentos Teóricos y Optimización*: Causa estructural, calibración por MAE/MFE, meseta de robustez y split Out-of-Sample.
+  3. *Auditoría Comparativa*: Tabla minimalista con los resultados de la versión base vs versión optimizada con 1.0 lote.
+- **[Sincronización Total]**: Replicado en `masterclass/`, `MT5/` y `quant_agentic_swarm/`.
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Adaptación Pedagógica del Diagrama HTML para Clases de Trading
 **Objetivo:** Rediseñar la presentación de la estrategia y su marco teórico en [`masterclass/diagrama_flujo_estrategia.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/diagrama_flujo_estrategia.html) utilizando un enfoque didáctico, analogías intuitivas y vocabulario accesible para estudiantes principiantes.
 
