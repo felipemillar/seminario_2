@@ -8,6 +8,18 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Adaptación Pedagógica del Diagrama HTML para Clases de Trading
+**Objetivo:** Rediseñar la presentación de la estrategia y su marco teórico en [`masterclass/diagrama_flujo_estrategia.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/diagrama_flujo_estrategia.html) utilizando un enfoque didáctico, analogías intuitivas y vocabulario accesible para estudiantes principiantes.
+
+### [OK] Cambios Realizados:
+- **[Estructura Pedagógica Simplificada]**:
+  1. *El Flujo Paso a Paso (La Receta)*: Desglose de los 5 pasos con la analogía del "Black Friday", la regla de esperar 15 minutos y el concepto del cinturón de seguridad (Stop Loss, Take Profit y Time-Stop a las 16:00).
+  2. *La Teoría en 3 Minutos*: Explicación sin fórmulas sobre el flujo de los market makers overnight, la trampa del sobre-operar (por qué solo se hacen 5–7 trades al año) y los 3 mandamientos del trader principiante.
+  3. *Resultados Reales en Lenguaje Simple*: 4 tarjetas KPI directas (71% de aciertos, -41% menos pérdidas, factor 1.49 y trades de 2h 41m) y tabla explicativa respondiendo preguntas comunes de los alumnos.
+- **[Sincronización Total]**: Actualizado en `masterclass/`, `MT5/` y `quant_agentic_swarm/`.
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Validación y Auditoría del Backtest v1.1 Normalizado a 1.0 Lote
 **Objetivo:** Procesar el reporte oficial exportado de MetaTrader 5 (`ReportTester-61586790.html` a las 12:04) tras la ejecución de `STRAT-20260902-USGAP_MOM-M15-v1.1` con tamaño de posición idéntico a v1.0 (1.0 Lote) para establecer la comparativa simétrica final.
 
