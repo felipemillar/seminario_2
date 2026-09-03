@@ -8,6 +8,20 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Creación de Diapositiva de Introducción — Contexto Crítico y la Trampa de la IA
+**Objetivo:** Crear e integrar en la presentación (`index_v2.html` e `index.html`) una diapositiva introductoria ubicada inmediatamente después de la portada, exponiendo el riesgo actual del sobreajuste acelerado por LLMs ("Crear Curvas de Equity Falsas Nunca Fue Tan Fácil") y contrastando lo que la IA entrega en 30 segundos versus lo que oculta.
+
+### [OK] Cambios Realizados:
+- **[Nueva Diapositiva: Contexto Crítico]**:
+  * Título: *Crear Curvas de Equity Falsas Nunca Fue Tan Fácil*.
+  * Subtítulo: *Los modelos de lenguaje (ChatGPT, Claude, Gemini) cambiaron las reglas del juego. Y no necesariamente para mejor.*
+  * Tarjeta Izquierda (Rosa/Rojo): *Lo que la IA te da en 30 segundos* (Código funcional, curva ascendente, métricas Sharpe/Sortino, gráficos) con alerta: *"Todo esto sin una sola hipótesis económica"*.
+  * Tarjeta Derecha (Ámbar): *Lo que la IA no te dice* (Sin out-of-sample, sobreajuste paramétrico, sin causa económica, costos subestimados) con alerta: *"Es sobreajuste empaquetado en código limpio"*.
+  * Barra de Cierre: *"Esta masterclass existe para darte el criterio que la IA no te da: distinguir un edge real de un espejismo estadístico."*
+  * Ubicada como Diapositiva 02 (después de la portada) en [`masterclass/index_v2.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index_v2.html) e [`masterclass/index.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index.html).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Reversión al Estándar Puro de 3 Módulos de Backtesting (Sin Gráficas)
 **Objetivo:** Revertir la directiva de generación gráfica para mantener el reporte cuantitativo en su formato tabular puro de 3 módulos de diagnóstico métrico, eliminando la exigencia de generar curvas de equity, drawdown y excursiones visuales.
 
