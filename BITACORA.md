@@ -8,6 +8,16 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Inyección del Dataset Maestro Completo (26 Años: 2000-2026) en CUSTOM_NQ_M5
+**Objetivo:** Extender la base de datos histórica de MetaTrader 5 para el activo `CUSTOM_NQ_M5` abarcando la totalidad del historial disponible de Nasdaq 100 E-mini (1.75M barras de 5 minutos desde el 03/01/2000 hasta el 07/08/2026).
+
+### [OK] Cambios Realizados:
+- **[Dataset Maestro Inyectado]**: Ejecutado con éxito `Script_Inject_NQ_Data.ex5` cargando `NQ_5M_MT5_ALL.csv` (96 MB).
+- **[Verificación Forense de Bases de Datos]**: Confirmada la creación de los 27 archivos anuales binarios `.hcc` (`2000.hcc` a `2026.hcc`) con un peso consolidado de 102.12 MB en `Bases/Custom/history/CUSTOM_NQ_M5/`.
+- **[Habilitación de Backtesting Multidécada]**: El Strategy Tester de MT5 ya puede simular desde el 03/01/2000 cubriendo la burbuja puntocom, la crisis subprime de 2008, el flash crash de 2010, el rally de 2020 y el régimen contemporáneo.
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Ejecución y Auditoría Cuantitativa del Backtest USGAP_MOM (Pool de 3 Módulos)
 **Objetivo:** Procesar y auditar los resultados de las 29 operaciones ejecutadas por el EA `STRAT-20260902-USGAP_MOM-M15-v1.0` en MetaTrader 5 (`CUSTOM_NQ_M5`, M15, 2020-2026) bajo el estándar institucional de 3 módulos.
 
