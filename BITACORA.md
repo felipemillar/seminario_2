@@ -18,6 +18,7 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
   3. *Gráficos e Ilustraciones SVG*: Reemplazados los bloques y rectángulos pastel redondeados por anotaciones limpias con contraste tipográfico profesional.
   4. *Tablas y Matrices*: Eliminadas las celdas de píldoras verdes y rojas en el calendario; sustituidas por tipografía tabular limpia en monospace.
   5. *Identidad Institucional*: Integrado el logo oficial [`masterclass/QRT-LOGO.png`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/QRT-LOGO.png) en la esquina superior izquierda del header sustituyendo los iconos genéricos.
+  6. *Garantía Absoluta Zero-Border*: Incorporado bloque `<style>` de anulación prioritaria en el `<head>` (`border: none !important; background: transparent !important;`) y corregido `app.js` para que `sampleBadge` no inyecte dinámicamente bordes amarillos o rosas al alternar condiciones. Actualizado cache-buster a `styles.css?v=2.2`.
 - **[Alineación de Scripts y Estilos]**:
   * Actualizado [`masterclass/styles.css`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/styles.css) con el nuevo sistema tipográfico y de componentes.
   * Ajustado [`masterclass/app.js`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/app.js) para evitar la inyección en tiempo de ejecución de bordes o fondos pastel.

@@ -264,25 +264,28 @@
 
       if (trades >= 200) {
         badge.className = 'badge-success';
+        badge.style.background = 'transparent';
+        badge.style.border = 'none';
+        badge.style.color = '#15803d';
         badge.textContent = 'Muestra Robusta';
         text.innerHTML = ' Muestra suficiente para inferencia estadística inicial.';
-        text.style.color = 'var(--accent-emerald)';
+        text.style.color = '#15803d';
       } else if (trades >= 60) {
         badge.className = 'badge-alert';
-        badge.style.background = '#fffbeb';
-        badge.style.borderColor = '#fde68a';
+        badge.style.background = 'transparent';
+        badge.style.border = 'none';
         badge.style.color = '#b45309';
         badge.textContent = 'Muestra Reducida (Cuidado)';
         text.innerHTML = ' Muestra en zona de riesgo. Mayor propensión a p-hacking.';
         text.style.color = '#b45309';
       } else {
         badge.className = 'badge-alert';
-        badge.style.background = '#fff1f2';
-        badge.style.borderColor = '#fecdd3';
-        badge.style.color = '#e11d48';
+        badge.style.background = 'transparent';
+        badge.style.border = 'none';
+        badge.style.color = '#dc2626';
         badge.textContent = ' Ajuste Puro / Anécdota';
         text.innerHTML = ' <strong>¡Anécdota con Equity Curve!</strong> Muestra ínfima sin validez estadística.';
-        text.style.color = '#e11d48';
+        text.style.color = '#dc2626';
       }
 
       if (conditionChartInstance) {

@@ -15,7 +15,22 @@
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <link rel="stylesheet" href="styles.css">
+    <style>
+    /* Mandatory: Zero Colored Borders on Tags, Badges & Pills */
+    .slide-tag,
+    .topic-pill,
+    .badge-alert,
+    .badge-success,
+    .interactive-tag,
+    .timer-badge {
+      border: none !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      outline: none !important;
+      padding: 0 !important;
+    }
+  </style>
+  <link rel="stylesheet" href="styles.css?v=2.2">
 </head>
 <body>
 
@@ -224,7 +239,7 @@
         </div>
 
         <!-- ¿Hay una más importante? -->
-        <div class="card-panel" style="background: #ffffff; border: 1px solid var(--border-light); border-left: 3px solid #d97706; display: flex; align-items: flex-start; gap: 12px;">
+        <div class="card-panel" style="background: #ffffff; border: 1px solid var(--border-light);  display: flex; align-items: flex-start; gap: 12px;">
           <div style="background: #f4f4f5; padding: 7px; border-radius: 4px; color: #09090b; flex-shrink: 0;">
             <i data-lucide="triangle-alert" style="width: 18px; height: 18px;"></i>
           </div>
@@ -285,7 +300,7 @@
           </div>
         </div>
 
-        <div id="flowVerdict" class="badge-success" style="width: 100%; padding: 12px 16px; font-size: 0.88rem; border-radius: 6px; background: #f9fafb; border: 1px solid var(--border-light); border-left: 3px solid #16a34a;">
+        <div id="flowVerdict" class="badge-success" style="width: 100%; padding: 12px 16px; font-size: 0.88rem; border-radius: 6px; background: #f9fafb; border: 1px solid var(--border-light); ">
           <i data-lucide="check-circle"></i>
           <span><strong>Hipótesis Clara:</strong> "Cuando hay un <strong>salto fuerte en la apertura</strong>, espero que el precio <strong>vuelva al nivel anterior</strong>, porque los <strong>grandes participantes necesitan equilibrar sus posiciones</strong>."</span>
         </div>
@@ -667,7 +682,7 @@
             <p style="font-size: 0.8rem; font-weight: 700; color: #1e40af; margin-bottom: 4px;"> Ventaja (cuando es real)</p>
             <p style="font-size: 0.78rem; color: #1e3a8a; line-height: 1.4;">Si el flujo institucional es real (rebalanceo de fondos, aportes de pensiones), es de lo más robusto que existe. El flujo no desaparece porque tú lo descubriste.</p>
           </div>
-          <div class="card-panel" style="background: #fef2f2; border-color: #fecaca;">
+          <div class="card-panel" style="background: #ffffff; border: 1px solid var(--border-light);">
             <p style="font-size: 0.8rem; font-weight: 700; color: #b91c1c; margin-bottom: 4px;"> El peligro real</p>
             <p style="font-size: 0.78rem; color: #7f1d1d; line-height: 1.4;">5 días × 12 meses × 24 horas = miles de combinaciones posibles. Siempre vas a encontrar una que funcione en el histórico. Eso es <strong>p-hacking</strong>, no una estrategia.</p>
           </div>
@@ -761,11 +776,11 @@
             La salida <strong>no crea tu edge</strong> — la salida <strong>redistribuye tu edge</strong>. Con exactamente la misma señal de entrada:
           </p>
           <div style="display: flex; flex-direction: column; gap: 8px;">
-            <div style="background: #f8fafc; border: 1px solid var(--border-light); padding: 10px 12px; border-radius: 6px; border-left: 3px solid #64748b;">
+            <div style="background: #f8fafc; border: 1px solid var(--border-light); padding: 10px 12px; border-radius: 6px; ">
               <strong style="color: #09090b; font-size: 0.85rem;">Salida rápida / Target 1R:</strong>
               <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">Muchos ganadores chicos, alta tasa de acierto (55%), pero retorno truncado.</p>
             </div>
-            <div style="background: #ffffff; border: 1px solid var(--border-light); padding: 10px 12px; border-radius: 4px; border-left: 2px solid #09090b;">
+            <div style="background: #ffffff; border: 1px solid var(--border-light); padding: 10px 12px; border-radius: 4px; ">
               <strong style="color: #1e3a8a; font-size: 0.85rem;">Salida asimétrica / Target 3R:</strong>
               <p style="font-size: 0.78rem; color: #3b82f6; margin-top: 2px;">Tasa de acierto baja (32%), pero capturas colas largas con mayor expectancy.</p>
             </div>
@@ -984,7 +999,7 @@
         </div>
 
         <!-- ===== d) INVALIDACIÓN ===== -->
-        <div class="card-panel" style="padding: 0; overflow: hidden; border-top: 3px solid #3b82f6;">
+        <div class="card-panel" style="padding: 0; overflow: hidden; border: 1px solid var(--border-light);">
           <div style="padding: 10px 14px 0;">
             <h4 style="font-size: 0.88rem; color: #3b82f6; display: flex; align-items: center; gap: 6px; font-weight: 700;">
               <i data-lucide="x-circle" style="width:15px;height:15px;"></i> d) Invalidación
@@ -1406,7 +1421,7 @@
       </div>
 
       <!-- Bottom quote -->
-      <div class="quote-box" style="margin-top: 12px; font-size: 1rem; font-weight: 700; color: #0f172a; border-left: 4px solid var(--accent-primary); text-align: center;">
+      <div class="quote-box" style="margin-top: 12px; font-size: 1rem; font-weight: 700; color: #0f172a;  text-align: center;">
         "Si tu equity curve depende del valor exacto del parámetro, no tienes un edge: tienes un ajuste."
       </div>
     </div>
@@ -1510,7 +1525,7 @@
 
       <!-- Comparison cards -->
       <div class="grid-3" style="gap: 10px; margin-top: 10px;">
-        <div class="card-panel" style="border-top: 3px solid #64748b; padding: 10px 12px;">
+        <div class="card-panel" style="border: 1px solid var(--border-light); padding: 10px 12px;">
           <h4 style="font-size: 0.82rem; color: #64748b; display: flex; align-items: center; gap: 5px; font-weight: 700; margin-bottom: 5px;">
             <i data-lucide="minus" style="width:13px;height:13px;"></i> Fixed Sizing
           </h4>
@@ -1542,7 +1557,7 @@
           </div>
         </div>
 
-        <div class="card-panel" style="border-top: 3px solid #0ea5e9; padding: 10px 12px;">
+        <div class="card-panel" style="border: 1px solid var(--border-light); padding: 10px 12px;">
           <h4 style="font-size: 0.82rem; color: #0284c7; display: flex; align-items: center; gap: 5px; font-weight: 700; margin-bottom: 5px;">
             <i data-lucide="zap" style="width:13px;height:13px;"></i> Apalancamiento
           </h4>
@@ -1724,7 +1739,7 @@
           El Test Definitivo
         </h2>
 
-        <div class="quote-box" style="font-size: 1.25rem; font-weight: 600; color: #09090b; margin-bottom: 1.8rem; border-left: 2px solid #09090b; background: #f9fafb; padding: 1.2rem 1.6rem;">
+        <div class="quote-box" style="font-size: 1.25rem; font-weight: 600; color: #09090b; margin-bottom: 1.8rem;  background: #f9fafb; padding: 1.2rem 1.6rem;">
           "Si tu equity curve depende del valor exacto del parámetro, no tienes un edge: tienes un sobreajuste."
         </div>
 
