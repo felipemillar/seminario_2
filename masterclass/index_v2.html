@@ -633,15 +633,21 @@
               <rect x="267" y="60" width="18" height="46" rx="1.5" fill="#22c55e"/>
               <text x="276" y="196" font-size="9" fill="#15803d" font-weight="700" text-anchor="middle">3ª Vela</text>
 
-              <!-- Entry Trigger on Close of 3rd Candle (Positioned cleanly at top right of soldier 3) -->
+              <!-- Entry Trigger on Close of 3rd Candle -->
               <circle cx="276" cy="60" r="5" fill="#f59e0b"/>
-              <g transform="translate(345, 48)">
-                <polygon points="-6,12 -14,7 -14,17" fill="#15803d"/>
-                <rect x="0" y="0" width="135" height="24" rx="4" fill="#15803d"/>
-                <text x="67" y="16" font-size="10" fill="#ffffff" font-weight="800" text-anchor="middle">ENTRADA AL CIERRE</text>
+              <circle cx="276" cy="60" r="2" fill="#ffffff"/>
+
+              <!-- Leader line and pointer arrow to close of 3rd Candle -->
+              <path d="M 345,22 C 310,22 288,36 280,53" fill="none" stroke="#15803d" stroke-width="1.5" stroke-dasharray="3 3"/>
+              <polygon points="278,57 274,50 282,51" fill="#15803d"/>
+
+              <!-- Entry Badge positioned safely above all candles with zero overlap -->
+              <g transform="translate(345, 10)">
+                <rect x="0" y="0" width="138" height="24" rx="4" fill="#15803d"/>
+                <text x="69" y="16" font-size="10" fill="#ffffff" font-weight="800" text-anchor="middle">ENTRADA AL CIERRE</text>
               </g>
 
-              <!-- Continuation candles (Far right, no collision) -->
+              <!-- Continuation candles (Rendered cleanly below badge) -->
               <line x1="345" y1="85" x2="345" y2="130" stroke="#22c55e" stroke-width="1.5"/>
               <rect x="337" y="92" width="16" height="30" rx="1" fill="#22c55e"/>
 
