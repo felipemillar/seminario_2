@@ -57,6 +57,11 @@ Al escribir bloques `except` en Python:
 - **NUNCA** hardcodear contraseñas de cuentas MT5 en archivos versionados.
 - Utilizar variables de entorno (`.env`) o el archivo local no versionado `~/.mt5_accounts.json` generado por [`scripts/setup_accounts.py`](scripts/setup_accounts.py).
 
+### 3.3. Estándar Obligatorio de Evaluación Dual en Backtesting (Monetario vs Retorno Porcentual Puro)
+Todo reporte de backtesting en MT5 debe contener **obligatoriamente y en paralelo**:
+1. **Capa Monetaria (USD):** PnL neto, Profit Factor, Balance final y Win Rate.
+2. **Capa de Retorno Porcentual Puro (% Precio):** Retorno acumulado y compuesto de cada trade ($R_i = \Delta P / P_{\text{entry}}$), Profit Factor porcentual, Payoff porcentual y desglose mandatorio entre **Compras (Longs)** y **Ventas (Shorts)** para detectar asimetrías de deriva del mercado.
+
 ---
 
 ## 4. Mapa de Navegación de Conocimiento (`knowledge/`)
