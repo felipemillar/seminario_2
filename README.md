@@ -158,12 +158,19 @@ seminario_2/
 │   ├── masterclass/                    # Laboratorios de análisis cuantitativo
 │   └── pine/                           # Indicadores, librerías y estrategias
 │
-└── MT5/                                # Entorno cuantitativo en MetaTrader 5
-    ├── README.md                       # Guía de la suite MetaTrader 5
-    ├── AGENTS.md                       # Reglas de desarrollo en MQL5 y Python
-    ├── knowledge/                      # 20 tratados técnicos de arquitectura MT5
-    ├── src/gateway/                    # Servidor REST FastAPI para control de MT5
-    └── scripts/                        # Escaneo de ATR, carry trade y swaps
+├── MT5/                                # Entorno cuantitativo en MetaTrader 5
+│   ├── README.md                       # Guía de la suite MetaTrader 5
+│   ├── AGENTS.md                       # Reglas de desarrollo en MQL5 y Python
+│   ├── knowledge/                      # 20 tratados técnicos de arquitectura MT5
+│   ├── estrategias/                    # Asesores Expertos e Indicadores MQL5
+│   ├── src/gateway/                    # Servidor REST FastAPI para control de MT5
+│   └── scripts/                        # Escaneo de ATR, carry trade y swaps
+│
+└── estrategias/                        # Carpeta centralizada maestra de estrategias
+    ├── README.md                       # Índice y catálogo maestro de estrategias
+    ├── mql5/                           # Fuentes MQL5 (.mq5) para MetaTrader 5
+    ├── pine/                           # Fuentes Pine Script v6 (.pine) para TradingView
+    └── especificaciones/              # Contratos JSON y Factsheets técnicos
 ```
 
 ---
