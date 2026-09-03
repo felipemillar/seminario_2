@@ -8,6 +8,19 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Auditoría Cuantitativa Comparativa (v1.0 Base vs v1.1 Optimizada)
+**Objetivo:** Auditar y contrastar empíricamente los resultados del backtest de `STRAT-20260902-USGAP_MOM-M15-v1.1` frente a la versión base v1.0, validando el impacto real de las optimizaciones extraídas de la Masterclass (Breakeven +0.75x ATR y TP 1.25x ATR).
+
+### [OK] Cambios Realizados:
+- **[Auditoría Forense de 87 Trades (25 Años)]**: Procesadas las 174 transacciones del backtest multidécada (2001–2026) ejecutado en MetaTrader 5.
+- **[Salto Cuantitativo Confirmado]**: 
+  - En la ventana de 10 años (2016–2026), el Win Rate saltó del **47.06% al 71.15% (+24.09%)**, reduciendo las operaciones perdedoras de 27 a solo 15 (-44.4%).
+  - El motor de Breakeven salvó **22 operaciones en la década y 35 en los 25 años**, transformando trades que antes se devolvían al Stop Loss en salidas protegidas (+10 puntos).
+  - Los puntos netos acumulados aumentaron de +280.1 pts a **+438.91 pts (+56.7%)**.
+- **[Reporte Oficial Publicado]**: Generado [`MT5/backtests/REPORT_COMPARATIVE_v1.0_vs_v1.1.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/backtests/REPORT_COMPARATIVE_v1.0_vs_v1.1.md).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Despliegue de la Estrategia Optimizada v1.1 (USGAP_MOM)
 **Objetivo:** Desarrollar, compilar y desplegar la versión optimizada `STRAT-20260902-USGAP_MOM-M15-v1.1` en MetaTrader 5 y el enjambre cuantitativo, implementando las mejoras derivadas de la auditoría de 10 años (TP calibrado, motor de Breakeven y Circuit Breaker).
 
