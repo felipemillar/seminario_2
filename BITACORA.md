@@ -8,6 +8,16 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Ejecución y Auditoría Cuantitativa del Backtest USGAP_MOM (Pool de 3 Módulos)
+**Objetivo:** Procesar y auditar los resultados de las 29 operaciones ejecutadas por el EA `STRAT-20260902-USGAP_MOM-M15-v1.0` en MetaTrader 5 (`CUSTOM_NQ_M5`, M15, 2020-2026) bajo el estándar institucional de 3 módulos.
+
+### [OK] Cambios Realizados:
+- **[Resolución de Ejecución en MT5]**: Identificada la restricción de modelado en activos personalizados: el modo "Ticks reales" requería base de datos `.tkc`, resolviéndose exitosamente al cambiar a "1 minute OHLC" para simular sobre las más de 150.000 barras M15.
+- **[Auditoría Forense de 29 Trades]**: Extraídas las 58 operaciones individuales desde los logs del Tester y catalogadas por tipo de salida (Stop Loss técnico vs Time-Stop).
+- **[Reporte Canónico Creado]**: Publicado [`MT5/backtests/REPORT_BACKTEST_STRAT-20260902-USGAP_MOM-M15-v1.0.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/backtests/REPORT_BACKTEST_STRAT-20260902-USGAP_MOM-M15-v1.0.md) con el pool completo de 3 módulos: Retorno +2.26%, PF 1.39, Payoff 1.97, asimetría Short (+1.64% vs +0.62%) y diagnóstico temporal de Toby Crabel (ganadores 20.25h vs perdedores 1.48h).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Publicación del Manual de Auditoría de Backtesting y Protocolo de Solicitud de KPIs
 **Objetivo:** Establecer formalmente cómo el usuario debe solicitar reportes de backtesting al agente y documentar el estándar obligatorio del pool de 3 módulos (Evaluación Dual, Diagnóstico de Asimetrías y Diagnóstico de Ejecución/Tiempos).
 
