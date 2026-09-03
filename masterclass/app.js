@@ -219,18 +219,18 @@
 
       if (data.valid) {
         flowZ.textContent = data.z;
-        flowZ.style.color = '#065f46';
-        zBox.style.borderColor = '#a7f3d0';
-        zBox.style.background = '#f0fdf4';
+        flowZ.style.color = '#15803d';
+        zBox.style.borderColor = 'var(--border-light)';
+        zBox.style.background = '#ffffff';
         verdict.className = 'badge-success';
-        verdict.innerHTML = `<i data-lucide="check-circle"></i><span>${data.verdict}</span>`;
+        verdict.innerHTML = `<i data-lucide="check-circle" style="width:15px;height:15px;"></i><span>${data.verdict}</span>`;
       } else {
         flowZ.textContent = " [¡SIN CAUSA ESTRUCTURAL!]";
-        flowZ.style.color = '#9f1239';
-        zBox.style.borderColor = '#fecdd3';
-        zBox.style.background = '#fff1f2';
+        flowZ.style.color = '#dc2626';
+        zBox.style.borderColor = 'var(--border-light)';
+        zBox.style.background = '#ffffff';
         verdict.className = 'badge-alert';
-        verdict.innerHTML = `<i data-lucide="alert-octagon"></i><span>${data.verdict}</span>`;
+        verdict.innerHTML = `<i data-lucide="alert-octagon" style="width:15px;height:15px;"></i><span>${data.verdict}</span>`;
       }
       lucide.createIcons();
     }

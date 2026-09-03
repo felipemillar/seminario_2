@@ -8,6 +8,25 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Rediseño Editorial v2.0 del Deck de Presentación (Anti-AI Aesthetic)
+**Objetivo:** Crear la versión 2.0 de [`masterclass/index.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index.html) (y [`masterclass/index_v2.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index_v2.html)), eliminando todos los tags con bordes de colores, badges pastel redondeados y artefactos visuales propios de plantillas generadas por IA, elevando el diseño a un estándar editorial institucional y humano (estilo Stripe / Linear / Bloomberg).
+
+### [OK] Cambios Realizados:
+- **[Eliminación Total de Tags y Bordes Pastel]**:
+  1. *Tags y Badges*: Eliminados los bordes y rellenos de `.slide-tag`, `.badge-alert`, `.badge-success` y `.topic-pill`. Ahora son etiquetas tipográficas estrictas en monospace (`JetBrains Mono`) con tracking y mayúsculas.
+  2. *Tarjetas de Contenido*: Eliminados todos los fondos pastel con bordes de colores emparejados (`#eff6ff` con `#bfdbfe`, `#ecfdf5` con `#a7f3d0`, `#fefce8` con `#fde68a`). Sustituidos por tarjetas limpias en blanco y gris neutro con divisores sutiles de 1px (`#e4e4e7`).
+  3. *Gráficos e Ilustraciones SVG*: Reemplazados los bloques y rectángulos pastel redondeados por anotaciones limpias con contraste tipográfico profesional.
+  4. *Tablas y Matrices*: Eliminadas las celdas de píldoras verdes y rojas en el calendario; sustituidas por tipografía tabular limpia en monospace.
+- **[Alineación de Scripts y Estilos]**:
+  * Actualizado [`masterclass/styles.css`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/styles.css) con el nuevo sistema tipográfico y de componentes.
+  * Ajustado [`masterclass/app.js`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/app.js) para evitar la inyección en tiempo de ejecución de bordes o fondos pastel.
+- **[Archivos Generados]**:
+  * [`masterclass/index.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index.html) (actualizado directamente a v2.0).
+  * [`masterclass/index_v2.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index_v2.html) (copia canónica de la versión 2.0).
+  * [`masterclass/index_v1_backup.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/index_v1_backup.html) (respaldo de la v1).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Institucionalización del Protocolo de Optimización Cuantitativa (Regla 4.8)
 **Objetivo:** Establecer formalmente en la gobernanza autoritativa del agente (`.agents/AGENTS.md`) y el Swarm (`quant_agentic_swarm/docs/OPTIMIZATION_PROTOCOL.md`) la regla vinculante de que toda optimización paramétrica futura debe someterse a los 5 pilares metodológicos de la Masterclass (Causalidad ex-ante, MAE/MFE empírico, Grid Search en ATR, selección por baricentro de meseta de robustez y validación In-Sample / Out-of-Sample).
 
