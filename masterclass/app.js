@@ -21,14 +21,34 @@
     };
 
     function initPresentation() {
+      if (window.lucide) {
+        try { lucide.createIcons(); } catch (e) {}
+      }
+
       showSlide(0);
       buildOverviewGrid();
       startTimer();
 
-      renderExitDetail(0);
-      initHeatmaps();
-      initAllCharts();
-      showAgentStep(1);
+      try { renderExitDetail(0); } catch (e) {}
+      try { initHeatmaps(); } catch (e) {}
+      try { initAllCharts(); } catch (e) {}
+      try { showAgentStep(1); } catch (e) {}
+
+      // Header button handlers
+      const btnNotes = document.getElementById('btnNotesToggle');
+      if (btnNotes) btnNotes.onclick = togglePresenterNotes;
+
+      const btnOverview = document.getElementById('btnOverviewToggle');
+      if (btnOverview) btnOverview.onclick = toggleOverview;
+
+      const btnFull = document.getElementById('btnFullscreen');
+      if (btnFull) btnFull.onclick = toggleFullScreen;
+
+      const prev = document.getElementById('prevBtn');
+      if (prev) prev.onclick = () => changeSlide(-1);
+
+      const next = document.getElementById('nextBtn');
+      if (next) next.onclick = () => changeSlide(1);
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
@@ -384,6 +404,7 @@
     function renderExitDetail(idx) {
       const item = exitData[idx];
       const box = document.getElementById('exitDetailBox');
+      if (!box || !item) return;
       box.innerHTML = `
         <div>
           <h3 style="font-size:1.05rem; color:#0f172a; margin-bottom:4px; font-weight:700;">${item.title}</h3>
@@ -515,54 +536,62 @@
       runMonteCarlo(2);
 
       // MAE Histogram Chart
-      const ctxMae = document.getElementById('maeChart').getContext('2d');
-      maeChartInstance = new Chart(ctxMae, {
-        type: 'bar',
-        data: {
-          labels: ['0.4', '0.8', '1.2', '1.4 (95%)', '1.8', '2.2', '2.6', '3.0 ATR'],
-          datasets: [{
-            label: 'Ganadores',
-            data: [35, 45, 18, 5, 2, 1, 0, 0],
-            backgroundColor: ['#c7d2fe', '#c7d2fe', '#c7d2fe', '#059669', '#fca5a5', '#fca5a5', '#fca5a5', '#fca5a5'],
-            borderRadius: 4
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 9 } } },
-            y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#64748b', font: { size: 9 } } }
+      const maeEl = document.getElementById('maeChart');
+      if (maeEl) {
+        const ctxMae = maeEl.getContext('2d');
+        maeChartInstance = new Chart(ctxMae, {
+          type: 'bar',
+          data: {
+            labels: ['0.4', '0.8', '1.2', '1.4 (95%)', '1.8', '2.2', '2.6', '3.0 ATR'],
+            datasets: [{
+              label: 'Ganadores',
+              data: [35, 45, 18, 5, 2, 1, 0, 0],
+              backgroundColor: ['#c7d2fe', '#c7d2fe', '#c7d2fe', '#059669', '#fca5a5', '#fca5a5', '#fca5a5', '#fca5a5'],
+              borderRadius: 4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 9 } } },
+              y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#64748b', font: { size: 9 } } }
+            }
           }
-        }
-      });
+        });
+      }
 
       // Holding Period Chart
-      const ctxHold = document.getElementById('holdingChart').getContext('2d');
-      holdingChartInstance = new Chart(ctxHold, {
-        type: 'line',
-        data: {
-          labels: ['Barra 1', 'Barra 3', 'Barra 6 (Pico)', 'Barra 9', 'Barra 12', 'Barra 15'],
-          datasets: [{
-            label: 'Retorno Medio Acumulado',
-            data: [0.3, 0.8, 1.45, 1.48, 1.42, 1.40],
-            borderColor: '#2563eb',
-            backgroundColor: 'rgba(37, 99, 235, 0.08)',
-            fill: true,
-            tension: 0.3
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 9 } } },
-            y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#64748b', font: { size: 9 } } }
+      const holdEl = document.getElementById('holdingChart');
+      if (holdEl) {
+        const ctxHold = holdEl.getContext('2d');
+        holdingChartInstance = new Chart(ctxHold, {
+          type: 'line',
+          data: {
+            labels: ['Barra 1', 'Barra 3', 'Barra 6 (Pico)', 'Barra 9', 'Barra 12', 'Barra 15'],
+            datasets: [{
+              label: 'Retorno Medio Acumulado',
+              data: [0.3, 0.8, 1.45, 1.48, 1.42, 1.40],
+              borderColor: '#2563eb',
+              backgroundColor: 'rgba(37, 99, 235, 0.08)',
+              fill: true,
+              tension: 0.3
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 9 } } },
+              y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#64748b', font: { size: 9 } } }
+            }
           }
-        }
-      });
+        });
+      }
+    }
+
     // ================= SLIDE AGENT FLOW: Simulador Didáctico de Interacción Agente =================
     const agentStepData = {
       1: {

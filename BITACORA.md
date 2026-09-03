@@ -19,8 +19,9 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
      - *3. Código Institucional*: El trader valida y el agente genera código nativo de 7 bloques en MQL5 POO (`CTrade`) y Pine Script v6 con 0 repainting.
   2. *Simulador Interactivo de Chat*: Interfaz interactiva donde el estudiante alterna entre las 3 etapas para ver los mensajes textuales reales intercambiados y la lección cuantitativa detrás de cada momento.
   3. *Pilares Metodológicos*: Tres tarjetas de síntesis (Co-Creación HITL, Normalización por ATR y Arquitectura de 7 Bloques).
-- **[Alineación JavaScript en `app.js`]**:
+- **[Alineación JavaScript y Reparación de Eventos en `app.js`]**:
   * Creada la función `showAgentStep(step)` e inicializada en `initPresentation()`.
+  * Resuelto error sintáctico por llave de cierre faltante en `initAllCharts()` y blindadas las inicializaciones (`renderExitDetail`, `maeChart`, `holdingChart`) con comprobaciones estrictas contra `null` y manejadores directos de eventos (`onclick`) para todos los controles del header y pie de página (`prevBtn`, `nextBtn`, `btnNotesToggle`, `btnOverviewToggle`, `btnFullscreen`).
 - **[Sincronización Total]**: Integrado en `masterclass/index.html` y `masterclass/index_v2.html` elevando el total a 14 diapositivas dinámicas.
 
 ---
