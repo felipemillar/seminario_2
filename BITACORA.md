@@ -8,6 +8,21 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Auditoría de Backtest Dual (Monetaria vs Variación Porcentual Pura) en Nasdaq
+**Objetivo:** Evaluar cuantitativamente la primera simulación histórica ejecutada sobre los datos externos de Nasdaq (`CUSTOM_NQ_M5`) analizando paralelamente la dimensión monetaria en USD y el retorno porcentual puro no apalancado del precio.
+
+### [OK] Cambios Realizados:
+- **[Reconstrucción de Operaciones]**: Parseadas 1,239 operaciones round-turn (2,478 deals) desde los registros del Strategy Tester (`Tester/Agent-127.0.0.1-3003/logs/20260903.log`) cubriendo 31,376 barras M30 (2024.01 a 2026.08).
+- **[Análisis Dual Generado]**: Creado el informe canónico [`MT5/backtests/REPORT_BACKTEST_NQ_DUAL_EVALUATION.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/backtests/REPORT_BACKTEST_NQ_DUAL_EVALUATION.md) con cálculo de métricas en USD y retornos porcentuales desestacionalizados de escala nominal.
+- **[Descubrimiento de Asimetría Estructural]**: 
+  - **Compras (Longs):** Edge positivo con **+28.27% de retorno porcentual acumulado** (+29.43% compuesto), Profit Factor **1.18** y Drawdown de solo **10.95%**.
+  - **Ventas (Shorts):** Retorno negativo de **-19.31%**, Profit Factor **0.88** y Drawdown del **34.27%** debido a la deriva alcista estructural del Nasdaq.
+
+### Decisiones y Notas de Diseño:
+- **Aislamiento del Sesgo de Escala Nominal:** Al medir en retorno porcentual puro de cada trade ($R = \Delta P / P_{\text{entry}}$), se eliminó la distorsión del crecimiento del Nasdaq de 16k a 30k puntos, revelando que el cruce de medias EMA 9/21 funciona como seguidor de tendencia eficaz solo en compras.
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Integración y Documentación de Consultas de Mercado via Servidor MCP MT5
 **Objetivo:** Habilitar, probar y documentar la capacidad de agentes de IA para auditar el universo de instrumentos del broker y descargar velas históricas mediante el servidor MCP nativo de MetaTrader 5 (puerto 22346).
 
