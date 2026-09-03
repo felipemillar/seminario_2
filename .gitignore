@@ -46,10 +46,10 @@ MT5/data/
 **/Tester/logs/
 **/Tester/Agent-*/
 
-# Archivos de Datos Masivos (> 50 MB)
-**/masterclass/*.csv
-masterclass/*.csv
-*.csv.gz
+# Archivos de Datos Masivos No Comprimidos (> 90 MB exceden limites de GitHub)
+masterclass/@GC_5m.csv
+masterclass/@NQ_5m.csv
+masterclass/NQ_5M_MT5_ALL.csv
 *.parquet
 *.h5
 

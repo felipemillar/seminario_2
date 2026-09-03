@@ -9,6 +9,7 @@ NinjaTrader, Binance, Yahoo Finance, etc.) al estandar nativo de barras de MetaT
 
 import argparse
 import csv
+import gzip
 import logging
 import os
 import re
@@ -144,12 +145,17 @@ def convert_dataset_to_mt5(
         
     t0 = time.time()
     
+    def _open_file(p):
+        if p.endswith(".gz"):
+            return gzip.open(p, "rt", encoding="utf-8", errors="replace")
+        return open(p, "r", encoding="utf-8", errors="replace")
+
     try:
-        with open(input_path, "r", encoding="utf-8", errors="replace") as f_sample:
+        with _open_file(input_path) as f_sample:
             first_line = f_sample.readline()
             delim = detect_delimiter(first_line)
             
-        with open(input_path, "r", encoding="utf-8", errors="replace") as f_in:
+        with _open_file(input_path) as f_in:
             reader = csv.reader(f_in, delimiter=delim)
             header = next(reader)
             col_map = map_column_indices(header)
@@ -161,7 +167,10 @@ def convert_dataset_to_mt5(
                 
             # Determinar ruta de salida
             if not output_path:
-                base_name = os.path.splitext(os.path.basename(input_path))[0]
+                clean_name = os.path.basename(input_path)
+                if clean_name.endswith(".gz"):
+                    clean_name = clean_name[:-3]
+                base_name = os.path.splitext(clean_name)[0]
                 output_path = os.path.join(os.path.dirname(input_path), f"{base_name}_MT5.csv")
                 
             mt5_header = ["<DATE>", "<TIME>", "<OPEN>", "<HIGH>", "<LOW>", "<CLOSE>", "<TICKVOL>", "<VOL>"]
