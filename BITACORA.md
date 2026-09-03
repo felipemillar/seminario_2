@@ -8,6 +8,18 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Institucionalización del Protocolo de Optimización Cuantitativa (Regla 4.8)
+**Objetivo:** Establecer formalmente en la gobernanza autoritativa del agente (`.agents/AGENTS.md`) y el Swarm (`quant_agentic_swarm/docs/OPTIMIZATION_PROTOCOL.md`) la regla vinculante de que toda optimización paramétrica futura debe someterse a los 5 pilares metodológicos de la Masterclass (Causalidad ex-ante, MAE/MFE empírico, Grid Search en ATR, selección por baricentro de meseta de robustez y validación In-Sample / Out-of-Sample).
+
+### [OK] Cambios Realizados:
+- **[Manual Canónico Creado]**: Redactado [`quant_agentic_swarm/docs/OPTIMIZATION_PROTOCOL.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/docs/OPTIMIZATION_PROTOCOL.md) conteniendo el manifiesto anti-sobreajuste, las ecuaciones de MAE/MFE, el algoritmo de búsqueda por meseta (Pardo & Kaufman) y la tabla del semáforo cuantitativo de degradación OOS ($\le 30\%$).
+- **[Regla Vinculante 4.8 en AGENTS.md]**: Modificado [`.agents/AGENTS.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/.agents/AGENTS.md) incorporando:
+  1. *Matriz de Enrutamiento (Sección 3)*: Enlace al manual canónico de optimización.
+  2. *Sección 4.8 (Regla Técnica Obligatoria)*: Frases disparadoras y los 5 mandatos ineludibles (prohibición estricta de picos aislados / spikes, normalización por ATR, calibración MAE/MFE, split ciego IS/OOS y protección dinámica).
+- **[Bitácora Actualizada]**: Registro de la sesión en [`BITACORA.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/BITACORA.md).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Integración Profunda de los Fundamentos Teóricos de Optimización
 **Objetivo:** Desarrollar en [`masterclass/diagrama_flujo_estrategia.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/diagrama_flujo_estrategia.html) la base teórica y cuantitativa rigurosa que justifica la optimización del sistema conforme a la literatura institucional y los notebooks de la Masterclass (Crabel, Sweeney, Pardo, López de Prado, Elder y Van Tharp).
 

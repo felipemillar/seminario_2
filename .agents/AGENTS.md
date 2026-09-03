@@ -94,6 +94,7 @@ Antes de responder o escribir código, consulta el recurso especializado del mó
 | **Orquestación & Swarm** | [`quant_agentic_swarm/docs/`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/docs) | Arquitectura del enjambre, interacción HITL, estándar de 7 bloques y esquemas JSON. |
 | **TradingView & Pine Script** | [`TradingView/knowledge/`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/TradingView/knowledge) & [`TradingView/GEMINI.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/TradingView/GEMINI.md) | Estándar Pine Script v6, tipos UDT, anti-repainting, márgenes de futuros y buffers gráficos. |
 | **MetaTrader 5 & MQL5** | [`MT5/knowledge/`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/knowledge) & [`MT5/AGENTS.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/AGENTS.md) | MQL5 POO, `CTrade`, sincronización `IsNewBar()`, API REST FastAPI y scripts de análisis. |
+| **Optimización Cuantitativa & Salidas** | [`quant_agentic_swarm/docs/OPTIMIZATION_PROTOCOL.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/docs/OPTIMIZATION_PROTOCOL.md) | Protocolo canónico de 5 pilares: MAE/MFE, Grid Search en ATR, Meseta de Robustez y Validación In-Sample/Out-of-Sample. |
 
 ---
 
@@ -155,6 +156,32 @@ Cada vez que el usuario solicite auditar, reportar o analizar los resultados de 
    - **Excursión Adversa y Favorable (MAE / MFE):** Calibración empírica de Stops y Targets (*Sweeney & López de Prado*).
    - **Tiempo de Permanencia (Time-Stop):** Duración media en barras intradiarias de ganadores vs perdedores (*Crabel*).
    - **Racha Máxima de Pérdidas y Circuit Breaker:** Conteo de pérdidas continuas y freno automático (*Weissman & Elder*).
+
+### 4.8. Estándar Obligatorio de Optimización Cuantitativa (Meseta de Robustez & MAE/MFE)
+Cada vez que el usuario solicite calibrar, optimizar o mejorar los parámetros de **cualquier estrategia o activo** (en MT5, Python o TradingView), el agente debe someterse **sin excepción** al protocolo canónico documentado en [`quant_agentic_swarm/docs/OPTIMIZATION_PROTOCOL.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/docs/OPTIMIZATION_PROTOCOL.md).
+
+#### Frases Disparadoras Reconocidas (Cómo lo solicita el usuario):
+- *"Optimiza los parámetros de [estrategia/activo]."*
+- *"Busca los mejores parámetros."* o *"Calibra el stop y el target."*
+- *"Mejora los resultados con la metodología de optimización."*
+- *"Aplica optimización a esta estrategia."*
+
+#### Los 5 Mandatos Ineludibles de Optimización:
+1. **Prohibición Estricta de Picos Aislados (Anti-Spikes Manifesto):**
+   * Queda terminantemente prohibido elegir parámetros basándose en el "máximo Sharpe aislado" o "mayor beneficio neto de la cuadrícula".
+   * El agente debe identificar la región continua donde $S \ge 0.80 \times S_{\max}$ y **seleccionar obligatoriamente el baricentro (centro geométrico) de la meseta plana de estabilidad paramétrica** (*Robert Pardo & Perry Kaufman*).
+2. **Normalización Mandatoria por Volatilidad (ATR):**
+   * Todo Stop Loss, Take Profit y disparador de trailing debe formularse y optimizarse en **múltiplos limpios de ATR** (ej. $1.0\times\text{ATR}$, $1.25\times\text{ATR}$). Prohibido optimizar puntos o ticks fijos para asegurar la invarianza temporal.
+3. **Calibración Empírica por Excursiones (MAE / MFE):**
+   * El Stop Loss inicial debe sustentarse en el **percentil 90 del MAE de operaciones ganadoras** ($P_{90}(\text{MAE}_{\text{wins}})$) (*Sweeney*).
+   * El Take Profit debe anclarse en la **mediana o masa modal de la densidad de MFE**, descartando targets inalcanzables en la cola extrema (*Crabel*).
+4. **Validación Temporal Cruzada In-Sample vs Out-of-Sample (Split Ciego):**
+   * Partición temporal obligatoria reservando al menos el 20% más reciente de datos como conjunto ciego (*Out-of-Sample*).
+   * Cálculo y presentación obligatoria del **Semáforo de Degradación Paramétrica** (*López de Prado*):
+     $$\text{Degradación} = \frac{|\text{Sharpe}_{\text{IS}} - \text{Sharpe}_{\text{OOS}}|}{\text{Sharpe}_{\text{IS}}} \times 100 \le 30\% \quad (\text{Zona Verde})$$
+   * Si la degradación supera el 50% o el Sharpe OOS cae por debajo de 0.50, la optimización se declara nula o sobreajustada.
+5. **Capa Dinámica de Protección de Capital:**
+   * Toda estrategia optimizada debe incluir un **Breakeven elástico** (gatillado fuera del ruido de apertura) y un **Circuit Breaker mensual** (freno automático tras 3 pérdidas consecutivas en el mes) (*Elder & Van Tharp*).
 
 ---
 
