@@ -500,6 +500,133 @@ def query_mcp_symbols(filter_text: str = None, only_tradeable: bool = True, incl
 
     return {"total_found": len(output), "symbols": output}
 
+CACHE_FILE_PATH = "/tmp/mt5_marketwatch_cache.json"
+
+def get_cached_marketwatch_symbols(ttl_seconds: int = 20, force_fresh: bool = False):
+    """Obtiene la lista de simbolos de MarketWatch con cache efimera en RAM (/tmp) para tiempo sub-segundo."""
+    import time
+    now = time.time()
+    if not force_fresh and os.path.exists(CACHE_FILE_PATH):
+        try:
+            mtime = os.path.getmtime(CACHE_FILE_PATH)
+            age = now - mtime
+            if age < ttl_seconds:
+                with open(CACHE_FILE_PATH, "r", encoding="utf-8") as f:
+                    symbols = json.load(f)
+                return symbols, round(age, 1), True
+        except Exception as err:
+            logger.error(f"Error al leer cache de MT5: {type(err).__name__} (detalles omitidos por seguridad)")
+
+    # Consulta fresca via MCP (MarketWatch activo con precios en vivo)
+    data = call_mt5_mcp("get_marketwatch_symbols", {})
+    symbols = data.get("symbols", []) if isinstance(data, dict) else []
+
+    if symbols:
+        try:
+            tmp_file = CACHE_FILE_PATH + ".tmp"
+            with open(tmp_file, "w", encoding="utf-8") as f:
+                json.dump(symbols, f)
+            os.replace(tmp_file, CACHE_FILE_PATH)
+        except Exception as err:
+            logger.error(f"Error al guardar cache de MT5: {type(err).__name__} (detalles omitidos por seguridad)")
+
+    return symbols, 0.0, False
+
+def fast_scan_market(market: str = "US", top_n: int = 3, sort_mode: str = "BOTH", ttl: int = 20, force_fresh: bool = False, output_format: str = "table"):
+    """Escanea y clasifica activos de Pepperstone a velocidad sub-segundo (< 50ms con cache)."""
+    import time
+    t0 = time.time()
+    symbols, cache_age, is_cached = get_cached_marketwatch_symbols(ttl_seconds=ttl, force_fresh=force_fresh)
+
+    mkt = market.upper().strip()
+    filtered = []
+
+    for s in symbols:
+        sym = s.get("symbol", "")
+        desc = s.get("description", "")
+        sector = s.get("sector", "Undefined")
+        bid = s.get("bid", 0.0)
+        p_close = s.get("price_close", 0.0)
+
+        if bid <= 0 or p_close <= 0:
+            continue
+
+        chg = round(((bid - p_close) / p_close) * 100.0, 2)
+        spread_pts = round((s.get("ask", 0.0) - bid), s.get("digits", 2))
+
+        is_etf = any(k in desc.upper() for k in ["ETF", "TRUST", "ISHARES", "SPDR"])
+        is_us_stock = sym.endswith(".US") and not is_etf
+        is_index = sym in ["NAS100", "US500", "US30", "US2000", "GER40", "UK100", "AUS200", "JP225", "HK50", "ESTX50"]
+        is_forex = sector.lower() == "currency" or (len(sym) == 6 and sym.isalpha() and not sym.endswith(".US"))
+        is_crypto = any(sym.startswith(c) for c in ["BTC", "ETH", "SOL", "XRP", "LTC", "ADA", "DOGE", "DOT", "LINK"]) and ("USD" in sym or "USDT" in sym)
+        is_commodity = any(m in sym for m in ["XAU", "XAG", "XTI", "XBR", "COPPER"])
+
+        match = False
+        if mkt in ["US", "US_STOCKS", "STOCKS"]:
+            match = is_us_stock
+        elif mkt in ["ETFS", "US_ETFS"]:
+            match = is_etf and sym.endswith(".US")
+        elif mkt in ["INDICES", "INDEX"]:
+            match = is_index
+        elif mkt in ["FOREX", "FX"]:
+            match = is_forex
+        elif mkt in ["CRYPTO", "CRIPTOS"]:
+            match = is_crypto
+        elif mkt in ["COMMODITIES", "METALES"]:
+            match = is_commodity
+        elif mkt == "ALL":
+            match = True
+
+        if match:
+            filtered.append({
+                "symbol": sym,
+                "description": desc,
+                "sector": sector,
+                "bid": bid,
+                "ask": s.get("ask", 0.0),
+                "price_close": p_close,
+                "change_pct": chg,
+                "spread": spread_pts
+            })
+
+    # Ordenamiento
+    filtered.sort(key=lambda x: x["change_pct"], reverse=True)
+    gainers = filtered[:top_n]
+    losers = filtered[-top_n:][::-1] if len(filtered) >= top_n else filtered[::-1]
+
+    elapsed_ms = round((time.time() - t0) * 1000, 1)
+
+    result_data = {
+        "market": mkt,
+        "total_active_assets": len(filtered),
+        "is_cached": is_cached,
+        "cache_age_sec": cache_age,
+        "query_time_ms": elapsed_ms,
+        "top_gainers": gainers,
+        "top_losers": losers
+    }
+
+    if output_format == "json":
+        return result_data
+
+    # Formato tabla visual para consola
+    lines = []
+    cache_badge = f"[CACHE: {cache_age}s]" if is_cached else "[FRESCO: MT5 LIVE]"
+    lines.append(f"\n=== PEPPERSTONE FAST-SCANNER · MERCADO: {mkt} ({len(filtered)} ACTIVOS) · {elapsed_ms} ms {cache_badge} ===")
+
+    if sort_mode.upper() in ["GAINERS", "BOTH"]:
+        lines.append("\n🟢 TOP GANADORES:")
+        for idx, g in enumerate(gainers, 1):
+            lines.append(f"  {idx}. {g['symbol']:<10} | {g['description'][:30]:<30} | {g['change_pct']:>+6.2f}% | Bid: ${g['bid']:<9} | Sector: {g['sector']}")
+
+    if sort_mode.upper() in ["LOSERS", "BOTH"]:
+        lines.append("\n🔴 TOP PERDEDORES:")
+        for idx, l in enumerate(losers, 1):
+            lines.append(f"  {idx}. {l['symbol']:<10} | {l['description'][:30]:<30} | {l['change_pct']:>+6.2f}% | Bid: ${l['bid']:<9} | Sector: {l['sector']}")
+
+    lines.append(f"\nLatencia de escaneo: {elapsed_ms} ms | Servidor MT5: Pepperstone-Demo\n")
+    return "\n".join(lines)
+
 def main():
     parser = argparse.ArgumentParser(description="MT5 Agent Bridge - CLI Universal para Agentes de IA (macOS / Windows)")
     subparsers = parser.add_subparsers(dest="command", help="Comandos disponibles")
@@ -530,6 +657,14 @@ def main():
     hist_parser.add_argument("--period", default="D1", help="Temporalidad (M1, M5, M15, M30, H1, D1)")
     hist_parser.add_argument("--from-date", default="2026-08-25T00:00:00Z", help="Fecha inicio ISO")
     hist_parser.add_argument("--to-date", default="2026-09-03T12:00:00Z", help="Fecha fin ISO")
+
+    scan_parser = subparsers.add_parser("scan", help="Fast-Scanner sub-segundo de activos y líderes de mercado")
+    scan_parser.add_argument("--market", default="US", choices=["US", "ETFS", "INDICES", "FOREX", "CRYPTO", "COMMODITIES", "ALL"], help="Mercado a escanear")
+    scan_parser.add_argument("--top", type=int, default=3, help="Cantidad de lideres a mostrar")
+    scan_parser.add_argument("--sort", default="BOTH", choices=["BOTH", "GAINERS", "LOSERS"], help="Sentido de clasificacion")
+    scan_parser.add_argument("--ttl", type=int, default=20, help="Tiempo de vida de cache en segundos (default: 20)")
+    scan_parser.add_argument("--fresh", action="store_true", help="Forzar consulta fresca en vivo a MT5")
+    scan_parser.add_argument("--format", default="table", choices=["table", "json"], help="Formato de salida")
 
     args = parser.parse_args()
 
@@ -576,8 +711,23 @@ def main():
             "datetime_to": args.to_date
         })
         print(json.dumps(res, indent=2))
+    elif args.command == "scan":
+        import json
+        res = fast_scan_market(
+            market=args.market,
+            top_n=args.top,
+            sort_mode=args.sort,
+            ttl=args.ttl,
+            force_fresh=args.fresh,
+            output_format=args.format
+        )
+        if args.format == "json":
+            print(json.dumps(res, indent=2))
+        else:
+            print(res)
     else:
         parser.print_help()
 
 if __name__ == "__main__":
     main()
+

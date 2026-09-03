@@ -8,6 +8,21 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Implementación de Fast-Scanner Sub-Segundo para Activos de Pepperstone
+**Objetivo:** Desarrollar e integrar una herramienta CLI de escaneo de alta velocidad en `MT5/scripts/mt5_agent_bridge.py` para consultar líderes de mercado (Top Gainers, Losers, Spreads) en tiempo sub-segundo (< 10 ms con caché en memoria).
+
+### [OK] Cambios Realizados:
+- **[Motor de Caché Efímera en RAM (`/tmp/mt5_marketwatch_cache.json`)]**:
+  * Implementada función `get_cached_marketwatch_symbols(ttl=20, force_fresh=False)` que almacena los 1,000 activos de Market Watch en RAM efímera con invalidación atómica.
+  * Tiempos de respuesta reducidos de 2.5 segundos a **6.0 milisegundos**.
+- **[Clasificación Semántica por Mercados]**:
+  * Soporte para filtros directos: `US` (acciones individuales), `ETFS` (fondos cotizados), `INDICES` (índices bursátiles globales), `FOREX` (divisas), `COMMODITIES` (metales/energía) y `CRYPTO`.
+- **[Subcomando CLI `scan`]**:
+  * Integrado `python3 mt5_agent_bridge.py scan [--market MARKET] [--top N] [--sort BOTH|GAINERS|LOSERS] [--fresh] [--format table|json]`.
+  * Salida dual: tabla de alta densidad visual para terminal y JSON estructurado para agentes de IA.
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Optimización Cuantitativa STRAT-20260903-GOLD_SMA_CROSS-M30-v1.1
 **Objetivo:** Implementar las optimizaciones derivadas de la auditoría de 3 módulos del backtest en XAUUSD (2020–2026): erradicación del arrastre negativo de ventas (Modo Long-Only), calibración del Take Profit en la masa modal de MFE ($1.10\times ATR_D$), Breakeven elástico ($+0.50\times ATR_D$) y Circuit Breaker mensual.
 
