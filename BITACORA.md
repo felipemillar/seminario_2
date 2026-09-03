@@ -8,6 +8,19 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Auditoría y Adaptación Profunda a MQL5 del EA USGAP_MOM
+**Objetivo:** Revisar exhaustivamente el código del Expert Advisor `STRAT-20260902-USGAP_MOM-M15-v1.0.mq5` para garantizar paridad matemática total con la especificación y eliminar discrepancias entre el entorno de backtesting y la microestructura de MT5.
+
+### [OK] Cambios Realizados:
+- **[Alineación Institucional]**: Declarada autoría canónica obligatoria `QRT Solutions` y versión `1.01`.
+- **[Precisión de Apertura de Sesión]**: Corregida la referencia de apertura de sesión a `iOpen(_Symbol, PERIOD_CURRENT, 1)` a las 16:30 servidor (en lugar del Open 00:00 de D1), garantizando la medición fiel del gap de apertura intradiario de Nueva York respecto al cierre D1 anterior (`shift 1`).
+- **[Fórmula Muestral Z-Score]**: Implementada la desviación estándar muestral ($N-1$) en `CalculateDailyVolatilityZScore()` para replicar con exactitud el comportamiento de `ta.stdev()` en Pine Script.
+- **[Criterio de Invalidación Temprana Implementado]**: Programada la regla estricta de la especificación: si dentro de los primeros 30 minutos (primeras 2 barras M15) el precio retrocede más del 50% del rango del gap en contra de la dirección del trade, la posición se liquida a mercado (`EXIT_INVALIDATION_30MIN`).
+- **[Normalización de Precios de Salida]**: Blindados los niveles de Stop Loss y Take Profit mediante `NormalizeDouble(..., _Digits)` para evitar rechazos de orden por parte del broker.
+- **[Compilación Exitosa]**: Compilado el binario ejecutable `STRAT-20260902-USGAP_MOM-M15-v1.0.ex5` con 0 errores y 0 advertencias en 893 ms.
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Reorganización Estructural de Datasets en masterclass/data/
 **Objetivo:** Centralizar y ordenar todos los archivos de datos históricos (CSVs y comprimidos) dentro de una subcarpeta dedicada `masterclass/data/` para mantener la raíz del módulo limpia y modular.
 
