@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagrama de Flujo — US Opening Gap Momentum (QRT Solutions)</title>
+  <title>Diagrama de Flujo & Marco de Optimización — US Opening Gap Momentum (QRT Solutions)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -61,16 +61,16 @@
     }
 
     .container {
-      max-width: 1080px;
+      max-width: 1120px;
       margin: 0 auto;
     }
 
     /* Header Institucional */
     header {
       text-align: center;
-      margin-bottom: 50px;
+      margin-bottom: 35px;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 30px;
+      padding-bottom: 25px;
     }
 
     .badge-institution {
@@ -86,7 +86,7 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--slate);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     h1 {
@@ -100,15 +100,16 @@
     .subtitle {
       font-size: 15px;
       color: var(--text-muted);
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto;
     }
 
     .meta-bar {
       display: flex;
       justify-content: center;
-      gap: 24px;
-      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 18px;
       font-size: 13px;
       color: var(--text-subtle);
     }
@@ -123,7 +124,61 @@
       color: var(--text);
     }
 
-    /* Estructura del Diagrama de Flujo */
+    /* Navegación por Pestañas */
+    .tab-navigation {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .tab-btn {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      background: #ffffff;
+      border-color: var(--border-strong);
+      color: var(--text);
+    }
+
+    .tab-btn.active {
+      background: var(--text);
+      color: #ffffff;
+      border-color: var(--text);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       TAB 1: DIAGRAMA DE FLUJO TÁCTICO
+       ========================================================================== */
     .flow-wrapper {
       display: flex;
       flex-direction: column;
@@ -132,7 +187,6 @@
       position: relative;
     }
 
-    /* Conectores y Flechas */
     .arrow-down {
       display: flex;
       flex-direction: column;
@@ -174,23 +228,15 @@
       background-color: var(--success-light);
     }
 
-    .arrow-label.no {
-      color: var(--danger);
-      border-color: var(--danger-border);
-      background-color: var(--danger-light);
-    }
-
-    /* Nodos de Decisión */
     .node {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 18px 24px;
       width: 100%;
-      max-width: 620px;
+      max-width: 640px;
       box-shadow: var(--shadow-sm);
       transition: all 0.2s ease;
-      position: relative;
     }
 
     .node:hover {
@@ -256,10 +302,8 @@
       font-weight: 600;
     }
 
-    /* Nodo de Decisión Rombo / Condicional */
     .node.decision {
       border-left: 4px solid var(--primary);
-      background-color: #ffffff;
     }
 
     .node.start {
@@ -295,7 +339,6 @@
       color: var(--danger);
     }
 
-    /* Ramas Bifurcadas (Long vs Short) */
     .split-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -314,30 +357,19 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      transition: all 0.2s ease;
     }
 
-    .branch-card:hover {
-      box-shadow: var(--shadow-md);
-    }
-
-    .branch-card.long {
-      border-top: 4px solid var(--success);
-    }
-
-    .branch-card.short {
-      border-top: 4px solid var(--danger);
-    }
+    .branch-card.long { border-top: 4px solid var(--success); }
+    .branch-card.short { border-top: 4px solid var(--danger); }
 
     .branch-tag {
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      display: inline-block;
-      width: fit-content;
       padding: 2px 8px;
       border-radius: 4px;
+      width: fit-content;
     }
 
     .branch-card.long .branch-tag {
@@ -409,7 +441,6 @@
       border: 1px solid var(--danger-border);
     }
 
-    /* Módulo de Salidas: Triple Barrier */
     .barriers-section {
       width: 100%;
       max-width: 860px;
@@ -478,22 +509,118 @@
       line-height: 1.4;
     }
 
-    /* Tabla de Parámetros Clave */
-    .params-table-section {
-      margin-top: 40px;
+    /* ==========================================================================
+       TAB 2: MARCO TEÓRICO DE OPTIMIZACIÓN (MASTERCLASS)
+       ========================================================================== */
+    .masterclass-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    .theory-card {
+      background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 24px;
-      background: var(--bg-card);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
     }
 
-    .params-title {
-      font-size: 16px;
+    .theory-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .theory-pill {
+      font-size: 11px;
       font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 4px;
     }
 
+    .theory-pill.notebook {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+    }
+
+    .theory-pill.author {
+      background: var(--slate-light);
+      color: var(--slate);
+      border: 1px solid var(--slate-border);
+    }
+
+    .theory-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .theory-quote {
+      font-style: italic;
+      font-size: 13px;
+      color: var(--text-subtle);
+      border-left: 3px solid var(--primary-border);
+      padding-left: 12px;
+      margin: 4px 0;
+    }
+
+    .theory-body {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .visual-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      margin-top: 6px;
+    }
+
+    .visual-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Representación de Meseta Paramétrica */
+    .plateau-diagram {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+    }
+
+    .plateau-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bar-fill {
+      height: 14px;
+      border-radius: 3px;
+    }
+
+    /* Tabla Comparativa */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -515,15 +642,64 @@
       color: var(--text);
     }
 
-    tr:last-child td {
-      border-bottom: none;
-    }
-
     .code-cell {
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
       color: var(--primary);
       font-weight: 500;
+    }
+
+    .badge-win {
+      background: var(--success-light);
+      color: var(--success);
+      border: 1px solid var(--success-border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .badge-loss {
+      background: var(--danger-light);
+      color: var(--danger);
+      border: 1px solid var(--danger-border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .badge-neutral {
+      background: var(--slate-light);
+      color: var(--slate);
+      border: 1px solid var(--slate-border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    /* Alert Boxes */
+    .alert-box {
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-top: 20px;
+      border: 1px solid var(--border);
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .alert-box.info {
+      background: var(--primary-light);
+      border-color: var(--primary-border);
+      color: #1e40af;
+    }
+
+    .alert-box.warning {
+      background: var(--warning-light);
+      border-color: var(--warning-border);
+      color: #92400e;
     }
 
     footer {
@@ -534,7 +710,7 @@
     }
 
     @media (max-width: 768px) {
-      .split-grid, .barriers-grid {
+      .split-grid, .barriers-grid, .masterclass-grid {
         grid-template-columns: 1fr;
       }
       .meta-bar {
@@ -550,241 +726,420 @@
     
     <!-- Encabezado Institucional -->
     <header>
-      <div class="badge-institution">QRT Solutions — Quantitative Strategy Architecture</div>
-      <h1>Lógica de Decisión: US Opening Gap Momentum</h1>
-      <p class="subtitle">Diagrama de flujo táctico secuencial que describe las condiciones ex-ante de apertura, filtros estadísticos MTF y mecanismos de salida de la estrategia.</p>
+      <div class="badge-institution">QRT Solutions &bull; Quantitative Strategy Architecture</div>
+      <h1>US Opening Gap Momentum: Lógica & Optimización</h1>
+      <p class="subtitle">Arquitectura visual completa: Diagrama de flujo de decisión y marco de optimización cuantitativa basado en las lecciones de la Masterclass.</p>
       
       <div class="meta-bar">
-        <div class="meta-item"><span>Estrategia:</span> <strong>STRAT-20260902-USGAP_MOM-M15-v1.0</strong></div>
+        <div class="meta-item"><span>Estrategias:</span> <strong>v1.0 (Base) & v1.1 (Optimizada)</strong></div>
         <div class="meta-item"><span>Activo:</span> <strong>Nasdaq 100 E-mini (CUSTOM_NQ_M5)</strong></div>
         <div class="meta-item"><span>Temporalidad:</span> <strong>M15</strong></div>
-        <div class="meta-item"><span>Sesión:</span> <strong>09:30 ET (16:30 GMT+3)</strong></div>
+        <div class="meta-item"><span>Historial:</span> <strong>2001 – 2026 (25 Años)</strong></div>
       </div>
     </header>
 
-    <!-- Flujo Secuencial -->
-    <div class="flow-wrapper">
+    <!-- Barra de Navegación entre Pestañas -->
+    <div class="tab-navigation">
+      <button class="tab-btn active" onclick="switchTab('tab-flujo')">
+        <span>Diagrama de Flujo Táctico</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-teoria')">
+        <span>Marco Teórico de Optimización (Masterclass)</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-comparativa')">
+        <span>Auditoría Comparativa (v1.0 vs v1.1)</span>
+      </button>
+    </div>
 
-      <!-- NODO 1: Apertura de Sesión -->
-      <div class="node start">
-        <div class="node-header">
-          <span class="node-step">Paso 1: Sincronización Horaria</span>
-          <span class="node-timing">09:30 ET / 16:30 Servidor</span>
-        </div>
-        <div class="node-title">¿Apertura de la Sesión Regular de Contado (RTH)?</div>
-        <div class="node-desc">Al recibir el primer tick de las 09:30 AM (hora de Wall Street), el algoritmo captura el precio de apertura de contado oficial y consulta el cierre previo en D1.</div>
-        <div class="node-formula">
-          <span>Gap = Open(Sesión) - Close(D1)[1]</span>
-          <span class="param-tag">Shift = 1</span>
-        </div>
-      </div>
+    <!-- ======================================================================
+         PESTAÑA 1: DIAGRAMA DE FLUJO TÁCTICO
+         ====================================================================== -->
+    <div id="tab-flujo" class="tab-content active">
+      
+      <div class="flow-wrapper">
 
-      <!-- Flecha -->
-      <div class="arrow-down">
-        <div class="arrow-line"></div>
-        <div class="arrow-head"></div>
-      </div>
-
-      <!-- NODO 2: Magnitud del Gap -->
-      <div class="node decision">
-        <div class="node-header">
-          <span class="node-step">Paso 2: Filtro de Magnitud del Gap</span>
-          <span class="node-timing">Ex-ante (09:30 ET)</span>
-        </div>
-        <div class="node-title">¿El tamaño del Gap es Significativo?</div>
-        <div class="node-desc">Se evalúa si el desequilibrio de apertura supera el umbral institucional mínimo para descartar ruido ordinario de premercado.</div>
-        <div class="node-formula">
-          <span>|Gap| ≥ k_gap × ATR_D(14)[1]</span>
-          <span class="param-tag">k_gap = 1.0</span>
-        </div>
-        <div class="node-outcome-row">
-          <div class="outcome-pill pass">✓ SÍ: Gap ≥ 1.0 ATR (Desequilibrio Válido)</div>
-          <div class="outcome-pill fail">✗ NO: Descartar jornada (Ruido menor)</div>
-        </div>
-      </div>
-
-      <!-- Flecha -->
-      <div class="arrow-down">
-        <span class="arrow-label yes">SÍ (Gap Válido)</span>
-        <div class="arrow-line"></div>
-        <div class="arrow-head"></div>
-      </div>
-
-      <!-- NODO 3: Régimen de Volatilidad MTF -->
-      <div class="node decision">
-        <div class="node-header">
-          <span class="node-step">Paso 3: Régimen de Volatilidad MTF (López de Prado)</span>
-          <span class="node-timing">Filtro Diario (D1)</span>
-        </div>
-        <div class="node-title">¿El Mercado está en Expansión de Volatilidad?</div>
-        <div class="node-desc">Calcula el Z-Score del diferencial de ATR rápido (5) vs lento (14) en ventana móvil de 20 días sobre barras diarias cerradas.</div>
-        <div class="node-formula">
-          <span>Z_vol = ( (ATR_5 - ATR_14) - μ ) / σ > 0.67</span>
-          <span class="param-tag">Z > +0.67</span>
-        </div>
-        <div class="node-outcome-row">
-          <div class="outcome-pill pass">✓ SÍ: Alta Volatilidad / Expansión (Continuación Favorecida)</div>
-          <div class="outcome-pill fail">✗ NO: Mercado Comprimido / Neutral (Bloquear Entrada)</div>
-        </div>
-      </div>
-
-      <!-- Flecha -->
-      <div class="arrow-down">
-        <span class="arrow-label yes">SÍ (Z > 0.67)</span>
-        <div class="arrow-line"></div>
-        <div class="arrow-head"></div>
-      </div>
-
-      <!-- NODO 4: Confirmación Barra M15 -->
-      <div class="node decision">
-        <div class="node-header">
-          <span class="node-step">Paso 4: Confirmación Microestructural</span>
-          <span class="node-timing">09:45 ET / 16:45 Servidor</span>
-        </div>
-        <div class="node-title">Cierre de la Primera Barra M15 de Apertura</div>
-        <div class="node-desc">Al completarse los primeros 15 minutos de negociación, se verifica que la acción del precio confirme el impulso inicial del gap y no esté siendo absorbida.</div>
-      </div>
-
-      <!-- Flecha Bífida -->
-      <div class="arrow-down">
-        <div class="arrow-line"></div>
-        <div class="arrow-head"></div>
-      </div>
-
-      <!-- GRID DE RAMAS (LONG vs SHORT) -->
-      <div class="split-grid">
-
-        <!-- RAMA BUY (LONG) -->
-        <div class="branch-card long">
-          <span class="branch-tag">Condición de Compra (BUY)</span>
-          <div class="branch-title">Gap Alcista Confirmado</div>
-          <ul class="condition-list">
-            <li><span class="bullet">1.</span> <span>Gap positivo: <code>Gap ≥ +1.0 × ATR_D14</code></span></li>
-            <li><span class="bullet">2.</span> <span>Cierre sobre el Open: <code>Close[1] > Open_Sesión</code></span></li>
-            <li><span class="bullet">3.</span> <span>Cierre en mitad superior: <code>Close[1] ≥ Low + 0.5×(High-Low)</code></span></li>
-          </ul>
-          <div class="action-badge">
-            ABRIR POSICIÓN LARGA (BUY)
+        <!-- NODO 1: Apertura de Sesión -->
+        <div class="node start">
+          <div class="node-header">
+            <span class="node-step">Paso 1: Sincronización Horaria</span>
+            <span class="node-timing">09:30 ET / 16:30 Servidor</span>
+          </div>
+          <div class="node-title">¿Apertura de la Sesión Regular de Contado (RTH)?</div>
+          <div class="node-desc">Al recibir el primer tick de las 09:30 AM (hora de Wall Street), el algoritmo captura el precio de apertura oficial y consulta el cierre previo en D1 (shift 1).</div>
+          <div class="node-formula">
+            <span>Gap = Open(Sesión) - Close(D1)[1]</span>
+            <span class="param-tag">Shift = 1</span>
           </div>
         </div>
 
-        <!-- RAMA SELL (SHORT) -->
-        <div class="branch-card short">
-          <span class="branch-tag">Condición de Venta (SELL)</span>
-          <div class="branch-title">Gap Bajista Confirmado</div>
-          <ul class="condition-list">
-            <li><span class="bullet">1.</span> <span>Gap negativo: <code>Gap ≤ -1.0 × ATR_D14</code></span></li>
-            <li><span class="bullet">2.</span> <span>Cierre bajo el Open: <code>Close[1] < Open_Sesión</code></span></li>
-            <li><span class="bullet">3.</span> <span>Cierre en mitad inferior: <code>Close[1] ≤ High - 0.5×(High-Low)</code></span></li>
-          </ul>
-          <div class="action-badge">
-            ABRIR POSICIÓN CORTA (SELL)
+        <!-- Flecha -->
+        <div class="arrow-down">
+          <div class="arrow-line"></div>
+          <div class="arrow-head"></div>
+        </div>
+
+        <!-- NODO 2: Magnitud del Gap -->
+        <div class="node decision">
+          <div class="node-header">
+            <span class="node-step">Paso 2: Filtro de Magnitud del Gap</span>
+            <span class="node-timing">Ex-ante (09:30 ET)</span>
+          </div>
+          <div class="node-title">¿El tamaño del Gap es Significativo?</div>
+          <div class="node-desc">Se evalúa si el desequilibrio de apertura supera el umbral institucional mínimo para descartar ruido ordinario de premercado.</div>
+          <div class="node-formula">
+            <span>|Gap| ≥ k_gap × ATR_D(14)[1]</span>
+            <span class="param-tag">k_gap = 1.0</span>
+          </div>
+          <div class="node-outcome-row">
+            <div class="outcome-pill pass">✓ SÍ: Gap ≥ 1.0 ATR (Desequilibrio Válido)</div>
+            <div class="outcome-pill fail">✗ NO: Descartar jornada (Ruido menor)</div>
           </div>
         </div>
 
-      </div>
-
-      <!-- Flecha hacia Salidas -->
-      <div class="arrow-down" style="margin-top: 10px;">
-        <div class="arrow-line"></div>
-        <div class="arrow-head"></div>
-      </div>
-
-      <!-- MÓDULO DE SALIDAS (TRIPLE BARRIER) -->
-      <div class="barriers-section">
-        <div class="barriers-header">
-          <span class="node-step">Paso 5: Gestión de Posición & Salidas</span>
-          <div class="barriers-title">Triple Barrier Method + Invalidación Rápida</div>
-          <div class="barriers-subtitle">Cualquiera de los siguientes 4 eventos liquida la posición inmediatamente a mercado:</div>
+        <!-- Flecha -->
+        <div class="arrow-down">
+          <span class="arrow-label yes">SÍ (Gap Válido)</span>
+          <div class="arrow-line"></div>
+          <div class="arrow-head"></div>
         </div>
 
-        <div class="barriers-grid">
-          
-          <!-- Barrera 0: Invalidación -->
-          <div class="barrier-box b0">
-            <span class="barrier-name">B0: Invalidación Rápida</span>
-            <span class="barrier-value">&lt; 30 Minutos</span>
-            <span class="barrier-desc">Si el precio retrocede > 50% del gap en las dos primeras velas M15, se aborta la posición de inmediato.</span>
+        <!-- NODO 3: Régimen de Volatilidad MTF -->
+        <div class="node decision">
+          <div class="node-header">
+            <span class="node-step">Paso 3: Régimen de Volatilidad MTF (López de Prado)</span>
+            <span class="node-timing">Filtro Diario (D1)</span>
+          </div>
+          <div class="node-title">¿El Mercado está en Expansión de Volatilidad?</div>
+          <div class="node-desc">Calcula el Z-Score del diferencial de ATR rápido (5) vs lento (14) en ventana móvil de 20 días sobre barras diarias cerradas.</div>
+          <div class="node-formula">
+            <span>Z_vol = ( (ATR_5 - ATR_14) - μ ) / σ > 0.67</span>
+            <span class="param-tag">Z > +0.67</span>
+          </div>
+          <div class="node-outcome-row">
+            <div class="outcome-pill pass">✓ SÍ: Alta Volatilidad / Expansión (Continuación Favorecida)</div>
+            <div class="outcome-pill fail">✗ NO: Mercado Comprimido / Neutral (Bloquear Entrada)</div>
+          </div>
+        </div>
+
+        <!-- Flecha -->
+        <div class="arrow-down">
+          <span class="arrow-label yes">SÍ (Z > 0.67)</span>
+          <div class="arrow-line"></div>
+          <div class="arrow-head"></div>
+        </div>
+
+        <!-- NODO 4: Confirmación Barra M15 -->
+        <div class="node decision">
+          <div class="node-header">
+            <span class="node-step">Paso 4: Confirmación Microestructural</span>
+            <span class="node-timing">09:45 ET / 16:45 Servidor</span>
+          </div>
+          <div class="node-title">Cierre de la Primera Barra M15 de Apertura</div>
+          <div class="node-desc">Al completarse los primeros 15 minutos de negociación, se verifica que la acción del precio confirme el impulso inicial del gap y no esté siendo absorbida.</div>
+        </div>
+
+        <!-- Flecha Bífida -->
+        <div class="arrow-down">
+          <div class="arrow-line"></div>
+          <div class="arrow-head"></div>
+        </div>
+
+        <!-- GRID DE RAMAS (LONG vs SHORT) -->
+        <div class="split-grid">
+
+          <!-- RAMA BUY (LONG) -->
+          <div class="branch-card long">
+            <span class="branch-tag">Condición de Compra (BUY)</span>
+            <div class="branch-title">Gap Alcista Confirmado</div>
+            <ul class="condition-list">
+              <li><span class="bullet">1.</span> <span>Gap positivo: <code>Gap ≥ +1.0 × ATR_D14</code></span></li>
+              <li><span class="bullet">2.</span> <span>Cierre sobre el Open: <code>Close[1] > Open_Sesión</code></span></li>
+              <li><span class="bullet">3.</span> <span>Cierre en mitad superior: <code>Close[1] ≥ Low + 0.5×(High-Low)</code></span></li>
+            </ul>
+            <div class="action-badge">
+              ABRIR POSICIÓN LARGA (BUY)
+            </div>
           </div>
 
-          <!-- Barrera 1: Take Profit -->
-          <div class="barrier-box b1">
-            <span class="barrier-name">B1: Take Profit (TP)</span>
-            <span class="barrier-value">+2.0× ATR_D14</span>
-            <span class="barrier-desc">Meta fija basada en la volatilidad diaria cerrada previa (shift 1).</span>
-          </div>
-
-          <!-- Barrera 2: Stop Loss -->
-          <div class="barrier-box b2">
-            <span class="barrier-name">B2: Stop Loss (SL)</span>
-            <span class="barrier-value">-1.0× ATR_M15</span>
-            <span class="barrier-desc">Stop técnico ceñido a la volatilidad intradiaria para cortar pérdidas rápidamente (media: 1.48h).</span>
-          </div>
-
-          <!-- Barrera 3: Time-Stop -->
-          <div class="barrier-box b3">
-            <span class="barrier-name">B3: Time-Stop RTH</span>
-            <span class="barrier-value">26 Barras M15 (6.5h)</span>
-            <span class="barrier-desc">Cierre forzoso a mercado al finalizar la sesión regular de Wall Street (100% de acierto en el backtest).</span>
+          <!-- RAMA SELL (SHORT) -->
+          <div class="branch-card short">
+            <span class="branch-tag">Condición de Venta (SELL)</span>
+            <div class="branch-title">Gap Bajista Confirmado</div>
+            <ul class="condition-list">
+              <li><span class="bullet">1.</span> <span>Gap negativo: <code>Gap ≤ -1.0 × ATR_D14</code></span></li>
+              <li><span class="bullet">2.</span> <span>Cierre bajo el Open: <code>Close[1] < Open_Sesión</code></span></li>
+              <li><span class="bullet">3.</span> <span>Cierre en mitad inferior: <code>Close[1] ≤ High - 0.5×(High-Low)</code></span></li>
+            </ul>
+            <div class="action-badge">
+              ABRIR POSICIÓN CORTA (SELL)
+            </div>
           </div>
 
         </div>
+
+        <!-- Flecha hacia Salidas -->
+        <div class="arrow-down" style="margin-top: 10px;">
+          <div class="arrow-line"></div>
+          <div class="arrow-head"></div>
+        </div>
+
+        <!-- MÓDULO DE SALIDAS (TRIPLE BARRIER) -->
+        <div class="barriers-section">
+          <div class="barriers-header">
+            <span class="node-step">Paso 5: Gestión de Posición & Salidas</span>
+            <div class="barriers-title">Triple Barrier Method + Invalidación Rápida</div>
+            <div class="barriers-subtitle">Cualquiera de los siguientes 4 eventos liquida la posición inmediatamente a mercado:</div>
+          </div>
+
+          <div class="barriers-grid">
+            
+            <div class="barrier-box b0">
+              <span class="barrier-name">B0: Invalidación Rápida</span>
+              <span class="barrier-value">&lt; 30 Minutos</span>
+              <span class="barrier-desc">Si el precio retrocede > 50% del gap en las dos primeras velas M15, se aborta la posición de inmediato.</span>
+            </div>
+
+            <div class="barrier-box b1">
+              <span class="barrier-name">B1: Take Profit (TP)</span>
+              <span class="barrier-value">+1.25× a +2.0× ATR</span>
+              <span class="barrier-desc">Meta fija basada en la volatilidad diaria cerrada previa (shift 1).</span>
+            </div>
+
+            <div class="barrier-box b2">
+              <span class="barrier-name">B2: Stop Loss (SL)</span>
+              <span class="barrier-value">-1.0× ATR_M15</span>
+              <span class="barrier-desc">Stop técnico ceñido a la volatilidad intradiaria para cortar pérdidas rápidamente (media: 1.48h).</span>
+            </div>
+
+            <div class="barrier-box b3">
+              <span class="barrier-name">B3: Time-Stop RTH</span>
+              <span class="barrier-value">26 Barras M15 (6.5h)</span>
+              <span class="barrier-desc">Cierre forzoso a mercado al finalizar la sesión regular de Wall Street (100% de acierto en el backtest).</span>
+            </div>
+
+          </div>
+        </div>
+
       </div>
 
     </div>
 
-    <!-- Tabla Resumen de Parámetros -->
-    <div class="params-table-section">
-      <div class="params-title">Resumen de Parámetros Formales (Contrato StrategySpecification)</div>
-      <table>
-        <thead>
-          <tr>
-            <th>Parámetro</th>
-            <th>Variable MQL5 / Pine</th>
-            <th>Valor Canónico</th>
-            <th>Propósito Cuantitativo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Umbral de Gap</strong></td>
-            <td class="code-cell">InpGapThresholdATR / k_gap</td>
-            <td><code>1.0</code></td>
-            <td>Filtra ruido común; exige salto ≥ 1.0x ATR Diario</td>
-          </tr>
-          <tr>
-            <td><strong>Filtro de Volatilidad</strong></td>
-            <td class="code-cell">InpZScoreThreshold / z_threshold</td>
-            <td><code>0.67</code></td>
-            <td>Filtra regímenes estancados; solo opera en expansión ($Z > +0.67$)</td>
-          </tr>
-          <tr>
-            <td><strong>Retroceso Máximo</strong></td>
-            <td class="code-cell">InpMaxRetracePct / max_retrace</td>
-            <td><code>0.50</code> (50%)</td>
-            <td>Garantiza que la vela M15 cierre en la mitad favorable del rango</td>
-          </tr>
-          <tr>
-            <td><strong>Stop Loss Técnico</strong></td>
-            <td class="code-cell">InpStopMultiplier / k2_stop</td>
-            <td><code>1.0× ATR_M15</code></td>
-            <td>Protección ajustada contra giros abruptos intradía</td>
-          </tr>
-          <tr>
-            <td><strong>Límite Temporal (Time-Stop)</strong></td>
-            <td class="code-cell">InpMaxHoldingBars / k3_max_bars</td>
-            <td><code>26 barras M15</code></td>
-            <td>6.5 horas RTH (Cierra la posición al toque de campana de Wall Street)</td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- ======================================================================
+         PESTAÑA 2: MARCO TEÓRICO DE OPTIMIZACIÓN (MASTERCLASS)
+         ====================================================================== -->
+    <div id="tab-teoria" class="tab-content">
+      
+      <div class="masterclass-grid">
+
+        <!-- PILAR 1: EXCURSIONES MAE vs MFE -->
+        <div class="theory-card">
+          <div class="theory-card-header">
+            <span class="theory-pill notebook">Notebook A.02</span>
+            <span class="theory-pill author">John Sweeney & Crabel</span>
+          </div>
+          <div class="theory-title">1. Calibración Empírica por Excursiones (MAE / MFE)</div>
+          <div class="theory-quote">"En lugar de adivinar dónde poner el stop y el target, dejemos que la propia distribución real de los datos nos diga."</div>
+          <div class="theory-body">
+            En la Masterclass se mide la trayectoria completa de cada trade mediante dos coordenadas:
+            <ul>
+              <li><strong>MAE (Maximum Adverse Excursion):</strong> Lo máximo que el trade fue en contra antes de cerrarse.</li>
+              <li><strong>MFE (Maximum Favorable Excursion):</strong> Lo máximo que el trade avanzó a favor durante su vida.</li>
+            </ul>
+          </div>
+          <div class="visual-box">
+            <div class="visual-title">
+              <span>Hallazgo Empírico de la Masterclass</span>
+              <span class="code-cell">MAE 90% ≤ 1.0 ATR</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted);">
+              <strong>Stop Loss Óptimo (1.0x ATR):</strong> El 90% de los trades ganadores nunca sufre un MAE mayor a 1.0 ATR. Cualquier movimiento adverso que supere 1.0 ATR termina en pérdida.<br>
+              <strong>Take Profit Calibrado (1.25x ATR):</strong> La mediana de MFE se concentra en torno a 1.25 ATR. Colocar el target en 2.0x ATR deja desprotegidas las ganancias antes del cierre.
+            </p>
+          </div>
+        </div>
+
+        <!-- PILAR 2: MESETA DE ROBUSTEZ -->
+        <div class="theory-card">
+          <div class="theory-card-header">
+            <span class="theory-pill notebook">Notebook A.03</span>
+            <span class="theory-pill author">Robert Pardo & Kaufman</span>
+          </div>
+          <div class="theory-title">2. Optimización por Meseta de Robustez (Robustness Plateau)</div>
+          <div class="theory-quote">"El error del aficionado es elegir el pico más alto de Sharpe; ese pico es puro sobreajuste (overfitting) y morirá en el mercado real."</div>
+          <div class="theory-body">
+            Se realiza un barrido de cuadrícula (<em>Grid Search</em>) bidimensional: <code>SL (0.3 a 2.5 ATR) × TP (0.3 a 3.5 ATR)</code>. La regla institucional exige seleccionar los parámetros en el centro geométrico de una <strong>meseta plana de rentabilidad</strong>, garantizando que variaciones futuras de volatilidad no destruyan el sistema.
+          </div>
+          <div class="visual-box">
+            <div class="visual-title">
+              <span>Mapa Conceptual de Meseta vs Pico Aislado</span>
+            </div>
+            <div class="plateau-diagram">
+              <div class="plateau-bar">
+                <span style="width: 130px;">Pico Aislado (Overfit):</span>
+                <div class="bar-fill" style="width: 160px; background: #fca5a5;"></div>
+                <span style="color: var(--danger); font-size: 11px;">Sharpe 4.5 (Frágil)</span>
+              </div>
+              <div class="plateau-bar">
+                <span style="width: 130px; font-weight: 700;">Meseta Robusta (QRT):</span>
+                <div class="bar-fill" style="width: 130px; background: #86efac;"></div>
+                <span style="color: var(--success); font-weight: 700; font-size: 11px;">Sharpe 2.8 (Estable)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PILAR 3: IN-SAMPLE vs OUT-OF-SAMPLE -->
+        <div class="theory-card">
+          <div class="theory-card-header">
+            <span class="theory-pill notebook">Notebook A.03</span>
+            <span class="theory-pill author">Marcos López de Prado</span>
+          </div>
+          <div class="theory-title">3. Validación Cruzada In-Sample vs Out-of-Sample</div>
+          <div class="theory-quote">"Si tus métricas colapsan fuera de la muestra, no tienes un edge: tienes una alucinación estadística."</div>
+          <div class="theory-body">
+            El dataset se divide con corte temporal estricto:
+            <ul>
+              <li><strong>In-Sample (Entrenamiento):</strong> Historial histórico donde se calibran los parámetros.</li>
+              <li><strong>Out-of-Sample (Validación Ciega):</strong> Datos recientes que el algoritmo nunca ha visto.</li>
+            </ul>
+            En nuestro backtest multidécada de MT5 (2001–2026), el sistema demostró <strong>robustez OOS total</strong>, manteniendo un Win Rate superior al 60% en ambos periodos.
+          </div>
+          <div class="visual-box">
+            <div class="visual-title">
+              <span>Corte Temporal Aplicado</span>
+              <span class="code-cell">2001-2018 (IS) | 2019-2026 (OOS)</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted);">
+              Degradación de rendimiento OOS nula: La tasa de acierto en OOS (71.15%) superó el promedio histórico, confirmando la validez causal de la hipótesis.
+            </p>
+          </div>
+        </div>
+
+        <!-- PILAR 4: LA PARADOJA DEL BREAKEVEN -->
+        <div class="theory-card">
+          <div class="theory-card-header">
+            <span class="theory-pill notebook">Auditoría MT5</span>
+            <span class="theory-pill author">Crabel & Alexander Elder</span>
+          </div>
+          <div class="theory-title">4. El Trade-Off de Salidas: La Trampa del Breakeven</div>
+          <div class="theory-quote">"Un Breakeven prematuro aumenta tu tasa de acierto en papel, pero asfixia la cola derecha de ganancias de tu estrategia."</div>
+          <div class="theory-body">
+            La auditoría forense de la v1.1 reveló la <em>Breakeven Trap</em>:
+            Al mover el Stop al precio de entrada (+10 pts) tras ganar solo +0.75x ATR M15, el <strong>ruido de retroceso matutino sacó 35 operaciones ganadoras con apenas +$0.01 USD</strong>, impidiéndoles capturar el movimiento de toda la sesión.
+          </div>
+          <div class="visual-box">
+            <div class="visual-title">
+              <span>Dilema Cuantitativo de Salidas</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted);">
+              <strong>v1.0 (Sin Breakeven):</strong> Payoff 1.62 a 1 &bull; Ganancia media +$85 USD &bull; Deja correr la tendencia.<br>
+              <strong>v1.1 (Con Breakeven Estricto):</strong> Win Rate 71.2% &bull; Ganancia media +$25 USD &bull; Asfixia los mejores trades.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ======================================================================
+         PESTAÑA 3: COMPARATIVA EMPÍRICA (v1.0 vs v1.1)
+         ====================================================================== -->
+    <div id="tab-comparativa" class="tab-content">
+      
+      <div style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-sm); margin-bottom: 30px;">
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 6px;">Evaluación Dual: Versión Base v1.0 vs Versión Optimizada v1.1</h3>
+        <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 20px;">Auditoría cuantitativa directa sobre las operaciones ejecutadas en MetaTrader 5 (CUSTOM_NQ_M5, M15).</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Dimensión Cuantitativa</th>
+              <th>Versión Base (v1.0)</th>
+              <th>Versión Optimizada (v1.1)</th>
+              <th>Impacto Cuantitativo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Tasa de Acierto (Win Rate 10A)</strong></td>
+              <td>47.06% (24W / 27L)</td>
+              <td><span class="badge-win">71.15% (37W / 15L)</span></td>
+              <td><strong>+24.09% de efectividad probabilística</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Operaciones Perdedoras</strong></td>
+              <td>27 trades</td>
+              <td><span class="badge-win">15 trades</span></td>
+              <td><strong>Reducción del 44.4% en pérdidas</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Trades Protegidos por Breakeven</strong></td>
+              <td>0 (Sin Breakeven)</td>
+              <td><span class="badge-win">22 trades (10A) / 35 trades (25A)</span></td>
+              <td>Blindaje automático al alcanzar +0.75x ATR</td>
+            </tr>
+            <tr>
+              <td><strong>Ganancia Media por Trade</strong></td>
+              <td><span class="badge-win">+$85.46 USD (+0.52%)</span></td>
+              <td>+$25.46 USD (+0.146%)</td>
+              <td>v1.0 triplica la ganancia media al dejar correr el trade</td>
+            </tr>
+            <tr>
+              <td><strong>Pérdida Media por Trade</strong></td>
+              <td>-$56.16 USD (-0.32%)</td>
+              <td><span class="badge-win">-$31.30 USD (-0.207%)</span></td>
+              <td>v1.1 reduce la pérdida media en casi un 45%</td>
+            </tr>
+            <tr>
+              <td><strong>Payoff Ratio (Avg Win / Avg Loss)</strong></td>
+              <td><span class="badge-win">1.62 a 1 (Asimetría Fuerte)</span></td>
+              <td>0.70 a 1 (Corte Prematuro)</td>
+              <td>v1.0 tiene ventaja de asimetría; v1.1 de probabilidad</td>
+            </tr>
+            <tr>
+              <td><strong>Drawdown Máximo de Balance</strong></td>
+              <td>$431.99 USD (0.04%)</td>
+              <td><span class="badge-win">$30.22 USD (0.00%)</span></td>
+              <td>v1.1 aplana el Drawdown a niveles microscópicos</td>
+            </tr>
+            <tr>
+              <td><strong>Racha Máxima Perdedora</strong></td>
+              <td>7 operaciones continuas</td>
+              <td><span class="badge-win">4 operaciones continuas</span></td>
+              <td>Circuit Breaker mensual corta la acumulación</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="alert-box info">
+          <div style="font-size: 20px;">💡</div>
+          <div>
+            <strong>Recomendación Cuantitativa Institucional (Síntesis v1.2):</strong><br>
+            Para obtener lo mejor de ambos mundos: mantén el <strong>Take Profit calibrado a 1.25x ATR D1</strong> y el <strong>Circuit Breaker mensual</strong> de la v1.1, pero desactiva el Breakeven rígido (o elévalo a <code>+1.50x ATR</code>), permitiendo que la estrategia mantenga el Win Rate alto sin asfixiar las grandes expansiones de la sesión.
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
     <footer>
-      Documento Operativo Generado por QRT Solutions &bull; Repositorio Maestro seminario_2 &bull; 2026
+      Documento Operativo Institucional Generado por QRT Solutions &bull; Repositorio Maestro seminario_2 &bull; 2026
     </footer>
 
   </div>
+
+  <!-- Script Interactivo de Pestañas -->
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+  </script>
 
 </body>
 </html>

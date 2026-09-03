@@ -8,6 +8,18 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Integración del Marco Teórico de Optimización en el Diagrama HTML
+**Objetivo:** Incorporar en el archivo HTML del diagrama de flujo (`diagrama_flujo_estrategia.html`) la teoría y metodología de optimización de la Masterclass (MAE/MFE, meseta de robustez, split In-Sample/Out-of-Sample y la paradoja del Breakeven), maquetado con navegación interactiva por pestañas.
+
+### [OK] Cambios Realizados:
+- **[HTML Enriquecido con Pestañas Interactivas]**: Actualizado [`masterclass/diagrama_flujo_estrategia.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/diagrama_flujo_estrategia.html) con 3 vistas conmutables:
+  1. *Diagrama de Flujo Táctico*: Nodos secuenciales de decisión ex-ante y Triple Barrier.
+  2. *Marco Teórico de Optimización (Masterclass)*: Los 4 pilares cuantitativos de los Notebooks A02 y A03 (calibración empírica por MAE/MFE, selección por meseta de robustez de Sharpe, validación ciega IS/OOS y la trampa del Breakeven).
+  3. *Auditoría Comparativa (v1.0 vs v1.1)*: Tabla interactiva con el trade-off empírico entre la ventaja asimétrica de la v1.0 y la ventaja probabilística de la v1.1.
+- **[Sincronización Multi-Módulo]**: Replicado en [`MT5/diagrama_flujo_estrategia.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/diagrama_flujo_estrategia.html) y [`quant_agentic_swarm/strategies/STRAT-20260902-USGAP_MOM-M15-v1.0_diagrama.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/strategies/STRAT-20260902-USGAP_MOM-M15-v1.0_diagrama.html).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Auditoría Cuantitativa Comparativa (v1.0 Base vs v1.1 Optimizada)
 **Objetivo:** Auditar y contrastar empíricamente los resultados del backtest de `STRAT-20260902-USGAP_MOM-M15-v1.1` frente a la versión base v1.0, validando el impacto real de las optimizaciones extraídas de la Masterclass (Breakeven +0.75x ATR y TP 1.25x ATR).
 
