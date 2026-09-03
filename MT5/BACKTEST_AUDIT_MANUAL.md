@@ -46,11 +46,6 @@ El reporte generado por el agente se divide estrictamente en 3 capas de auditor�
 │ • 4. Eficiencia de Excursión (MAE / MFE) (Sweeney & López de Prado)           │
 │ • 5. Tiempo de Permanencia (Barras en Posición / Time-Stop) (Crabel)           │
 │ • 6. Racha Máxima de Pérdidas y Circuit Breaker (Weissman & Elder)             │
-├────────────────────────────────────────────────────────────────────────────────┤
-│ TRIADA GRÁFICA OBLIGATORIA (ARTEFACTOS VISUALES)                               │
-│ • 1. Curva de Equity (Evolución temporal del capital / balance acumulado)      │
-│ • 2. Gráfico de Drawdown Underwater (Profundidad y duración de retrocesos)     │
-│ • 3. Gráfico de Excursiones MAE vs MFE (Dispersión y percentiles empíricos)    │
 └────────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -96,18 +91,6 @@ Aporta las directrices exactas para calibrar Stops, Targets y límites de tiempo
 
 ---
 
-### Triada Gráfica Obligatoria (Artefactos Visuales)
-Cada auditoría debe generar e incrustar obligatoriamente la terna gráfica:
-
-1. **Curva de Equity (Evolución Temporal del Capital):**
-   * Curva cronológica que refleja el crecimiento acumulado del balance y equidad de la cuenta a lo largo de las operaciones.
-2. **Gráfico de Drawdown (Underwater Curve):**
-   * Gráfico de área que expone de forma submarina la profundidad porcentual (%) y el tiempo de recuperación de cada retroceso de capital desde máximos históricos.
-3. **Gráfico de Excursiones (Dispersión MAE vs MFE):**
-   * Scatter plot bidimensional donde cada trade se posiciona según su Máxima Excursión Adversa (MAE en unidades ATR) y su Máxima Excursión Favorable (MFE en unidades ATR), con líneas guía del percentil 90 del MAE y masa modal de MFE.
-
----
-
 ## 4. Ejemplo de Salida Oficial Esperada
 
 Cada vez que solicites el reporte, el agente te entregará un formato como este:
@@ -124,9 +107,4 @@ Muestreo: [N] Operaciones | Periodo: [Fecha Inicio] a [Fecha Fin]
 
 ### Módulo 3: Diagnóstico de Ejecución y Salidas
 [Duración media ganadores vs perdedores | Racha Máxima | Recomendación de Stops]
-
-### Triada Gráfica Cuantitativa
-1. Curva de Equity: ![Curva de Equity](file:///ruta/a/equity_curve.png)
-2. Gráfico de Drawdown: ![Gráfico de Drawdown](file:///ruta/a/drawdown_curve.png)
-3. Dispersión MAE vs MFE: ![Excursiones MAE MFE](file:///ruta/a/trade_excursions.png)
 ```
