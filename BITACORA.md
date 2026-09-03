@@ -8,6 +8,21 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Diagrama de Flujo Táctico Interactivo en HTML (Fondo Blanco)
+**Objetivo:** Desarrollar una representación visual sobria, moderna y estructurada en HTML/CSS nativo que ilustre con máxima claridad los nodos secuenciales de decisión, filtros ex-ante y mecanismos de salida de la estrategia `STRAT-20260902-USGAP_MOM-M15-v1.0`.
+
+### [OK] Cambios Realizados:
+- **[Diagrama HTML Creado]**: Publicado [`masterclass/diagrama_flujo_estrategia.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/masterclass/diagrama_flujo_estrategia.html) con diseño editorial sobrio (fondo blanco, tipografía Inter/JetBrains Mono, conectores limpios y cajas de decisión visuales).
+- **[Nodos Desplegados]**: 
+  1. *Sincronización Horaria* (09:30 ET / 16:30 Servidor).
+  2. *Filtro de Magnitud del Gap* ($|\text{Gap}| \ge 1.0\times \text{ATR}_D(14)_{[1]}$).
+  3. *Filtro Macro de Volatilidad MTF* ($Z_{\text{vol}} > 0.67$ de López de Prado).
+  4. *Confirmación Microestructural de Apertura* (bifurcación Long vs Short al cierre de M15).
+  5. *Módulo de Salidas Triple Barrier* (Invalidación 30 min, SL 1.0x ATR M15, TP 2.0x ATR D1 y Time-Stop 26 barras M15).
+- **[Distribución Multi-Módulo]**: Replicado en [`MT5/diagrama_flujo_estrategia.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/diagrama_flujo_estrategia.html) y [`quant_agentic_swarm/strategies/STRAT-20260902-USGAP_MOM-M15-v1.0_diagrama.html`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/strategies/STRAT-20260902-USGAP_MOM-M15-v1.0_diagrama.html).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Auditoría Cuantitativa Extendida a 10 Años (51 Trades) del Backtest USGAP_MOM
 **Objetivo:** Auditar y procesar el reporte oficial exportado de MetaTrader 5 (`ReportTester-61586790.html`) correspondiente al backtest extendido 2016-2026 (10 años, 236.974 barras, 2.81M ticks) bajo el pool de 3 módulos.
 
