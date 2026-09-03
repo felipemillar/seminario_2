@@ -287,6 +287,59 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
     </div>
 
     
+    <!-- ================= SLIDE 3: EL TEST DE LA FRASE ÚNICA ================= -->
+    <div class="slide" data-title="1.1 Entradas: El Test de la Frase Única" data-notes="Frame de apertura: 'Una entrada es una hipótesis sobre el comportamiento del mercado, no un botón mágico. Si no puedes explicar por qué el mercado se moverá a tu favor ni qué demostraría que estás equivocado, no tienes una estrategia: tienes una creencia.'&#10;&#10;Hacer énfasis en que si falta 'Z' (la causa real detrás del movimiento), cualquier patrón es solo casualidad y sobreajuste.">
+      <div class="slide-tag"><i data-lucide="target"></i> BLOQUE 1.1 — TIPOS DE ENTRADA (5 MIN)</div>
+      <h2 class="slide-title">¿Por qué crees que el precio se va a mover?</h2>
+
+      <div class="quote-box">
+        "Una entrada es una hipótesis, no un botón mágico. Si no puedes explicar por qué el mercado se moverá a tu favor ni qué demostraría que estás equivocado, no tienes una estrategia: tienes una creencia."
+      </div>
+
+      <div class="card-panel" style="margin-top: 0.8rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+          <h3 style="font-size: 1rem; color: #0f172a; font-weight: 700;">
+            El Test de la Frase Única: Ejemplos Prácticos
+          </h3>
+          <span class="interactive-tag">HAZ CLIC PARA EVALUAR</span>
+        </div>
+
+        <div style="display: flex; gap: 8px; margin-bottom: 1rem;">
+          <button class="pill-chip active" id="caseBtn1" onclick="selectXYZCase(1)">
+            <i data-lucide="zap" style="width:14px;height:14px;"></i> Caso 1: Salto de Precio (Gap)
+          </button>
+          <button class="pill-chip" id="caseBtn2" onclick="selectXYZCase(2)">
+            <i data-lucide="building" style="width:14px;height:14px;"></i> Caso 2: Fin de Mes (Fondos)
+          </button>
+          <button class="pill-chip" id="caseBtn3" onclick="selectXYZCase(3)">
+            <i data-lucide="alert-octagon" style="width:14px;height:14px;"></i> Caso 3: Indicador Mágico (Sin Motivo)
+          </button>
+        </div>
+
+        <div class="flow-diagram">
+          <div class="flow-step">
+            <div class="step-label">1. Condición (X)</div>
+            <div class="step-value" id="flowX">Apertura con salto fuerte (Gap)</div>
+          </div>
+          <div class="flow-arrow"><i data-lucide="arrow-right"></i></div>
+          <div class="flow-step">
+            <div class="step-label">2. Qué esperas (Y)</div>
+            <div class="step-value" id="flowY">El precio regresa a cerrar el salto</div>
+          </div>
+          <div class="flow-arrow"><i data-lucide="arrow-right"></i></div>
+          <div class="flow-step" id="stepZBox" style="background: #ffffff; border: 1px solid var(--border-light);">
+            <div class="step-label" style="color: var(--accent-emerald);">3. Motivo Real (Z)</div>
+            <div class="step-value" id="flowZ" style="color: #065f46;">Los grandes operadores reequilibran sus órdenes de la noche</div>
+          </div>
+        </div>
+
+        <div id="flowVerdict" class="badge-success" style="width: 100%; padding: 12px 16px; font-size: 0.88rem; border-radius: 6px; background: #f9fafb; border: 1px solid var(--border-light); ">
+          <i data-lucide="check-circle"></i>
+          <span><strong>Hipótesis Clara:</strong> "Cuando hay un <strong>salto fuerte en la apertura</strong>, espero que el precio <strong>vuelva al nivel anterior</strong>, porque los <strong>grandes participantes necesitan equilibrar sus posiciones</strong>."</span>
+        </div>
+      </div>
+    </div>
+
     <!-- ================= SLIDE 2b: FLUJO DE TRABAJO CON EL AGENTE ================= -->
     <div class="slide" data-title="Flujo Agéntico: De la Idea al Código" data-notes="Explicación pedagógica de cómo el trader interactúa con el Agente de IA:&#10;&#10;1. NUNCA pedir 'hazme un bot que gane plata'. Eso genera código basura sobreajustado.&#10;2. FASE 1 (Planteamiento): El trader describe en lenguaje natural una observación empírica del mercado.&#10;3. FASE 2 (Filtro Cuantitativo HITL): El agente audita la causa Z, exige justificación económica, normaliza salidas en unidades ATR y presenta una matriz de 3 variantes estructuradas (A, B, C).&#10;4. FASE 3 (Construcción & Paridad): Solo tras la confirmación humana, el agente codifica en MQL5 POO y Pine Script v6 respetando la arquitectura de 7 bloques con 0 repainting.&#10;&#10;Destacar la regla Human-in-the-Loop: el humano aporta la intuición y el juicio; el agente aporta el rigor matemático y la ejecución técnica.">
       <div class="slide-tag"><i data-lucide="bot"></i> METODOLOGÍA AGÉNTICA · HUMAN-IN-THE-LOOP</div>
@@ -359,59 +412,6 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
 
         </div>
 
-      </div>
-    </div>
-
-    <!-- ================= SLIDE 3: EL TEST DE LA FRASE ÚNICA ================= -->
-    <div class="slide" data-title="1.1 Entradas: El Test de la Frase Única" data-notes="Frame de apertura: 'Una entrada es una hipótesis sobre el comportamiento del mercado, no un botón mágico. Si no puedes explicar por qué el mercado se moverá a tu favor ni qué demostraría que estás equivocado, no tienes una estrategia: tienes una creencia.'&#10;&#10;Hacer énfasis en que si falta 'Z' (la causa real detrás del movimiento), cualquier patrón es solo casualidad y sobreajuste.">
-      <div class="slide-tag"><i data-lucide="target"></i> BLOQUE 1.1 — TIPOS DE ENTRADA (5 MIN)</div>
-      <h2 class="slide-title">¿Por qué crees que el precio se va a mover?</h2>
-
-      <div class="quote-box">
-        "Una entrada es una hipótesis, no un botón mágico. Si no puedes explicar por qué el mercado se moverá a tu favor ni qué demostraría que estás equivocado, no tienes una estrategia: tienes una creencia."
-      </div>
-
-      <div class="card-panel" style="margin-top: 0.8rem;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-          <h3 style="font-size: 1rem; color: #0f172a; font-weight: 700;">
-            El Test de la Frase Única: Ejemplos Prácticos
-          </h3>
-          <span class="interactive-tag">HAZ CLIC PARA EVALUAR</span>
-        </div>
-
-        <div style="display: flex; gap: 8px; margin-bottom: 1rem;">
-          <button class="pill-chip active" id="caseBtn1" onclick="selectXYZCase(1)">
-            <i data-lucide="zap" style="width:14px;height:14px;"></i> Caso 1: Salto de Precio (Gap)
-          </button>
-          <button class="pill-chip" id="caseBtn2" onclick="selectXYZCase(2)">
-            <i data-lucide="building" style="width:14px;height:14px;"></i> Caso 2: Fin de Mes (Fondos)
-          </button>
-          <button class="pill-chip" id="caseBtn3" onclick="selectXYZCase(3)">
-            <i data-lucide="alert-octagon" style="width:14px;height:14px;"></i> Caso 3: Indicador Mágico (Sin Motivo)
-          </button>
-        </div>
-
-        <div class="flow-diagram">
-          <div class="flow-step">
-            <div class="step-label">1. Condición (X)</div>
-            <div class="step-value" id="flowX">Apertura con salto fuerte (Gap)</div>
-          </div>
-          <div class="flow-arrow"><i data-lucide="arrow-right"></i></div>
-          <div class="flow-step">
-            <div class="step-label">2. Qué esperas (Y)</div>
-            <div class="step-value" id="flowY">El precio regresa a cerrar el salto</div>
-          </div>
-          <div class="flow-arrow"><i data-lucide="arrow-right"></i></div>
-          <div class="flow-step" id="stepZBox" style="background: #ffffff; border: 1px solid var(--border-light);">
-            <div class="step-label" style="color: var(--accent-emerald);">3. Motivo Real (Z)</div>
-            <div class="step-value" id="flowZ" style="color: #065f46;">Los grandes operadores reequilibran sus órdenes de la noche</div>
-          </div>
-        </div>
-
-        <div id="flowVerdict" class="badge-success" style="width: 100%; padding: 12px 16px; font-size: 0.88rem; border-radius: 6px; background: #f9fafb; border: 1px solid var(--border-light); ">
-          <i data-lucide="check-circle"></i>
-          <span><strong>Hipótesis Clara:</strong> "Cuando hay un <strong>salto fuerte en la apertura</strong>, espero que el precio <strong>vuelva al nivel anterior</strong>, porque los <strong>grandes participantes necesitan equilibrar sus posiciones</strong>."</span>
-        </div>
       </div>
     </div>
 
