@@ -163,7 +163,13 @@ def compile_mql5(file_path: str) -> Dict[str, Any]:
 
         filename = os.path.basename(abs_path)
         is_indicator = "indicat" in abs_path.lower()
-        target_subfolder = "Indicators" if is_indicator else "Experts"
+        is_script = "script" in abs_path.lower()
+        if is_indicator:
+            target_subfolder = "Indicators"
+        elif is_script:
+            target_subfolder = "Scripts"
+        else:
+            target_subfolder = "Experts"
         dest_in_mql5 = os.path.join(MQL5_DIR, target_subfolder, filename)
 
         os.makedirs(os.path.dirname(dest_in_mql5), exist_ok=True)
