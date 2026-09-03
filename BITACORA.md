@@ -8,6 +8,17 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Publicación y Sincronización de Datasets de Masterclass en GitHub
+**Objetivo:** Asegurar que los datos históricos de Nasdaq y Oro de la carpeta `masterclass` estén versionados y disponibles en el repositorio remoto de GitHub respetando los límites de tamaño de archivo de la plataforma.
+
+### [OK] Cambios Realizados:
+- **[Compresión y Optimización de Archivos]**: Comprimidos los archivos crudos gigantes a formato gzip (`@GC_5m.csv.gz` de 35.5 MB y `@NQ_5m.csv.gz` de 42.3 MB), reduciendo su peso en un 80% y manteniéndolos holgadamente por debajo del límite de 100 MB de GitHub.
+- **[Datasets MT5 en Texto Plano]**: Subidos directamente los datasets CSV optimizados y prefiltrados listos para MT5: `GC_5M_MT5_2022_2026.csv` (16.9 MB) y `NQ_5M_MT5_2020_2026.csv` (27.1 MB).
+- **[Soporte Transparente en Conversor]**: Actualizado [`MT5/scripts/universal_data_converter.py`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/scripts/universal_data_converter.py) para que lea de forma transparente tanto archivos `.csv` como `.csv.gz` sin necesidad de descomprimirlos previamente en disco.
+- **[Ajuste de Exclusiones en .gitignore]**: Modificado `.gitignore` para excluir únicamente los archivos masivos sin comprimir que superan los 100 MB (`@GC_5m.csv` y `@NQ_5m.csv`), permitiendo el seguimiento de los datasets optimizados.
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Documentación del Ejemplo Operativo de Creación e Inyección Automática de Activos en MT5
 **Objetivo:** Dejar documentado el procedimiento exacto paso a paso (compilación CLI, bloque MQL5 con `SymbolSelect(true)` y verificación MCP) que permite ejecutar el script y hacer que el activo personalizado aparezca automáticamente en la lista de instrumentos.
 
