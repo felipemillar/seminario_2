@@ -8,6 +8,17 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Auditoría Cuantitativa Extendida a 10 Años (51 Trades) del Backtest USGAP_MOM
+**Objetivo:** Auditar y procesar el reporte oficial exportado de MetaTrader 5 (`ReportTester-61586790.html`) correspondiente al backtest extendido 2016-2026 (10 años, 236.974 barras, 2.81M ticks) bajo el pool de 3 módulos.
+
+### [OK] Cambios Realizados:
+- **[Auditoría de 51 Operaciones]**: Analizadas las 102 transacciones individuales de la década 2016-2026.
+- **[KPIs Multidécada Validados]**: Confirmada la rentabilidad con Profit Factor de **1.44** (% precio) / **1.35** (USD), Sharpe Ratio de **3.92** y Drawdown máximo contenido en **0.04%** ($431.99 USD).
+- **[Asimetría Long vs Short]**: Identificado que los Longs aportan consistencia (Win Rate del **59.26%** por el drift secular) mientras que los Shorts aportan convexidad y mayor retorno acumulado (+1.96% vs +1.82%).
+- **[Reporte Actualizado]**: Publicado en [`MT5/backtests/REPORT_BACKTEST_STRAT-20260902-USGAP_MOM-M15-v1.0.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/backtests/REPORT_BACKTEST_STRAT-20260902-USGAP_MOM-M15-v1.0.md).
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Inyección del Dataset Maestro Completo (26 Años: 2000-2026) en CUSTOM_NQ_M5
 **Objetivo:** Extender la base de datos histórica de MetaTrader 5 para el activo `CUSTOM_NQ_M5` abarcando la totalidad del historial disponible de Nasdaq 100 E-mini (1.75M barras de 5 minutos desde el 03/01/2000 hasta el 07/08/2026).
 
