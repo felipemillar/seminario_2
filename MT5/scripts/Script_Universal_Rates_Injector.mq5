@@ -34,22 +34,43 @@ void OnStart()
    // ---------------------------------------------------------------------------
    if(!SymbolInfoInteger(InpSymbolName, SYMBOL_EXIST))
    {
-      Print("[PASO 1] El símbolo no existe. Clonando propiedades desde ", InpBaseClone, "...");
-      
       string base = InpBaseClone;
-      // Detección de fallbacks si el símbolo del broker tiene sufijo
+
+      // Busqueda case-insensitive del simbolo solicitado entre todos los simbolos
+      // disponibles del broker, ya que SymbolInfoInteger() es sensible a mayusculas.
       if(!SymbolInfoInteger(base, SYMBOL_EXIST))
       {
-         string candidates[] = {"US100", "USTEC", "NAS100", "XAUUSD", "GOLD", "BTCUSD", "EURUSD"};
-         for(int i = 0; i < ArraySize(candidates); i++)
+         int total = SymbolsTotal(false);
+         bool found = false;
+         for(int i = 0; i < total; i++)
          {
-            if(SymbolInfoInteger(candidates[i], SYMBOL_EXIST))
+            string candidate = SymbolName(i, false);
+            if(StringCompare(candidate, InpBaseClone, false) == 0) // false = sin distinguir mayusculas
             {
-               base = candidates[i];
+               base = candidate;
+               found = true;
                break;
             }
          }
+
+         // Solo si el simbolo pedido no existe ni siquiera con otra capitalizacion,
+         // se recurre a la lista generica de respaldo.
+         if(!found)
+         {
+            Print("[AVISO] '", InpBaseClone, "' no existe en el broker (ni con otra capitalizacion). Usando lista de respaldo generica.");
+            string candidates[] = {"US100", "USTEC", "NAS100", "XAUUSD", "GOLD", "BTCUSD", "EURUSD"};
+            for(int i = 0; i < ArraySize(candidates); i++)
+            {
+               if(SymbolInfoInteger(candidates[i], SYMBOL_EXIST))
+               {
+                  base = candidates[i];
+                  break;
+               }
+            }
+         }
       }
+
+      Print("[PASO 1] El símbolo no existe. Clonando propiedades desde ", base, "...");
 
       ResetLastError();
       if(!CustomSymbolCreate(InpSymbolName, InpGroup, base))
