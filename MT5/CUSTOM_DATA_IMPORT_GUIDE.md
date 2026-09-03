@@ -78,6 +78,70 @@ Al ejecutarse el script:
 
 ---
 
+### 3.3. Ejemplo Operativo Real: De Cero a Activo Visible en la Lista en 3 Pasos
+
+Este es el procedimiento exacto que se ejecutó para crear el símbolo de Nasdaq (`CUSTOM_NQ_M5`) y hacer que apareciera automáticamente en la lista de activos sin tocar la ventana de configuración:
+
+#### 1. Compilación del Script desde Terminal (Sin abrir MetaEditor)
+El agente compila el código fuente `.mq5` directamente utilizando el puente CLI:
+```bash
+python3 MT5/scripts/mt5_agent_bridge.py compile MT5/scripts/Script_Create_NQ_Custom_Symbol.mq5
+```
+* **Qué hace tras bambalinas:** Invoca el compilador nativo `metaeditor64.exe` dentro del entorno Wine, verifica que no existan advertencias ni errores (`0 errors, 0 warnings`) y deposita el binario ejecutable `Script_Create_NQ_Custom_Symbol.ex5` en la carpeta `MQL5/Scripts/` del terminal.
+
+#### 2. El Bloque MQL5 que Hace Aparecer el Activo en Market Watch
+La lógica interna del script ejecuta tres llamadas clave del API de MetaTrader 5:
+
+```mql5
+// 1. Crear el símbolo personalizado clonando margen y apalancamiento del broker
+ResetLastError();
+if(!CustomSymbolCreate("CUSTOM_NQ_M5", "Custom\\Futures", "US100"))
+{
+   Print("[ERROR] No se pudo crear el símbolo: ", GetLastError());
+   return;
+}
+
+// 2. Definir parámetros de precisión
+CustomSymbolSetString("CUSTOM_NQ_M5", SYMBOL_DESCRIPTION, "Nasdaq 100 E-mini Futuros M5");
+CustomSymbolSetInteger("CUSTOM_NQ_M5", SYMBOL_DIGITS, 2);
+CustomSymbolSetDouble("CUSTOM_NQ_M5", SYMBOL_POINT, 0.01);
+
+// 3. LA CLAVE: Hacerlo visible en la lista de activos (Market Watch) inmediatamente
+SymbolSelect("CUSTOM_NQ_M5", true);
+Print("[OK] Símbolo CUSTOM_NQ_M5 activado y visible en la lista de activos.");
+```
+* **Por qué aparece automáticamente:** La función nativa `SymbolSelect(nombre, true)` es el equivalente programático de ir a `Ctrl + U`, buscar el activo y presionar *"Mostrar símbolo"*. Al ejecutar esta línea, el símbolo se anexa de forma inmediata a la lista de activos de la ventana *Observación del Mercado* (Market Watch).
+
+#### 3. Ejecución del Script en MT5
+Para ejecutar el script compilado:
+* **Desde la Interfaz de MT5 (1 Clic):** En el panel lateral *Navegador* (`Ctrl + N`) -> desplegar la carpeta **Scripts** -> hacer doble clic sobre `Script_Create_NQ_Custom_Symbol` (o arrastrarlo a cualquier gráfico) -> presionar `OK`. En 5 milisegundos el símbolo aparece en la columna izquierda de activos.
+* **Desde Terminal Headless (Modo Automatizado):** Se puede iniciar MT5 pasándole un archivo `.ini` de inicio:
+  ```bash
+  terminal64.exe /config:startup.ini
+  ```
+  donde `startup.ini` especifica `Script=Script_Create_NQ_Custom_Symbol`.
+
+#### 4. Verificación Instantánea vía Servidor MCP
+Cualquier agente puede verificar de inmediato que el activo ya está visible y disponible para backtest:
+```bash
+python3 MT5/scripts/mt5_agent_bridge.py mcp-symbols --filter CUSTOM
+```
+Respuesta confirmada:
+```json
+{
+  "total_found": 1,
+  "symbols": [
+    {
+      "symbol": "CUSTOM_NQ_M5",
+      "description": "Nasdaq 100 E-mini Futuros M5",
+      "trade_mode": "full"
+    }
+  ]
+}
+```
+
+---
+
 ## 4. Protocolo Manual Paso a Paso (Para Desarrolladores y Traders)
 
 Si un usuario humano prefiere realizar la carga visualmente a través de la interfaz gráfica de MT5:

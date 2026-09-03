@@ -8,6 +8,16 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 
 ---
 
+## [2026-09-03] - Sesión de Trabajo: Documentación del Ejemplo Operativo de Creación e Inyección Automática de Activos en MT5
+**Objetivo:** Dejar documentado el procedimiento exacto paso a paso (compilación CLI, bloque MQL5 con `SymbolSelect(true)` y verificación MCP) que permite ejecutar el script y hacer que el activo personalizado aparezca automáticamente en la lista de instrumentos.
+
+### [OK] Cambios Realizados:
+- **[Ejemplo Canónico Documentado]**: Incorporada la subsección `3.3. Ejemplo Operativo Real: De Cero a Activo Visible en la Lista en 3 Pasos` en [`MT5/CUSTOM_DATA_IMPORT_GUIDE.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/CUSTOM_DATA_IMPORT_GUIDE.md).
+- **[Anatomía de la Automatización MQL5]**: Explicado el rol de `CustomSymbolCreate()` (clonación de márgenes del broker) y `SymbolSelect(nombre, true)` (activación inmediata en la ventana Market Watch sin interacción GUI).
+- **[Pipeline CLI Integrado]**: Detallada la compilación remota vía `mt5_agent_bridge.py compile` y la verificación instantánea mediante `mt5_agent_bridge.py mcp-symbols`.
+
+---
+
 ## [2026-09-03] - Sesión de Trabajo: Ejecución del Pool Completo de Diagnóstico Cuantitativo en Nasdaq
 **Objetivo:** Aplicar el nuevo marco de diagnóstico de 3 módulos (Evaluación Dual, Diagnóstico de Asimetrías y Diagnóstico de Ejecución/Tiempos) sobre las 1,239 operaciones del backtest de Nasdaq en MT5.
 
