@@ -18,9 +18,10 @@ Este documento constituye el registro histórico continuo (DevLog) de todas las 
 - **[Fase 3: Desarrollo de Código Nativo (7 Bloques & Paridad Cruzada)]**:
   * Generado script nativo Pine Script v6: [`TradingView/pine/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0.pine`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/TradingView/pine/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0.pine) (y su réplica en `quant_agentic_swarm/strategies/`).
   * Generado código nativo MQL5 POO con `CTrade`: [`MT5/estrategias/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0.mq5`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/MT5/estrategias/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0.mq5) (y su réplica en `quant_agentic_swarm/strategies/`).
-- **[Fase 4: Factsheet y Registro]**:
+- **[Fase 4: Factsheet, Compilación y Despliegue en MT5]**:
   * Elaborado el documento técnico [`quant_agentic_swarm/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0_FACTSHEET.md`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/strategies/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0_FACTSHEET.md).
   * Actualizado el registro maestro [`quant_agentic_swarm/STRATEGY_REGISTRY.json`](file:///Users/fmillar/Proyectos_Desarrollo/seminario_2/quant_agentic_swarm/STRATEGY_REGISTRY.json).
+  * **Compilación y Despliegue en MT5:** Compilado exitosamente con `metaeditor64.exe` (`0 errors, 0 warnings, 935 ms`) y desplegado en el directorio activo de MT5: `drive_c/Program Files/MetaTrader 5/MQL5/Experts/STRAT-20260903-GOLD_SMA_CROSS-M30-v1.0.ex5` (y alias accesible `EAGold_SMACross.ex5`).
 
 ---
 
